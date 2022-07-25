@@ -1,0 +1,174 @@
+{% extends 'layouts/base.html' %}
+
+
+	
+{% block content %}
+
+    <div class="ui grid container">
+        <div class="ten wide computer sixteen wide mobile centered column">
+            <h2 class="ui header">Preferences Added
+			<!----<h5>Please fill out the following details about yourself</h5>---->
+			{% if current_user.id == id %}
+			  <a class="ui right floated button" href="{{ url_for('seeking.edit',id=id, username=username)}}">
+				<i class="icon edit outline icon"></i> Edit
+			  </a>
+			  <!---<a class="ui right floated button" href="{# url_for('seeking.delete',id=id, username=username)#}">
+				<i class="icon trash alternate outline icon"></i> Delete
+			  </a>--->
+			 {% else %}
+
+			{% endif %}
+			</h2>
+			<table class="ui compact definition table">
+				<tr>
+					<td>Type of partner sought</td>
+					{% if data.seeking_partner %}
+					<td>{{ data.seeking_partner }}</td>
+					{% endif %}
+				</tr>
+				<tr>
+					<td>Type of relationship sought</td>
+					{% if data.seeking_marital_type_one %}
+					<td>{{ data.seeking_marital_type_one }}</td>
+					{% endif %}
+				</tr>
+				<tr>
+					<td>From Height</td>
+					{% if  data %}
+					<td>{{data.seeking_from_height }}</td>
+					{% endif %}
+				</tr>
+				<tr>
+					<td>To Height</td>
+					{% if  data %}
+					<td>{{ data.seeking_to_height }}</td>
+					{% endif  %}
+					
+				</tr>
+				<tr>
+					<td>Sex</td>
+					{% if  data %}
+					<td>{{ data.seeking_sex }}</td>
+					{% endif %}
+				</tr>
+					<td>From Age</td>
+					{% if  data %}
+					<td>{{ data.seeking_from_age}} </td>
+					{% endif %}
+				</tr>
+					<td>To Age</td>
+					{% if  data %}
+					<td>{{ data.seeking_to_age}} </td>
+					{% endif %}
+				</tr>
+				<tr>
+					<td>Education Level</td>
+					<td><ul>
+					{% if  data %}
+					{% if data.seeking_education_level_one %}
+					<li>{{ data.seeking_education_level_one}}
+					</li>
+					{% endif %}
+					{% if data.seeking_education_level_two %}
+					<li>{{ data.seeking_education_level_two}}</li>
+					{% endif %}
+					{% if data.seeking_education_level_three %}
+					<li>{{ data.seeking_education_level_three}}</li>
+					{% endif %}
+					{% if data.seeking_education_level_four %}
+					<li>{{ data.seeking_education_level_four}}</li>
+					{% endif %}
+					{% if data.seeking_education_level_ive %}}
+					<li>{{ data.seeking_education_level_five}}</li>
+					{% endif %}
+					{% if data.seeking_education_level_six %}
+					<li>{{ data.seeking_education_level_six}}</li>
+					{% endif %}
+					{% if data.seeking_education_level_seven %}
+					<li>{{ data.seeking_education_level_seven}}</li>
+					{% endif %}
+					{% if data.seeking_education_level_eight %}
+					<li>{{ data.seeking_education_level_eight}}</li>
+					{% endif %}
+					{% endif %}
+					</ul>
+					</td>
+
+				</tr>
+				<tr>
+					<td>Partner with the following religion/religions</td>
+					<td><ul>
+					{% if  data %}
+					{% if data.seeking_religion_one %}
+					<li>{{ data.seeking_religion_one }}</li>
+					{% endif %}
+					{% if data.seeking_religion_two %}
+					<li>{{ data.seeking_religion_two }}</li>
+					{% endif %}
+					{% if data.seeking_religion_three %}
+					<li>{{ data.seeking_religion_three }}</li>
+					{% endif %}
+					{% endif %}
+					</ul>
+					</td>
+				</tr>
+
+				<tr>
+					<td>Partner from the following ethnicity/ethinicities</td>
+					<td><ul>
+					{% if  data %}
+					{% if data.seeking_ethnicity_one %}
+					<li>{{ data.seeking_ethnicity_one }}</li>
+					{% endif %}
+					{% if data.seeking_ethnicity_two %}
+					<li>{{ data.seeking_ethnicity_two }}</li>
+					{% endif %}
+					{% if data.seeking_ethnicity_three %}
+					<li>{{ data.seeking_ethnicity_three }}</li>
+					{% endif %}
+					{% if data.seeking_ethnicity_four %}
+					<li>{{ data.seeking_ethnicity_four }}</li>
+					{% endif %}
+					{% if data.seeking_ethnicity_five %}
+					<li>{{ data.seeking_ethnicity_five }}</li>
+					{% endif %}
+					{% endif %}
+					</ul>
+					</td>
+				</tr>
+				<tr>
+					<td>Partner from any of the following country/countries</td>
+					<td><ul>
+					{% if  data %}
+					{% if data.seeking_country_one %}
+					<li>{{ data.seeking_country_one }}</li>
+					{% endif %}
+					{% if data.seeking_country_two %}
+					<li>{{ data.seeking_country_two }}</li>
+					{% endif %}
+					{% if data.seeking_country_three %}
+					<li>{{ data.seeking_country_three }}</li>
+					{% endif %}
+					
+					{% if data.seeking_country_four %}
+					<li>{{ data.seeking_country_four }}</li>
+					{% endif %}
+					{% if data.seeking_country_five %}
+					<li>{{ data.seeking_country_five }}</li>
+					{% endif %}
+					{% if data.seeking_country_six %}
+					<li>{{ data.seeking_country_six }}</li>
+					{% endif %}
+					{% if data.seeking_country_seven %}
+					<li>{{ data.seeking_country_seven }}</li>
+					{% endif %}
+					{% if data.seeking_country_eight %}
+					<li>{{ data.seeking_country_eight }}</li>
+					{% endif %}
+					{% endif %}
+					</ul></td>
+				</tr>
+			</table>
+        </div>
+    </div>
+{% endblock %}

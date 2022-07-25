@@ -1,0 +1,155 @@
+{% extends 'layouts/base.html' %}
+{% import 'macros/form_macros.html' as f %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block content %}
+    <div class="ui stackable centered grid container">
+        <div class="twelve wide column">
+            <a class="ui basic compact button" href="{{ url_for('seeking.added_preference',id=id, username=username)}}
+                <i class="caret left icon"></i>
+                Back to dashboard
+            </a>
+            <h2 class="ui header">
+                Add preferences
+                <div class="sub header">Please make sure you add those preferences you are looking for in a partner or partners. </div>
+            </h2>
+
+            {% set flashes = {
+                'error':   get_flashed_messages(category_filter=['form-error']),
+                'warning': get_flashed_messages(category_filter=['form-check-email']),
+                'info':    get_flashed_messages(category_filter=['form-info']),
+                'success': get_flashed_messages(category_filter=['form-success'])
+            } %}
+
+            {{ f.begin_form(form, flashes) }}
+
+		<h5> Select the core of what you are looking for here. Is it to go on a date or to get married or cohabit?</h5>
+
+                <div class="field">
+                    {{ f.render_form_field(form.seeking_partner) }}
+                </div>
+            <div class="two fields">
+                {{ f.render_form_field(form.seeking_from_age) }}
+                {{ f.render_form_field(form.seeking_to_age) }}
+            </div>
+                {{ f.render_form_field(form.seeking_sex) }}	
+				
+			<h5> Select height range </h5>
+            <div class="two fields">
+                {{ f.render_form_field(form.seeking_from_height) }}
+                {{ f.render_form_field(form.seeking_to_height) }}
+            </div>			
+
+		<h5> Select all the drinking status options you are willing to consider</h5>
+            <div class="two fields">
+                {{ f.render_form_field(form.seeking_drinking_status_one) }}
+                {{ f.render_form_field(form.seeking_drinking_status_two) }}
+            </div>
+			
+		<h5> Select all the smoking status options you are willing to consider</h5>
+            <div class="two fields">
+                {{ f.render_form_field(form.seeking_smoking_status_one) }}
+                {{ f.render_form_field(form.seeking_smoking_status_two) }}
+            </div>
+			
+		<h5> Select marital relationships options </h5>
+                {{ f.render_form_field(form.seeking_marital_type_one) }}
+
+
+		<h5> Select a partner or partners who is/are?</h5>
+            <div class="three fields">
+                {{ f.render_form_field(form.seeking_current_status_one) }}
+                {{ f.render_form_field(form.seeking_current_status_two) }}
+                {{ f.render_form_field(form.seeking_current_status_three) }}
+            </div>
+			
+		<h5> Select religion options </h5>
+            <div class="three fields">
+                {{ f.render_form_field(form.seeking_religion_one) }}
+                {{ f.render_form_field(form.seeking_religion_two) }}
+                {{ f.render_form_field(form.seeking_religion_three) }}
+            </div>
+
+		<h5> Select ethinity options </h5>
+            <!----<div class="five fields">---->
+                {{ f.render_form_field(form.seeking_ethnicity_one) }}
+                {{ f.render_form_field(form.seeking_ethnicity_two) }}
+                {{ f.render_form_field(form.seeking_ethnicity_three) }}
+                {{ f.render_form_field(form.seeking_ethnicity_four ) }}
+                {{ f.render_form_field(form.seeking_ethnicity_five ) }}
+            <!----</div>----->
+
+		<h5> Select body type options </h5>
+            <div class="four fields">
+                {{ f.render_form_field(form.seeking_body_type_one) }}
+                {{ f.render_form_field(form.seeking_body_type_two) }}
+                {{ f.render_form_field(form.seeking_body_type_three) }}
+                {{ f.render_form_field(form.seeking_body_type_four) }}
+            </div>
+
+		<h5> Select should the partner have children? </h5>
+            <div class="three fields">
+                {{ f.render_form_field(form.seeking_has_children_one) }}
+                {{ f.render_form_field(form.seeking_has_children_two) }}
+                {{ f.render_form_field(form.seeking_has_children_three) }}
+            </div>
+		<h5> Select should the partner want to have children option? </h5>
+            <div class="three fields">
+                {{ f.render_form_field(form.seeking_want_children_one) }}
+                {{ f.render_form_field(form.seeking_want_children_two) }}
+                {{ f.render_form_field(form.seeking_want_children_three) }}
+            </div>
+		<h5> Select education level options </h5>
+            <!----<div class="nine fields">---->
+                {{ f.render_form_field(form.seeking_education_level_one) }}
+                {{ f.render_form_field(form.seeking_education_level_two) }}
+                {{ f.render_form_field(form.seeking_education_level_three) }}
+                {{ f.render_form_field(form.seeking_education_level_four ) }}
+                {{ f.render_form_field(form.seeking_education_level_five ) }}
+                {{ f.render_form_field(form.seeking_education_level_six) }}
+                {{ f.render_form_field(form.seeking_education_level_seven) }}
+                {{ f.render_form_field(form.seeking_education_level_eight ) }}
+                {{ f.render_form_field(form.seeking_education_level_nine ) }}
+            <!-----</div>---->
+			
+		<h5> Select church denomination options you are willing to consider </h5>
+            <!---<div class="six fields">---->
+                {{ f.render_form_field(form.seeking_church_denomination_one) }}
+                {{ f.render_form_field(form.seeking_church_denomination_two) }}
+                {{ f.render_form_field(form.seeking_church_denomination_three) }}
+                {{ f.render_form_field(form.seeking_church_denomination_four ) }}
+                {{ f.render_form_field(form.seeking_church_denomination_five ) }}
+                {{ f.render_form_field(form.seeking_church_denomination_six) }}
+            <!----</div>---->
+		<h5> Select relocation options you are willing to consider </h5>
+				{{f.render_form_field(form.seeking_open_for_relocation)}}
+				
+		<h5> Select country options you are willing to consider </h5>
+            <!----<div class="five fields">---->
+                {{ f.render_form_field(form.seeking_country_one) }}
+                {{ f.render_form_field(form.seeking_country_two) }}
+                {{ f.render_form_field(form.seeking_country_three) }}
+                {{ f.render_form_field(form.seeking_country_four ) }}
+                {{ f.render_form_field(form.seeking_country_five ) }}
+                {{ f.render_form_field(form.seeking_country_six) }}
+                {{ f.render_form_field(form.seeking_country_seven ) }}
+                {{ f.render_form_field(form.seeking_country_eight ) }}
+            <!----</div>----->				
+				
+                {{ f.form_message(flashes['error'], header='Something went wrong.', class='error') }}
+                {{ f.form_message(flashes['warning'], header='Check your email.', class='warning') }}
+                {{ f.form_message(flashes['info'], header='Information', class='info') }}
+                {{ f.form_message(flashes['success'], header='Success!', class='success') }}
+
+                {% for field in form | selectattr('type', 'equalto', 'SubmitField') %}
+                    {{ f.render_form_field(field) }}
+                {% endfor %}
+
+            {{ f.end_form() }}
+        </div>
+    </div>
+{{ ckeditor.load() }}
+{{ ckeditor.config(name='content') }}
+{% endblock %}

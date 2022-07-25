@@ -1,0 +1,80 @@
+{% extends 'layouts/base.html' %}
+
+{% macro dashboard_option(title, endpoint, description=None, icon=None) %}
+    <a class="column" href="{{ url_for(endpoint) }}">
+        <div class="ui padded segment">
+            <h3 class="ui header">
+                {% if icon is not none %}
+                    <i class="{{ icon }}"></i>
+                {% endif %}
+                <div class="content">
+                    {{ title }}
+                    {% if description is not none %}
+                        <div class="sub header">
+                            {{ description }}
+                        </div>
+                    {% endif %}
+                </div>
+            </h3>
+        </div>
+    </a>
+{% endmacro %}
+
+{% block content %}
+    <div class="ui stackable centered grid container">
+        <div class="twelve wide column">
+            <h2 class="ui header">
+                Website (Landing Page or Frontpage) Dashboard
+            </h2>
+            <div class="ui two column stackable grid">
+									
+                {{ dashboard_option('Manage Brand Name', 'admin.add_brand_name',
+                                    description='Manage brand name', icon='pencil alternate icon') }}				
+
+                {{ dashboard_option('Manage Headlines', 'admin.home_text',
+                                    description='Manage landingpage headline', icon='heading icon') }}	
+
+                {{ dashboard_option('Manage SEO Information', 'admin.added_seo',
+                                    description='Optimize for search engines like Google', icon='pencil alternate icon') }}										
+
+                {{ dashboard_option('Manage Navbar Menu Items', 'admin.nav_menu',
+                                    description='Manage items which will appear in your navigation bar', icon='tasks icon') }}
+									
+                {{ dashboard_option('Manage Call to Action', 'admin.added_calltoaction',
+                                    description='Manage call to action items', icon='pencil alternate icon') }}				
+									
+                {{ dashboard_option('Manage Homepage Texts', 'admin.added_information',
+                                    description='Manage landingpage texts', icon='pencil alternate icon') }}
+									
+                {{ dashboard_option('Manage Footer Text', 'admin.added_footertext',
+                                    description='Manage landingpage footer texts', icon='pencil alternate icon') }}		
+									
+                {{ dashboard_option('Manage Slideshows', 'admin.added_slideshows',
+                                    description='Manage slideshows', icon='sliders horizontal icon')}}	
+									
+                {{ dashboard_option('Manage Background Image', 'admin.added_background_image',
+                                    description='Manage background image', icon='sticky note icon')}}	
+									
+                {{ dashboard_option('Manage Logo', 'admin.added_logo',
+                                    description='Manage logo image', icon='upload icon')}}		
+
+                {{ dashboard_option('Manage Landing Page Images', 'admin.added_images',
+                                    description='Manage Images', icon='images outline icon')}}	
+
+                {{ dashboard_option('Manage Social Media Icons', 'admin.added_icons',
+                                    description='Manage social media icons and links', icon='facebook square icon') }}									
+
+                {{ dashboard_option('Manage Copy Right Text', 'admin.added_copyright',
+                                    description='Manage copy right text', icon='copyright outline icon') }}	
+									
+                {{ dashboard_option('Manage Favicon', 'admin.added_favicon_image',
+                                    description='Manage favicon', icon='tint icon') }}	
+
+                {{ dashboard_option('Manage Tracking Script', 'admin.added_trackingscript',
+                                    description='Manage favicon', icon='file code outline icon') }}									
+			
+																
+            </div>
+        </div>
+    </div>
+{% endblock %}

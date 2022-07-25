@@ -1,0 +1,75 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <div class="ui stackable grid container">
+        <div class="sixteen wide tablet twelve wide computer centered column">
+            <a class="ui basic compact button" href="{{ url_for('page_manager.index') }}">
+                <i class="caret left icon"></i>
+                Back to dashboard
+            </a>
+            <h2 class="ui header">
+                Added '{{ page }}' sub pages
+                <div class="sub header">
+                    View and manage sub pages for '{{ page }}'
+                </div>
+            </h2>
+            <div class="ui header" style="width: 100%; height: 50px">
+                <td><a class="ui pink right floated button" href="{{ url_for('page_manager.add_sub_page', page_id=page_id, page=page) }}">Add sub page</a></td>
+                <a class="ui teal right floated button" href="{{ url_for('page_manager.add_page') }}">Add Page</a>
+                <a class="ui basic compact button" href="{{ url_for('page_manager.added_page') }}">
+				                <i class="caret left icon"></i>
+                Back to page main area
+				</a>
+
+
+			</div>
+            {# Use overflow-x: scroll so that mobile views don't freak out
+             # when the table is too wide #}
+            <div style="overflow-x: scroll;">
+                <table class="ui searchable sortable unstackable selectable celled table">
+                    <thead>
+                        <tr>
+					        <th>Sub Page Name</th>
+					        <th>Content</th>
+					        <th>edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for d in data  %}
+                        <tr>
+                            <td>{{ d.name }}</td>
+							<td>{{ d.content }}</td>
+							<td><a class="ui blue left floated button" href="{{ url_for('page_manager.edit_sub_page', id=d.id, main_page_name=d.main_page_name, sub_page=d.name) }}">Edit</a></td>
+                            <td> <a class="ui red left floated button" style="margin-top: 1px"
+                                   href="{{ url_for('page_manager.delete_sub_page', id=d.id) }}" onclick="return confirmDeleteSubPage('{{ d.id }}');" u-content="{{ d.id }}">Delete</a></td>
+                        </tr>
+		                   {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function confirmDeleteSubPage(id){
+            swal({
+                page: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this sub page",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        let form = $("#delete-sub-page-form");
+                        form.attr('action', "{{ url_for('page_manager.delete_sub_page', id=0) }}".replace('0',id));
+                        form.submit();
+                    } else {
+                        return false;
+                    }
+                });
+            return false;
+        }
+    </script>
+{% endblock %}

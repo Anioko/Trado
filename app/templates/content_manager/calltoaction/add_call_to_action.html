@@ -1,0 +1,59 @@
+{% extends 'layouts/base.html' %}
+{% import 'macros/form_macros.html' as f %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block content %}
+    <div class="ui stackable centered grid container">
+        <div class="twelve wide column">
+            <a class="ui basic compact button" href="{{ url_for('content_manager.index') }}">
+                <i class="caret left icon"></i>
+                Back to dashboard
+            </a>
+            <h2 class="ui header">
+                Add Call to Action Text & Url link
+                <div class="sub header">Create a call to action which will appear with a button on the landing page</div>
+            </h2>
+            <div class="content">
+                <ul class="ui list">
+                    <li><p> Don't add more than two call to actions.E.g Signup and login</p></li>
+                    <li><p>Call to actions added here will automatically appear on the Navigation bar and inside the website's landing page for visitors</p></li>
+                    <li><p>If you want users to register or login, insert either '/account/login' or '/account/register' in the url field so that users will be redirected to that page.
+                        If you intend for them to go to an external website please put the full website url
+                    </p></li>
+                    <li><p> Don't add more than two call to actions.E.g Signup and login</p></li>
+                  </ul>
+            </div>
+            {% set flashes = {
+                'error':   get_flashed_messages(category_filter=['form-error']),
+                'warning': get_flashed_messages(category_filter=['form-check-email']),
+                'info':    get_flashed_messages(category_filter=['form-info']),
+                'success': get_flashed_messages(category_filter=['form-success'])
+            } %}
+
+            {{ f.begin_form(form, flashes) }}
+
+
+                <div class="two fields">
+                    {{ f.render_form_field(form.text) }}
+                    {{ f.render_form_field(form.url) }}
+                </div>
+                {{ f.render_form_field(form.button_type) }}
+                {{ f.render_form_field(form.show_on_navbar) }}
+                {{ f.render_form_field(form.is_login) }}
+                {{ f.render_form_field(form.is_signup) }}
+
+                {{ f.form_message(flashes['error'], header='Something went wrong.', class='error') }}
+                {{ f.form_message(flashes['warning'], header='Check your email.', class='warning') }}
+                {{ f.form_message(flashes['info'], header='Information', class='info') }}
+                {{ f.form_message(flashes['success'], header='Success!', class='success') }}
+
+                {% for field in form | selectattr('type', 'equalto', 'SubmitField') %}
+                    {{ f.render_form_field(field) }}
+                {% endfor %}
+
+            {{ f.end_form() }}
+        </div>
+    </div>
+{% endblock %}

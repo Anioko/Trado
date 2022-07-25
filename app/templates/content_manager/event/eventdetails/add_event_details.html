@@ -1,0 +1,64 @@
+{% extends 'layouts/base.html' %}
+{% import 'macros/form_macros.html' as f %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block content %}
+    <div class="ui stackable centered grid container">
+        <div class="twelve wide column">
+            <a class="ui basic compact button" href="{{ url_for('content_manager.event_index') }}">
+                <i class="caret left icon"></i>
+                Back to dashboard
+            </a>
+            <h2 class="ui header">
+                Add Event Details
+                <div class="sub header">Add a new event landing page</div>
+            </h2>
+
+            {% set flashes = {
+                'error':   get_flashed_messages(category_filter=['form-error']),
+                'warning': get_flashed_messages(category_filter=['form-check-email']),
+                'info':    get_flashed_messages(category_filter=['form-info']),
+                'success': get_flashed_messages(category_filter=['form-success'])
+            } %}
+
+            {{ f.begin_form(form, flashes) }}
+
+                <div class="field">
+                    {{ f.render_form_field(form.event_title) }}
+                </div>
+
+                <div class="field">
+                    {{ f.render_form_field(form.background_image) }}
+                </div>
+
+                <div class="two fields">
+                    {{ f.render_form_field(form.start_date) }}
+                    {{ f.render_form_field(form.end_date) }}
+                </div>
+                <div class="four fields">
+                    {{ f.render_form_field(form.event_address) }}
+                    {{ f.render_form_field(form.event_city) }}
+                    {{ f.render_form_field(form.event_state) }}
+                    {{ f.render_form_field(form.event_country) }}
+                </div>
+                <div class="field">
+                    {{ f.render_form_field(form.promo_video_url) }}
+                </div>				
+                <div class="field">
+                    {{ f.render_form_field(form.description ) }}
+                </div>					
+                {{ f.form_message(flashes['error'], header='Something went wrong.', class='error') }}
+                {{ f.form_message(flashes['warning'], header='Check your email.', class='warning') }}
+                {{ f.form_message(flashes['info'], header='Information', class='info') }}
+                {{ f.form_message(flashes['success'], header='Success!', class='success') }}
+
+                {% for field in form | selectattr('type', 'equalto', 'SubmitField') %}
+                    {{ f.render_form_field(field) }}
+                {% endfor %}
+
+            {{ f.end_form() }}
+        </div>
+    </div>
+{% endblock %}

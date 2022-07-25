@@ -1,0 +1,83 @@
+{% extends 'layouts/base.html' %}
+
+{% macro dashboard_option(title, endpoint, description=None, icon=None) %}
+    <a class="column" href="{{ url_for(endpoint) }}">
+        <div class="ui padded segment">
+            <h3 class="ui header">
+                {% if icon is not none %}
+                    <i class="{{ icon }}"></i>
+                {% endif %}
+                <div class="content">
+                    {{ title }}
+                    {% if description is not none %}
+                        <div class="sub header">
+                            {{ description }}
+                        </div>
+                    {% endif %}
+                </div>
+            </h3>
+        </div>
+    </a>
+{% endmacro %}
+
+{% block content %}
+    <div class="ui stackable centered grid container">
+        <div class="twelve wide column">
+            <h2 class="ui header">
+                Event Page Dashboard
+            </h2>
+            <div class="ui two column stackable grid">
+
+                {{ dashboard_option('Event Details', 'admin.added_event_details',
+                                    description='Manage event details', icon='columns icon')}}	
+									
+                {{ dashboard_option('Event Brand Name', 'admin.add_event_brand_name',
+                                    description='Manage event brand name', icon='pencil alternate icon') }}				
+
+                {{ dashboard_option('Event Sponsor or Partner Text', 'admin.add_event_sponsor',
+                                    description='Manage sponsor text', icon='heading icon') }}	
+									
+                {{ dashboard_option('Event FAQ ', 'admin.added_event_faq',
+                                    description='Frequently asked questions', icon='question circle icon') }}	
+
+                {{ dashboard_option('Event SEO ', 'admin.added_event_seo',
+                                    description='Optimize for search engines like Google', icon='pencil alternate icon') }}										
+									
+                {{ dashboard_option('Event Call to Action', 'admin.added_event_call_to_action',
+                                    description='Manage call to action items', icon='pencil alternate icon') }}	
+
+                {{ dashboard_option('Event Speakers', 'admin.added_event_speaker',
+                                    description='Manage event speakers', icon='address card outline icon') }}									
+									
+                {{ dashboard_option('Event Footer Text', 'admin.added_event_footer_text',
+                                    description='Manage landingpage footer texts', icon='pencil alternate icon') }}		
+									
+                {{ dashboard_option('Event Slideshows', 'admin.added_event_slideshows',
+                                    description='Manage slideshows', icon='sliders horizontal icon')}}	
+									
+                {{ dashboard_option('Event Background Image', 'admin.added_event_background_image',
+                                    description='Manage background image', icon='sticky note icon')}}	
+									
+                {{ dashboard_option('Event Logo', 'admin.added_event_logo',
+                                    description='Manage logo image', icon='upload icon')}}		
+
+                {{ dashboard_option('Event Sponsor Images', 'admin.added_event_sponsor_images',
+                                    description='Manage Sponsor or partner Images', icon='images outline icon')}}	
+
+                {{ dashboard_option('Event Social Media Icons', 'admin.added_event_icons',
+                                    description='Manage social media icons and links', icon='facebook square icon') }}									
+
+                {{ dashboard_option('Event Copy Right Text', 'admin.added_event_copyright',
+                                    description='Manage copy right text', icon='copyright outline icon') }}	
+									
+                {{ dashboard_option('Event Favicon', 'admin.added_event_favicon_image',
+                                    description='Manage favicon', icon='tint icon') }}	
+
+                {{ dashboard_option('Event Tracking Script', 'admin.added_event_tracking_script',
+                                    description='Manage favicon', icon='file code outline icon') }}									
+			
+																
+            </div>
+        </div>
+    </div>
+{% endblock %}

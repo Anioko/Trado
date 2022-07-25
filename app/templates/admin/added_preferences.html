@@ -1,0 +1,260 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <div class="ui container">
+        <div class="ui container">
+            <a class="ui basic compact button" href="{{ url_for('admin.index') }}">
+                <i class="caret left icon"></i>
+                Back to dashboard
+            </a>
+            <h2 class="ui header">
+                Added Preferences By Users
+                <div class="sub header">
+                    View and manage added preferences
+                </div>
+            </h2>
+
+            <div class="ui menu">
+                <div class="ui right search item">
+                    <div class="ui transparent icon input">
+                        <input id="search-seeking" type="text" placeholder="Search preferences…">
+                        <i class="search icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            {# Use overflow-x: scroll so that mobile views don't freak out
+             # when the table is too wide #}
+            <div style="overflow-x: scroll;">
+                <table class="ui searchable sortable unstackable selectable celled table">
+                    <thead>
+                        <tr>
+							<th>id </th>
+							<th>Uid </th>
+							<th>username </th>
+							<th>seeking_partner </th>
+							<th>seeking_from_height </th>
+							<th>seeking_to_height </th>
+							<th>seeking_sex </th>
+							<th>seeking_from_age</th>
+							<th>seeking_to_age</th>
+							<th>seeking_sex </th>
+
+							<th>seeking_education_level_one </th>
+							<th>seeking_education_level_two </th>
+							<th>seeking_education_level_three </th>
+							<th>seeking_education_level_four </th>
+							<th>seeking_education_level_five </th>
+							<th>seeking_education_level_six </th>
+							<th>seeking_education_level_seven </th>
+							<th>seeking_education_level_eight </th>
+
+
+
+							<th>seeking_church_denomination_one </th>
+							<th>seeking_church_denomination_two </th>
+							<th>seeking_church_denomination_three </th>
+							<th>seeking_church_denomination_four </th>
+							<th>seeking_church_denomination_five </th>
+							<th>seeking_church_denomination_six </th>
+
+							<th>seeking_country_one </th>
+							<th>seeking_country_two </th>
+							<th>seeking_country_three </th>
+							<th>seeking_country_four </th>
+							<th>seeking_country_five </th>
+							<th>seeking_country_six </th>
+							<th>seeking_country_seven </th>
+							<th>seeking_country_eight </th>
+
+							<th>seeking_religion_one </th>
+							<th>seeking_religion_two </th>
+							<th>seeking_religion_three </th>
+
+							<th>seeking_ethnicity_one </th>
+							<th>seeking_ethnicity_two </th>
+							<th>seeking_ethnicity_three </th>
+							<th>seeking_ethnicity_four </th>
+							<th>seeking_ethnicity_five </th>
+
+							<th>seeking_marital_type_one </th>
+							<th>seeking_marital_type_two </th>
+							<th>seeking_marital_type_three </th>
+
+
+							<th>seeking_body_type_one </th>
+							<th>seeking_body_type_two </th>
+							<th>seeking_body_type_three </th>
+							<th>seeking_body_type_four </th>
+
+							<th>seeking_education_level_one </th>
+							<th>seeking_education_level_two </th>
+							<th>seeking_education_level_three </th>
+							<th>seeking_education_level_four </th>
+							<th>seeking_education_level_five </th>
+							<th>seeking_education_level_six </th>
+
+							<th>seeking_current_status_one </th>
+							<th>seeking_current_status_two </th>
+							<th>seeking_current_status_three </th>
+
+							<th>seeking_drinking_status_one </th>
+							<th>seeking_drinking_status_two </th>
+
+
+							<th>seeking_smoking_status_one </th>
+							<th>seeking_smoking_status_two </th>
+
+
+							<th>seeking_education_level_one </th>
+							<th>seeking_education_level_two </th>
+							<th>seeking_education_level_three </th>
+							<th>seeking_education_level_four </th>
+							<th>seeking_education_level_five </th>
+							<th>seeking_education_level_six </th>
+							<th>seeking_education_level_seven </th>
+							<th>seeking_education_level_eight </th>
+							<th>seeking_education_level_nine </th>
+
+							<th>seeking_has_children_one </th>
+							<th>seeking_has_children_two </th>
+							<th>seeking_has_children_three </th>
+
+							<th>seeking_want_children_one </th>
+							<th>seeking_want_children_two </th>
+							<th>seeking_want_children_three </th>
+								
+							<th>seeking_open_for_relocation </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for s in seeking | sort(attribute='id') %}
+                        <tr onclick="window.location.href = '{{ url_for('seeking.added_preference', id=s.id, username=s.user.username) }}';">
+						<td>{{s.id}}</td>
+						<td>{{s.user.id}}</td>						
+						<td>{{s.user.username}}</td>
+						<td>{{ s.seeking_partner }} </td>
+						<td>{{ s.seeking_from_height }} </td>
+						<td>{{ s.seeking_to_height }} </td>
+						<td>{{ s.seeking_sex }} </td>
+						<td>{{ s.seeking_from_age}}</td>
+						<td>{{ s.seeking_to_age}}</td>
+						<td>{{ s.seeking_sex }} </td>
+
+						<td>{{ s.seeking_education_level_one }} </td>
+						<td>{{ s.seeking_education_level_two }} </td>
+						<td>{{ s.seeking_education_level_three }} </td>
+						<td>{{ s.seeking_education_level_four }} </td>
+						<td>{{ s.seeking_education_level_five }} </td>
+						<td>{{ s.seeking_education_level_six }} </td>
+						<td>{{ s.seeking_education_level_seven }} </td>
+						<td>{{ s.seeking_education_level_eight }} </td>
+
+
+
+						<td>{{ s.seeking_church_denomination_one }} </td>
+						<td>{{ s.seeking_church_denomination_two }} </td>
+						<td>{{ s.seeking_church_denomination_three }} </td>
+						<td>{{ s.seeking_church_denomination_four }} </td>
+						<td>{{ s.seeking_church_denomination_five }} </td>
+						<td>{{ s.seeking_church_denomination_six }} </td>
+
+						<td>{{ s.seeking_country_one }} </td>
+						<td>{{ s.seeking_country_two }} </td>
+						<td>{{ s.seeking_country_three }} </td>
+						<td>{{ s.seeking_country_four }} </td>
+						<td>{{ s.seeking_country_five }} </td>
+						<td>{{ s.seeking_country_six }} </td>
+						<td>{{ s.seeking_country_seven }} </td>
+						<td>{{ s.seeking_country_eight }} </td>
+
+						<td>{{ s.seeking_religion_one }} </td>
+						<td>{{ s.seeking_religion_two }} </td>
+						<td>{{ s.seeking_religion_three }} </td>
+
+						<td>{{ s.seeking_ethnicity_one }} </td>
+						<td>{{ s.seeking_ethnicity_two }} </td>
+						<td>{{ s.seeking_ethnicity_three }} </td>
+						<td>{{ s.seeking_ethnicity_four }} </td>
+						<td>{{ s.seeking_ethnicity_five }} </td>
+
+						<td>{{ s.seeking_marital_type_one }} </td>
+						<td>{{ s.seeking_marital_type_two }} </td>
+						<td>{{ s.seeking_marital_type_three }} </td>
+
+
+						<td>{{ s.seeking_body_type_one }} </td>
+						<td>{{ s.seeking_body_type_two }} </td>
+						<td>{{ s.seeking_body_type_three }} </td>
+						<td>{{ s.seeking_body_type_four }} </td>
+
+						<td>{{ s.seeking_education_level_one }} </td>
+						<td>{{ s.seeking_education_level_two }} </td>
+						<td>{{ s.seeking_education_level_three }} </td>
+						<td>{{ s.seeking_education_level_four }} </td>
+						<td>{{ s.seeking_education_level_five }} </td>
+						<td>{{ s.seeking_education_level_six }} </td>
+
+						<td>{{ s.seeking_current_status_one }} </td>
+						<td>{{ s.seeking_current_status_two }} </td>
+						<td>{{ s.seeking_current_status_three }} </td>
+
+						<td>{{ s.seeking_drinking_status_one }} </td>
+						<td>{{ s.seeking_drinking_status_two }} </td>
+
+
+						<td>{{ s.seeking_smoking_status_one }} </td>
+						<td>{{ s.seeking_smoking_status_two }} </td>
+
+
+						<td>{{ s.seeking_education_level_one }} </td>
+						<td>{{ s.seeking_education_level_two }} </td>
+						<td>{{ s.seeking_education_level_three }} </td>
+						<td>{{ s.seeking_education_level_four }} </td>
+						<td>{{ s.seeking_education_level_five }} </td>
+						<td>{{ s.seeking_education_level_six }} </td>
+						<td>{{ s.seeking_education_level_seven }} </td>
+						<td>{{ s.seeking_education_level_eight }} </td>
+						<td>{{ s.seeking_education_level_nine }} </td>
+
+						<td>{{ s.seeking_has_children_one }} </td>
+						<td>{{ s.seeking_has_children_two }} </td>
+						<td>{{ s.seeking_has_children_three }} </td>
+
+						<td>{{ s.seeking_want_children_one }} </td>
+						<td>{{ s.seeking_want_children_two }} </td>
+						<td>{{ s.seeking_want_children_three }} </td>
+							
+						<td>{{ s.seeking_open_for_relocation }} </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#search-seeking').keyup(function () {
+                var searchText = $(this).val();
+                if (searchText.length > 0) {
+                    $('tbody td:icontains(' + searchText + ')').addClass('positive');
+                    $('td.positive').not(':icontains(' + searchText + ')').removeClass('positive');
+                    $('tbody td').not(':icontains(' + searchText + ')').closest('tr').addClass('hidden').hide();
+                    $('tr.hidden:icontains(' + searchText + ')').removeClass('hidden').show();
+                } else {
+                    $('td.positive').removeClass('positive');
+                    $('tr.hidden').removeClass('hidden').show();
+                }
+            });
+
+            $('#select-role').dropdown({
+                onChange: function (value, text, $selectedItem) {
+                    $('td.user.role:contains(' + value + ')').closest('tr').removeClass('hidden').show();
+                    $('td.user.role').not(':contains(' + value + ')').closest('tr').addClass('hidden').hide();
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends 'layouts/base.html' %}
+
+{% macro dashboard_option(title, endpoint, description=None, icon=None) %}
+    <a class="column" href="{{ url_for(endpoint) }}">
+        <div class="ui padded segment">
+            <h3 class="ui header">
+                {% if icon is not none %}
+                    <i class="{{ icon }}"></i>
+                {% endif %}
+                <div class="content">
+                    {{ title }}
+                    {% if description is not none %}
+                        <div class="sub header">
+                            {{ description }}
+                        </div>
+                    {% endif %}
+                </div>
+            </h3>
+        </div>
+    </a>
+{% endmacro %}
+
+{% block content %}
+    <div class="ui stackable centered grid container">
+        <div class="twelve wide column">
+            <h2 class="ui header">
+                Content Management Dashboard
+            </h2>
+            <div class="ui inverted red segment">
+                <h3 class="sub header">
+                    Information
+                  </h3>
+                <div class="content">
+                    <ul class="ui list">
+                        <li><p>Use this to add edit or update contents for the whole website. It does not require any coding or programming.</p></li>
+                        <li><p>Click on the section corresponding to the action you want to make. E.g if you want to add videos, click "manage marketing video".</p></li>
+                        <li><p>The default website design is a One Page or Parallax design. 
+                            If you intend to keep this parallax design but change the url links and naming on the navigation e.g "Services", you can override it by 
+                            adding pages using the Pages Manager at the top of this page or navigation bar.
+                        </p></li>
+                      </ul>
+                </div>
+              </div>
+ 
+            <div class="ui two column stackable grid">
+                {{ dashboard_option('Manage Brand Name', 'content_manager.add_brand_name',
+                                    description='Manage brand name', icon='pencil alternate icon') }}
+                                    
+                {{ dashboard_option('Manage Headline Texts', 'content_manager.add_headline',
+                                    description='Manage headline texts', icon='heading icon') }}
+									
+                {{ dashboard_option('Manage Services', 'content_manager.added_services',
+                                    description='Manage landingpage services', icon='car icon') }}	
+
+                {{ dashboard_option('Manage Services Area Description', 'content_manager.added_service_title',
+                                    description='Manage Services Area Description', icon='edit icon') }}
+
+                {{ dashboard_option('Manage Features Area Description', 'content_manager.added_feature_title',
+                                    description='Manage Feature Area Description', icon='edit icon') }}
+									
+                {{ dashboard_option('Manage Features', 'content_manager.added_feature',
+                                    description='Manage features displayed', icon='edit icon') }}
+
+                {{ dashboard_option('Manage Team', 'content_manager.added_members',
+                                    description='Manage landingpage team', icon='users icon') }}										
+
+                {{ dashboard_option('Manage About Us', 'content_manager.added_about',
+                                    description='Manage About Us Info', icon='newspaper icon') }}	
+
+                {{ dashboard_option('Manage Marketing Video', 'content_manager.added_video',
+                                    description='Manage Video', icon='film icon') }}	
+									
+                {{ dashboard_option('Manage Project and Award Counter', 'content_manager.added_count',
+                                    description='Manage Counter', icon='percent icon') }}	
+									
+                {{ dashboard_option('Manage Portfolio', 'content_manager.added_portfolio',
+                                    description='Manage Portfolio Images', icon='images outline icon') }}
+									
+                {{ dashboard_option('Manage Testimonial Area Description', 'content_manager.added_testimonial_title',
+                                    description='Manage Testimonial Area Description', icon='edit icon') }}
+									
+		<! Testimonials had a bug. Fix it before enabling on some templates----->
+                {{ dashboard_option('Manage Testimonials', 'content_manager.added_testimonial',
+                                    description='Manage testimonials', icon='id card outline icon') }}	
+									
+                {{ dashboard_option('Manage Frequently Asked Questions', 'content_manager.added_faq',
+                                    description='Manage frequently asked questions', icon='question circle outline icon') }}	
+
+                {{ dashboard_option('Manage Headlines', 'content_manager.home_text',
+                                    description='Manage landingpage headline', icon='heading icon') }}	
+
+                {{ dashboard_option('Manage SEO Information', 'content_manager.added_seo',
+                                    description='Optimize for search engines like Google', icon='pencil alternate icon') }}										
+
+                {# dashboard_option('Manage Navbar Menu Items', 'content_manager.added_navmenu',
+                                    description='Manage items which will appear in your navigation bar', icon='tasks icon') #}
+									
+                {{ dashboard_option('Manage Call to Action', 'content_manager.added_calltoaction',
+                                    description='Manage call to action items', icon='pencil alternate icon') }}	
+									
+                {{ dashboard_option('Manage Client Logos', 'content_manager.added_client',
+                                    description='Manage client logos', icon='briefcase icon') }}	
+
+                {{ dashboard_option('Manage Client Area Title & Description', 'content_manager.added_client_title',
+                                    description='Manage Client Area Title & Description', icon='edit icon') }}									
+									
+                {# dashboard_option('Manage Homepage Texts', 'content_manager.added_information',
+                                    description='Manage landingpage texts', icon='pencil alternate icon') #}
+									
+                {{ dashboard_option('Manage Footer Text', 'content_manager.added_footertext',
+                                    description='Manage landingpage footer texts', icon='pencil alternate icon') }}		
+									
+                {# dashboard_option('Manage Slideshows', 'content_manager.added_slideshows',
+                                    description='Manage slideshows', icon='sliders horizontal icon')#}	
+									
+                {{ dashboard_option('Manage Background Image', 'content_manager.added_background_image',
+                                    description='Manage background image', icon='sticky note icon')}}	
+									
+                {{ dashboard_option('Manage Logo', 'content_manager.added_logo',
+                                    description='Manage logo image', icon='upload icon')}}		
+
+                {# dashboard_option('Manage Landing Page Images', 'content_manager.added_images',
+                                    description='Manage images', icon='images outline icon')#}	
+
+                {{ dashboard_option('Manage Pricing', 'content_manager.added_pricing',
+                                    description='Manage pricing', icon='money bill alternate outline icon') }}
+									
+                {{ dashboard_option('Manage Pricing Area Description', 'content_manager.added_pricing_title',
+                                    description='Manage Pricing Area Description', icon='edit icon') }}									
+
+                {{ dashboard_option('Manage Social Media Icons', 'content_manager.added_icons',
+                                    description='Manage social media icons and links', icon='facebook square icon') }}									
+
+                {{ dashboard_option('Manage Copy Right Text', 'content_manager.added_copyright',
+                                    description='Manage copy right text', icon='copyright outline icon') }}	
+									
+                {{ dashboard_option('Manage Favicon', 'content_manager.added_favicon_image',
+                                    description='Manage favicon', icon='tint icon') }}	
+				
+                {{ dashboard_option('Manage Apple Touch Icon', 'content_manager.added_apple_touch_icon',
+                                    description='Manage Apple favicon', icon='tint icon') }}	
+
+                {{ dashboard_option('Manage Tracking Script', 'content_manager.added_trackingscript',
+                                    description='Manage tracking javascripts', icon='file code outline icon') }}	
+
+                {{ dashboard_option('Manage Locations', 'content_manager.added_location',
+                                    description='Manage locations', icon='map marker icon') }}
+									
+                {{ dashboard_option('Manage Process Area Title & Description', 'content_manager.added_process_title',
+                                    description='Manage Process Area Title & Description', icon='edit icon') }}
+									
+                {{ dashboard_option('Manage Processes or Steps', 'content_manager.added_process',
+                                    description='Manage processes', icon='tasks icon') }}
+																			
+            </div>
+        </div>
+    </div>
+{% endblock %}

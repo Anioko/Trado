@@ -1,0 +1,75 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <div class="ui stackable grid container">
+        <div class="sixteen wide tablet twelve wide computer centered column">
+            <a class="ui basic compact button" href="{{ url_for('content_manager.event_index') }}">
+                <i class="caret left icon"></i>
+                Back to dashboard
+            </a>
+             <a class="ui teal right floated button" target="_blank" href="{{ url_for('content_manager.add_event_details',_external=True) }}">Add New Event</a>
+            <h2 class="ui header">
+                Added event details
+                <div class="sub header">
+                    View and manage current event details 
+                </div>
+            </h2>
+
+            {# Use overflow-x: scroll so that mobile views don't freak out
+             # when the table is too wide #}
+            <div style="overflow-x: scroll;">
+                <table class="ui searchable sortable unstackable selectable celled table">
+                    <thead>
+                        <tr>
+					        <th>ID</th>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Promo Url</th>
+                            <th>Image filename</th>
+                            <th>Description</th>
+                            <th>Delete</th>
+							<th> Preivew</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for d in data  %}
+                        <tr>
+                            <td>{{ d.id }}</td>
+                            <td>{{ d.event_title}}</td>
+                            <td>{{ d.event_address }}, {{ d.event_city }}, {{ d.event_state }}, {{ d.event_country }}</td>
+                            <td>{{ d.promo_video_url }}</td>
+                            <td>{{ d.background_image }}</td>
+							<td>{{ d.description }}</td>
+                            <td> <a class="ui red left floated button" style="margin-top: 1px"
+                                   href="{{ url_for('content_manager.delete_event_details', id=d.id) }}" onclick="return confirmDeleteData('{{ d.id }}');" data-content="{{ d.id }}">Delete</a></td>
+							<td> <a class="ui teal button" target="_blank" href="{{ url_for('content_manager.event_preview',event_id=d.id, event_name=d.event_title, _external=True) }}">Preview </a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function confirmDeleteData(id){
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this data",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        let form = $("#delete-data-form");
+                        form.attr('action', "{{ url_for('content_manager.delete_event_details', id=0) }}".replace('0',data_id));
+                        form.submit();
+                    } else {
+                        return false;
+                    }
+                });
+            return false;
+        }
+    </script>
+{% endblock %}

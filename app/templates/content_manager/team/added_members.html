@@ -1,0 +1,71 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <div class="ui stackable grid container">
+        <div class="sixteen wide tablet twelve wide computer centered column">
+            <a class="ui basic compact button" href="{{ url_for('admin.index') }}">
+                <i class="caret left icon"></i>
+                Back to dashboard
+            </a>
+            <h2 class="ui header">
+                Added Landing page team members
+                <div class="sub header">
+                    View and manage team members
+                </div>
+            </h2>
+            <div class="ui header" style="width: 100%; height: 50px">
+                <a class="ui teal right floated button" href="{{ url_for('admin.add_member') }}">Add New </a>
+			</div>
+            {# Use overflow-x: scroll so that mobile views don't freak out
+             # when the table is too wide #}
+            <div style="overflow-x: scroll;">
+                <table class="ui searchable sortable unstackable selectable celled table">
+                    <thead>
+                        <tr>
+					        <th>ID</th>
+                            <th>Full Name</th>
+                            <th>Job Title</th>
+                            <th>Picture</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for u in data  %}
+                        <tr>
+
+                            <td>{{ u.id }}</td>
+                            <td>{{ u.full_name }}</td>
+                            <td>{{ u.job_title }}</td>
+                            <td>{{ u.image }}</td>
+                            <td> <a class="ui red left floated button" style="margin-top: 1px"
+                                   href="{{ url_for('admin.delete_member', id=u.id) }}" onclick="return confirmDeletemember('{{ u.id }}');" data-content="{{ u.id }}">Delete</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function confirmDeletemember(id){
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this member",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        let form = $("#delete-member-form");
+                        form.attr('action', "{{ url_for('admin.delete_member', id=0) }}".replace('0',id));
+                        form.submit();
+                    } else {
+                        return false;
+                    }
+                });
+            return false;
+        }
+    </script>
+{% endblock %}
