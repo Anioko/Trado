@@ -39,6 +39,9 @@ def index():
 @login_required
 def add_photo():
     form = ImageForm()
+    count = Photo.query.filter_by(user_id=current_user.id).count()
+    if count >= 5:
+        return redirect(url_for('photo.added_images'))
     if form.validate_on_submit():
         data = Photo(
             image = images.save(request.files['image']),
@@ -56,11 +59,12 @@ def add_photo():
 @login_required
 def added_images():
     """View added images."""
+    count = Photo.query.filter_by(user_id=current_user.id).count()
     photo_data = Photo.query.filter_by(user_id=current_user.id).all()
     if photo_data is None:
         return redirect(url_for('photo.add_photo'))
     return render_template(
-        'photo/added_images.html', photo_data=photo_data, photo=Photo())
+        'photo/added_images.html', photo_data=photo_data, count=count)
 
 @photo.route('/<id>')
 @login_required
