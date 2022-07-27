@@ -187,7 +187,8 @@ class WebsiteLogoForm(BaseModelForm):
     submit = SubmitField('Submit')
     
 class BackgroundImageForm(FlaskForm):
-    background_image = FileField('Background (1920x1081)', validators=[FileRequired(), FileAllowed(images, 'Images Only allowed!')])
+    background_image = FileField('Background (1100 x 900 px)', validators=[FileRequired(), FileAllowed(images, 'Images Only allowed!')])
+    #default = BooleanField('Is it the main image?', default=False)
     submit = SubmitField('Submit')
 
 class FaviconImageForm(FlaskForm):
@@ -218,7 +219,7 @@ class SocialMediaIconForm(FlaskForm):
     
 # Brand Name Form Model
 class BrandNameForm(FlaskForm):
-    text = StringField("Brand Name E.g Nokia ", validators=[DataRequired(), Length(min=2, max=15)])
+    text = StringField("Brand Name E.g Nokia ", validators=[DataRequired(), Length(min=2, max=25)])
     submit = SubmitField('Submit')
 
 # Copyright Form Model
@@ -240,7 +241,7 @@ class ResourcesForm(BaseModelForm):
 class ProcessForm(FlaskForm):
     steps = StringField("Step to take ", validators=[DataRequired(), Length(min=1, max=120)])
     description = StringField("Description. Max.250 characters" , validators=[DataRequired(), Length(min=1, max=250)])
-    #process_icon = StringField("Flaticon or fontawesome icons or leave blank")
+    icon = StringField("Leave blank or only use Icons from Semantic UI or Font Awesome only e.g shopping-basket")
     submit = SubmitField('Submit')
 
 

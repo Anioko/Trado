@@ -171,6 +171,46 @@ def feature_title_serializer(feature_title):
         'description':feature_title.description
         }
 
+class Process(db.Model):
+    __tablename__ = "process"
+    id = db.Column(db.Integer, primary_key=True)
+    steps = db.Column(db.String(80), nullable=True)
+    description = db.Column(db.String(250), nullable=True)
+    icon = db.Column(db.String(50), nullable=True)
+
+def process_serializer(process):
+    return {
+        'id':process.id,
+        'steps': process.title ,
+        'description': process.description,
+        'icon': process.icon,
+        }
+
+class ProcessTitle(db.Model):
+    __tablename__ = "process_title"
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(250), nullable=True)
+    description = db.Column(db.String(250), nullable=True)
+    image = db.Column(db.String(256), nullable=True)
+
+    @property
+    def image_url(self):
+        return url_for('_uploads.uploaded_file', setname='images',filename=self.image, external=True)
+
+    @property
+    def image_path(self):
+        from flask import current_app
+        return os.path.join(current_app.config['UPLOADED_IMAGES_DEST'], self.image)
+
+
+def process_title_serializer(process_title):
+    return {
+        'id':process_title.id,
+        'title':process_title.title,
+        'description':process_title.description,
+        'image':process_title.image
+        }
+
 class ServiceTitle(db.Model):
     __tablename__ = "service_title"
     id = db.Column(db.Integer, primary_key=True)
@@ -454,6 +494,7 @@ class BackgroundImage(db.Model):
     _tablename_ = "background_image"
     id = db.Column(db.Integer, primary_key=True)
     background_image = db.Column(db.String(256), nullable=True)
+    #efault = db.Column(db.Boolean, default=False, index=True)
 
     @property
     def image_url(self):

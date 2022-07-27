@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% if seo %}
+  <title>{{seo.title }}</title>
+  <meta content="{{seo.content }}" name="description">
+ {% endif %}
+  <link rel="shortcut icon" href="{{ url_for('static', filename='Sandbox/assets/img/favicon.png')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='Sandbox/assets/css/plugins.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='Sandbox/assets/css/style.css')}}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='Sandbox/assets/css/colors/aqua.css')}}">
+  <link rel="preload" href="{{ url_for('static', filename='Sandbox/assets/css/fonts/thicccboi.css')}}" as="style" onload="this.rel='stylesheet'">
+</head>
+<body>
+  <div class="content-wrapper">
+    <header class="wrapper bg-soft-primary">
+      <nav class="navbar navbar-expand-lg classic transparent navbar-light">
+        <div class="container flex-lg-row flex-nowrap align-items-center">
+          <div class="navbar-brand w-100">
+            <a href="/">
+              {% if logo %}
+              <img src="{{ logo.image_url }}" srcset="{{ logo.image_url }}" alt="" />
+              {% endif %}
+            </a>
+          </div>
+          <div class="navbar-collapse offcanvas-nav">
+            <div class="offcanvas-header d-lg-none d-xl-none">
+            <a href="/">
+                {% if logo %}
+                <img src="{{ logo.image_url }}" srcset="{{ logo.image_url }}" alt="" />
+                {% endif %}
+              </a>
+              <button type="button" class="btn-close btn-close-white offcanvas-close offcanvas-nav-close" aria-label="Close"></button>
+            </div>
+            <ul class="navbar-nav">
+              {% if pages %}
+              {% for page in pages %}  
+              <li class="nav-item"><a class="nav-link" href="/{{page.name}}">{{ page.name }}</a></li>
+                {% endfor %}
+                {% endif %}
+                <!--/.dropdown-menu -->
+            </ul>
+            <!-- /.navbar-nav -->
+          </div>
+          <!-- /.navbar-collapse -->
+          <div class="navbar-other w-100 d-flex ms-auto">
+            <ul class="navbar-nav flex-row align-items-center ms-auto" data-sm-skip="true">
+              <li class="nav-item">
+                <a href="/account/login" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-01">Login</a>
+              </li>
+              <li class="nav-item d-none d-md-block">
+                <a href="/account/register" class="btn btn-sm btn-primary rounded" data-bs-toggle="modal" data-bs-target="#modal-01">Sign Up</a>
+              </li>
+              <li class="nav-item d-lg-none">
+                <div class="navbar-hamburger"><button class="hamburger animate plain" data-toggle="offcanvas-nav"><span></span></button></div>
+              </li>
+            </ul>
+            <!-- /.navbar-nav -->
+          </div>
+          <!-- /.navbar-other -->
+        </div>
+        <!-- /.container -->
+      </nav>
+      <!-- /.navbar -->
+    </header>
+    <!-- /header -->
+    <section class="wrapper bg-soft-primary">
+      <div class="container pt-5 pb-15 py-lg-17 py-xl-19 pb-xl-20 position-relative">
+        <img class="position-lg-absolute col-12 col-lg-10 col-xl-11 col-xxl-10 px-lg-5 px-xl-0 ms-n5 ms-sm-n8 ms-md-n10 ms-lg-0 mb-md-4 mb-lg-0" src="{{ background_image.image_url }}" srcset="./assets/img/photos/devices@2x.png 2x" data-cue="fadeIn" alt="" style="top: -1%; left: -21%;" />
+        <div class="row gx-0 align-items-center">
+          <div class="col-md-10 offset-md-1 col-lg-5 offset-lg-7 offset-xxl-6 ps-xxl-12 mt-md-n9 text-center text-lg-start" data-cues="slideInDown" data-group="page-title" data-delay="600">
+            <h1 class="display-2 mb-4 mx-sm-n2 mx-md-0">{{ home_title.firstext }}</h1>
+            <p class="lead fs-lg mb-7 px-md-10 px-lg-0">{{ home_title.secondtext }}.</p>
+            <div class="d-flex justify-content-center justify-content-lg-start" data-cues="slideInDown" data-group="page-title-buttons" data-delay="900">
+              <span><a href="/account/login" class="btn btn-primary btn-icon btn-icon-start rounded me-2"> Login</a></span>
+              <span><a href="/account/register" class="btn btn-green btn-icon btn-icon-start rounded">Register</a></span>
+            </div>            
+          </div>
+          <!-- /column -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container -->
+    </section>
+    <!-- /section -->	
+    {% if features %} 
+  <section class="wrapper bg-light">
+      <div class="container py-14 py-md-17">
+	  {% if feature_title %}
+        <div class="row text-center mt-xl-12">
+          <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <h2 class="fs-15 text-uppercase text-muted mb-3">{{ feature_title.title }}</h2>
+            <h3 class="display-4 mb-9 px-xxl-11">{{ feature_title.description }}</h3>
+          </div>
+          <!-- /column -->
+        </div>
+        <!-- /.row -->
+        {% endif %}
+        <div class="row gx-lg-8 gx-xl-12 gy-8 mb-14 mb-md-17" data-cues="slideInUp" data-group="services">
+		{% for f in features %}
+          <div class="col-md-6 col-lg-4">
+            <div class="d-flex flex-row">
+              <div>
+                <img src="{{ url_for('static', filename='Sandbox/assets/img/icons/')}}{{f.icon }}.svg" class="svg-inject icon-svg icon-svg-sm text-aqua me-4" alt="" />
+              </div>
+              <div>
+                <h4 class="mb-1">{{ f.title }}</h4>
+                <p class="mb-0">{{ f.description }}</p>
+              </div>
+            </div>
+          </div>
+          <!--/column -->
+          {% endfor %}
+        </div>
+        <!--/.row -->
+		{% if process %}
+        <div class="row gx-lg-8 gx-xl-10 mb-lg-19 mb-xl-22 align-items-center">
+          <div class="col-lg-6">
+            <figure><img src="{{ process_title.image_url }}" srcset="{{ process_title.image_url }} 2x" data-cue="fadeIn" alt="" /></figure>
+          </div>
+          <!-- /column -->
+          <div class="col-lg-6">
+		  {% if progress_title %}
+            <h2 class="fs-15 text-uppercase text-muted mb-3"></h2>
+            <h3 class="display-4 mb-5">{{ progress_title.title }}</h3>
+            <p class="mb-8">{{ progress_title.description}}</p>
+			{% endif %}
+            <div class="row gy-6 gx-xxl-8 process-wrapper" data-cues="slideInUp" data-group="process">
+			{% for p in process %}
+			{% if p.icons %}
+              <div class="col-md-4"> <img src="{{ url_for('static', filename='Sandbox/assets/img/icons/')}}{{p.icon }}" class="svg-inject icon-svg icon-svg-sm text-green mb-3" alt="" />
+			  {% endif %}
+                <h4 class="mb-1">{{ p.steps }}</h4>
+                <p class="mb-0">{{ p.description }}</p>
+              </div>
+              <!--/column -->
+			  {% endfor %}
+              <!--/column -->
+            </div>
+            <!--/.row -->
+          </div>
+          <!-- /column -->
+        </div>
+		{% endif %}
+        <!-- /.row -->
+      </div>
+      <!-- /.container -->
+    </section>
+    <!-- /section -->
+    {% endif %}
+    <section class="wrapper bg-soft-primary">
+      <div class="container py-14 pt-md-16 pt-lg-0 pb-md-16">
+        <div class="row">
+          <div class="col-xl-10 mx-auto">
+		  {% if video %}
+            <div class="mt-lg-n20 mt-xl-n22 mb-14 mb-md-16 position-relative light-gallery-wrapper" data-cue="slideInUp">
+              <a href="{{ video.url}}" class="btn btn-circle btn-primary btn-play ripple mx-auto mb-5 lightbox position-absolute" style="top:50%; left: 50%; transform: translate(-50%,-50%); z-index:3;"><i class="icn-caret-right"></i></a>
+              <figure class="rounded shadow"><img src="{{ video.image_url}}" srcset="{{ video.image_url}} 2x" alt=""></figure>
+            </div>
+			{% endif %}
+			  {% if faq %} 
+            <h2 class="fs-15 text-uppercase text-muted mb-3 text-center">FAQ</h2>
+            <h3 class="display-4 mb-10 px-lg-12 px-xl-15 text-center">If you don't see an answer to your question, you can send us an email from our contact form.</h3>
+            <div class="row" data-cue="fadeIn">
+              <div class="col-lg-6 mb-0">
+                <div id="accordion-1" class="accordion-wrapper">
+            {% for f in faq %}
+            {% if f.id == 1 %} 
+                  <div class="card">
+                    <div class="card-header" id="accordion-heading-1-1">
+                      <button class="collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-collapse-1-1" aria-expanded="false" aria-controls="accordion-collapse-1-1">{{ f.question }}</button>
+                    </div>
+                    <!-- /.card-header -->
+                    <div id="accordion-collapse-1-1" class="collapse" aria-labelledby="accordion-heading-1-1" data-bs-target="#accordion-1">
+                      <div class="card-body">
+                        <p>{{ f.answer | safe }}</p>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                    <!-- /.collapse -->
+                  </div>
+            {%  endif %}
+            {% endfor %}
+                  <!-- /.card -->
+            {% for f in faq %}
+            {% if f.id == 2 %}
+                  <div class="card">
+                    <div class="card-header" id="accordion-heading-1-2">
+                      <button class="collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-collapse-1-2" aria-expanded="false" aria-controls="accordion-collapse-1-2">{{ f.question }}</button>
+                    </div>
+                    <!-- /.card-header -->
+                    <div id="accordion-collapse-1-2" class="collapse" aria-labelledby="accordion-heading-1-2" data-bs-target="#accordion-1">
+                      <div class="card-body">
+                        <p>{{ f.answer | safe }}</p>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                    <!-- /.collapse -->
+                  </div>
+            {%  endif %}
+            {% endfor %}
+                  <!-- /.card -->
+            {% for f in faq %}
+            {% if f.id == 3 %}
+                  <div class="card">
+                    <div class="card-header" id="accordion-heading-1-3">
+                      <button class="collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-collapse-1-3" aria-expanded="false" aria-controls="accordion-collapse-1-3">{{ f.question }}</button>
+                    </div>
+                    <!-- /.card-header -->
+                    <div id="accordion-collapse-1-3" class="collapse" aria-labelledby="accordion-heading-1-3" data-bs-target="#accordion-1">
+                      <div class="card-body">
+                        <p>{{ f.answer | safe }}</p>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                    <!-- /.collapse -->
+                  </div>
+            {%  endif %}
+            {% endfor %}
+                  <!-- /.card -->
+            {% for f in faq %}
+            {% if f.id == 4 %}
+                </div>
+                <!-- /.accordion-wrapper -->
+              </div>
+              <!--/column -->
+              <div class="col-lg-6">
+                <div id="accordion-2" class="accordion-wrapper">
+                  <div class="card">
+                    <div class="card-header" id="accordion-heading-2-1">
+                      <button class="collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-collapse-2-1" aria-expanded="false" aria-controls="accordion-collapse-2-1">{{ f.question }}</button>
+                    </div>
+                    <!-- /.card-header -->
+                    <div id="accordion-collapse-2-1" class="collapse" aria-labelledby="accordion-heading-2-1" data-bs-target="#accordion-2">
+                      <div class="card-body">
+                        <p>{{ f.answer | safe }}</p>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                    <!-- /.collapse -->
+                  </div>
+            {%  endif %}
+            {% endfor %}
+                  <!-- /.card -->
+            {% for f in faq %}
+            {% if f.id == 5 %}
+                  <div class="card">
+                    <div class="card-header" id="accordion-heading-2-2">
+                      <button class="collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-collapse-2-2" aria-expanded="false" aria-controls="accordion-collapse-2-2">{{ f.question }}</button>
+                    </div>
+                    <!-- /.card-header -->
+                    <div id="accordion-collapse-2-2" class="collapse" aria-labelledby="accordion-heading-2-2" data-bs-target="#accordion-2">
+                      <div class="card-body">
+                        <p>{{ f.answer | safe }}</p>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                    <!-- /.collapse -->
+                  </div>
+            {%  endif %}
+            {% endfor %}
+                  <!-- /.card -->
+            {% for f in faq %}
+            {% if f.id == 6 %}
+                  <div class="card">
+                    <div class="card-header" id="accordion-heading-2-3">
+                      <button class="collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-collapse-2-3" aria-expanded="false" aria-controls="accordion-collapse-2-3">{{ f.question }}</button>
+                    </div>
+                    <!-- /.card-header -->
+                    <div id="accordion-collapse-2-3" class="collapse" aria-labelledby="accordion-heading-2-3" data-bs-target="#accordion-2">
+                      <div class="card-body">
+                        <p>{{ f.answer | safe }}</p>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                    <!-- /.collapse -->
+                  </div>
+            {%  endif %}
+            {% endfor %}
+                  <!-- /.card -->
+                </div>
+                <!-- /.accordion-wrapper -->
+              </div>
+              <!--/column -->
+            </div>
+			  {% endif %} 
+            <!--/.row -->
+          </div>
+          <!--/column -->
+        </div>
+        <!--/.row -->
+      </div>
+      <!-- /.container -->
+    </section>
+    <!-- /section -->
+  <!-- /.content-wrapper -->
+  <footer class="bg-light">
+    <div class="container py-13 py-md-15">
+      <div class="row gy-6 gy-lg-0">
+        <div class="col-md-4 col-lg-3">
+          <div class="widget">
+            {% if logo %}
+            <img class="mb-4" src="{{ logo.image_url }}" srcset="{{ logo.image_url }} 2x" alt="{% if brand %} {{ brand.text }} {% endif %}" />
+            {% endif %}
+            <p class="mb-4">© 2021 {% if copyright_text %} {{ copyright_text.text}} {% endif %}. <br class="d-none d-lg-block" />All rights reserved.</p>
+            {% if media_icons %}
+            <nav class="nav social ">
+            <nav class="nav social social-white">
+              {% for icon in media_icons %}
+              <a href="{{ icon.url_link }}" target=“_blank”><i class="uil uil-{{ icon.icon }}"></i></a>
+            </nav>
+            {% endfor %}
+            {% endif %}
+            <!-- /.social -->
+          </div>
+          <!-- /.widget -->
+        </div>
+        <!-- /column -->
+        <div class="col-md-4 col-lg-3">
+          <div class="widget">
+            <h4 class="widget-title  mb-3">Get in Touch</h4>
+            <h4 class="widget-title text-white mb-3">Get in Touch</h4>
+            <address class="pe-xl-15 pe-xxl-17">{% if footer_text %} {{ footer_text.title | safe }} {% endif %} </address>
+          </div>
+          <!-- /.widget -->
+        </div>
+        <!-- /column -->
+        <div class="col-md-4 col-lg-3">
+          <div class="widget">
+            <h4 class="widget-title text-white mb-3">Learn More</h4>
+            <ul class="list-unstyled  mb-0">
+              {% if pages %}
+              {% for page in pages %}
+              <li><a href="/{{page.name}}">{{ page.name }}</a></li>
+              {% endfor %}
+              {% endif %}
+            </ul>
+          </div>
+          <!-- /.widget -->
+        </div>
+        <!-- /column -->
+        <div class="col-md-12 col-lg-3">
+          <div class="widget">
+            <h4 class="widget-title  mb-3">Our Newsletter</h4>
+            <p class="mb-5">Subscribe to our newsletter to get our news & deals delivered to you.</p>
+            <div class="newsletter-wrapper">
+              <!-- Begin Mailchimp Signup Form -->
+              <div id="mc_embed_signup2">
+                <form action="https://elemisfreebies.us20.list-manage.com/subscribe/post?u=aa4947f70a475ce162057838d&amp;id=b49ef47a9a" method="post" id="mc-embedded-subscribe-form2" name="mc-embedded-subscribe-form" class="validate " target="_blank" novalidate>
+                  <div id="mc_embed_signup_scroll2">
+                    <div class="mc-field-group input-group form-floating">
+                      <input type="email" value="" name="EMAIL" class="required email form-control" placeholder="Email Address" id="mce-EMAIL2">
+                      <label for="mce-EMAIL2">Email Address</label>
+                      <input type="submit" value="Join" name="subscribe" id="mc-embedded-subscribe2" class="btn btn-primary">
+                    </div>
+                    <div id="mce-responses2" class="clear">
+                      <div class="response" id="mce-error-response2" style="display:none"></div>
+                      <div class="response" id="mce-success-response2" style="display:none"></div>
+                    </div> <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_ddc180777a163e0f9f66ee014_4b1bcfa0bc" tabindex="-1" value=""></div>
+                    <div class="clear"></div>
+                  </div>
+                </form>
+              </div>
+              <!--End mc_embed_signup-->
+            </div>
+            <!-- /.newsletter-wrapper -->
+          </div>
+          <!-- /.widget -->
+        </div>
+        <!-- /column -->
+      </div>
+      <!--/.row -->
+    </div>
+    <!-- /.container -->
+  </footer>
+  <div class="progress-wrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+    </svg>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='Sandbox/assets/js/plugins.js')}}"></script>
+  <script src="{{ url_for('static', filename='Sandbox/assets/js/theme.js')}}"></script>
+</body>
+
+</html>

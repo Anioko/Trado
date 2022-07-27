@@ -25,6 +25,7 @@
 					        <th>ID</th>
                             <th>Steps</th>
                             <th>Description</th>
+                            <th>Icon</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -36,6 +37,7 @@
                             <td>{{ u.id }}</td>
                             <td>{{ u.steps }}</td>
                             <td>{{ u.description }}</td>
+                            <td>{{ u.icon }}</td>
 							<td><a class="ui blue left floated button" href="{{ url_for('content_manager.edit_process', id=u.id) }}">Edit</a></td>
                             <td> <a class="ui red left floated button" style="margin-top: 1px"
                                    href="{{ url_for('content_manager.delete_process', id=u.id) }}" onclick="return confirmDeleteProcess('{{ u.id }}');" data-content="{{ u.id }}">Delete</a></td>

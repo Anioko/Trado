@@ -192,14 +192,14 @@
 				<div class="ui link cards">
 				{% for p in photo_data %}
 				{% if p.profile_picture == False %}
-				  <div class="card" onclick='location.href="{{ url_for('photo.show', id=p.id) }}"'/>
+				  <div class="card" onclick='location.href="{{ url_for('photo.added_image', id=p.id) }}" '/>
 					<div class="image">
-                        <img src="{{ p.image_url }}">				
+					  <img src="{{ p.image_url }}">
 					</div>
 				  </div>
-				  {% endif %}
-				  {% endfor %}
-				  </div>
+				   {% endif %}
+				 {% endfor %}
+				</div>
 			  </div>
         </div>
     </div>

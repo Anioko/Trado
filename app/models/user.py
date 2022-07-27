@@ -1,3 +1,4 @@
+#import socketio
 from flask import current_app
 from flask_login import AnonymousUserMixin, UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
@@ -76,8 +77,11 @@ class User(UserMixin, db.Model):
     seeking = db.relationship('Seeking', back_populates='user', lazy='dynamic', cascade='all')
     photos = db.relationship('Photo', backref='user',
                              lazy='dynamic')
-
-
+    messages_received = db.relationship('Message',
+                                        foreign_keys='Message.recipient_id',
+                                        backref='recipient', lazy='dynamic')
+    notifications = db.relationship('Notification', backref='user',
+                                    lazy='dynamic')
 
     
     def __init__(self, **kwargs):
@@ -200,6 +204,65 @@ class User(UserMixin, db.Model):
                 db.session.commit()
             except IntegrityError:
                 db.session.rollback()
+
+    def new_messages(self, user_id=None):
+        if not user_id:
+            return Message.query.filter_by(recipient=self).filter(Message.read_at == None).distinct('user_id').count()
+        else:
+            return Message.query.filter_by(recipient=self).filter(Message.read_at == None).filter(
+                Message.user_id == user_id).count()
+        
+    def last_message(self, user_id):
+        message = Message.query.order_by(Message.timestamp.desc()). \
+            filter(or_(and_(Message.recipient_id == user_id, Message.user_id == self.id),
+                       and_(Message.recipient_id == self.id, Message.user_id == user_id))).first()
+        return message
+
+    def history(self, user_id, unread=False):
+        messages = Message.query.order_by(Message.timestamp.asc()). \
+            filter(or_(and_(Message.recipient_id == user_id, Message.user_id == self.id),
+                       and_(Message.recipient_id == self.id, Message.user_id == user_id))).all()
+        return messages
+
+    def add_notification(self, name, data, related_id=0, permanent=False):
+        from app.email import send_email
+
+        if not permanent:
+            self.notifications.filter_by(name=name).delete()
+        n = Notification(name=name, payload_json=json.dumps(data), user=self, related_id=related_id)
+        db.session.add(n)
+        db.session.commit()
+        n = Notification.query.get(n.id)
+        kwargs = data
+        kwargs['related'] = related_id
+        get_queue().enqueue(
+            send_email,
+            recipient=self.email,
+            subject='You Have a new notification on TraditionalMarriage',
+            template='account/email/notification',
+            user=self.id,
+            link=url_for('main.notifications', _external=True),
+            notification=n.id,
+            **kwargs
+        )
+        if not current_app.config['DEBUG']:
+            ws_url = "https://www.traditionalmarriage.org"
+            path = 'sockets/socket.io'
+        else:
+            get_queue().empty()
+            ws_url = "http://localhost:3000"
+            path = "socket.io"
+        sio = socketio.Client()
+        sio.connect(ws_url + "?token={}".format(create_access_token(identity=current_user.email)), socketio_path=path)
+        data = n.parsed()
+        u = jsonify_object(data['user'])
+        tu = jsonify_object(self)
+        data['user'] = {key: u[key] for key in u.keys()
+                        & {'first_name', 'id', 'email', 'socket_id'}}
+        data['touser'] = {key: tu[key] for key in tu.keys()
+                          & {'first_name', 'id', 'email', 'socket_id'}}
+        sio.emit('new_notification', {'notification': data})
+        return n
 
     def get_photo(self):
         photos = self.photos.all()

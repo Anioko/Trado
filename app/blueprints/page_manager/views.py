@@ -29,12 +29,14 @@ page_manager = Blueprint('page_manager', __name__)
 
 @page_manager.route('/page/setting')
 @login_required
+@admin_required
 def index():
     return render_template('page_manager/page/index.html')
 
 # Add Page
 @page_manager.route('/page/setting/added', methods=['POST', 'GET'])
 @login_required
+@admin_required
 def added_page():
     """View added Page setting."""
     data = Page.query.all()
@@ -46,6 +48,7 @@ def added_page():
 
 @page_manager.route('/page/setting/add', methods=['POST', 'GET'])
 @login_required
+@admin_required
 def add_page():
     form = PageForm()
     if form.validate_on_submit():
@@ -65,6 +68,7 @@ def add_page():
 # Edit Page
 @page_manager.route('/page/<int:id>/edit', methods=['POST', 'GET'])
 @login_required
+@admin_required
 def edit_page(id):
     data = Page.query.filter_by(id=id).first()
     form = PageForm(obj=data)
@@ -81,6 +85,7 @@ def edit_page(id):
 
 @page_manager.route('/page/setting/<int:id>/_delete', methods=['GET', 'POST'])
 @login_required
+@admin_required
 def delete_page(id):
     """Delete the page added """
     data = Page.query.filter_by(id=id).first()

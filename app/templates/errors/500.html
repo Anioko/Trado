@@ -1,6 +1,24 @@
 {% extends 'layouts/base.html' %}
 
+
 {% block content %}
-    <h1 class="ui header">500</h1>
-    <h3 class="ui header">Internal Server Error</h3>
+    <div class="ui stackable grid container">
+        <div class="sixteen wide tablet twelve wide computer centered column">
+            <a class="ui basic compact button" href="{{ url_for('account.manage') }}">
+                <i class="caret left icon"></i>
+                Back to settings
+            </a>
+			
+			<div class="ui placeholder segment">
+				<h2 class="ui center aligned icon header">
+				  <i class="circular ambulance icon"></i>
+				  500
+				  Internal Server Error
+				</h2>
+			</div>
+
+
+        </div>
+    </div>
+
 {% endblock %}

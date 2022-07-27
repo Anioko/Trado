@@ -27,9 +27,10 @@
             {{ f.begin_form(form, flashes) }}
 
 
-                <div class="two fields">
+                <div class="field">
                     {{ f.render_form_field(form.background_image) }}
                 </div>
+                    {# f.render_form_field(form.default) #}
 
                 {{ f.form_message(flashes['error'], header='Something went wrong.', class='error') }}
                 {{ f.form_message(flashes['warning'], header='Check your email.', class='warning') }}

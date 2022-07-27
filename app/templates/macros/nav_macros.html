@@ -21,15 +21,18 @@
 
 {% macro menu_items(current_user) %}
     {% set endpoints = [
-      ('public.about', 'About', 'info'),
-	  ('content_manager.index', 'Content', 'columns'), 
-	  ('page_manager.added_page', 'Pages', 'file outline'),
+      ('public.about', 'About', 'info')
     ]%}
     {% set user = [] %}
-    {% if current_user.is_authenticated %}
-      {% set user = ([(current_user.role.index + '.index', current_user.role.name + ' Dashboard', 'user')]) %}
-    {% endif %} 
-    {{ render_menu_items( endpoints +  user ) }}
+    {% if current_user.is_authenticated and not current_user.role.name == "User" %}
+      {% set user = ([
+	  (current_user.role.index + '.index', current_user.role.name + ' Dashboard', 'user'),
+	  ('admin.blog_index', 'Blog', 'bold'),
+	  ('content_manager.index', 'CMS', 'heading'),
+	  ('page_manager.index', 'Pages', 'clone outline')
+	  ]) %}
+    {% endif %} 	
+    {{ render_menu_items( endpoints +  user) }}
 {% endmacro %}
 
 {% macro header_items(current_user) %}
@@ -60,7 +63,7 @@
 
 {% macro mobile_nav(current_user, dropdown=None) %}
     <div class="mobile only row">
-        <div class="ui fixed inverted black main menu">
+        <div class="ui fixed inverted black public menu">
             {{ header_items(current_user) }}
             {{ create_dropdown(dropdown) }}
             <div class="right menu">
@@ -93,7 +96,7 @@
 
 {% macro desktop_nav(current_user, dropdown=None) %}
     <div class="computer tablet only row">
-        <div class="ui fixed inverted black main menu">
+        <div class="ui fixed inverted black public menu">
             <div class="ui container">
                 {{ header_items(current_user) }}
                 {{ menu_items(current_user) }}

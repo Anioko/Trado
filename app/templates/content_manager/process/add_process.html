@@ -32,6 +32,10 @@
                 <div class="field">
                     {{ f.render_form_field(form.description) }}
                 </div>
+				
+                <div class="field">
+                    {{ f.render_form_field(form.icon) }}
+                </div>
 
                 {{ f.form_message(flashes['error'], header='Something went wrong.', class='error') }}
                 {{ f.form_message(flashes['warning'], header='Check your email.', class='warning') }}

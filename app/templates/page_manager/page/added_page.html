@@ -19,11 +19,8 @@
                   </h3>
                 <div class="content">
                     <ul class="ui list">
-                        <li><p>Use this to add additional pages to your website.</p></li>
+                        <li><p>Use this to add additional pages to this website.</p></li>
                         <li><p>When adding pages, the page names will appear on the navigation bar for visitors. Ensure there are no duplicates with content added via Content Manager.</p></li>
-                        <li><p>Click to add pages and a web editor will be available so you can add contents. You can use HTML codes if you know how to use the editor.
-                            You can also upload images and style each individual page to be different.
-                            <li><p>You can edit contents on the page without knowledge of HTML programming.If you can write on Microsoft Word or Google Docs, you can easily add or edit contents on the pages.</p></li>
                         </p></li>
                       </ul>
                 </div>
@@ -40,7 +37,7 @@
 					        <th>ID</th>
 					        <th>Name</th>
 					        <th>Content</th>
-							<th>Sub page</th>
+							<!---<th>Sub page</th>--->
 					        <th>edit</th>
                             <th>Delete</th>
                         </tr>
@@ -52,7 +49,7 @@
                             <td>{{ u.id }}</td>
                             <td>{{ u.name }}</td>
                             <td>{{ u.content }}</td>
-                            <td><a class="ui yellow button" href="{{ url_for('page_manager.add_sub_page', page_id=u.id, page=u.name) }}">Add</a></td>
+                            <!---<td><a class="ui yellow button" href="{# url_for('page_manager.add_sub_page', page_id=u.id, page=u.name) #}">Add</a></td>--->
 							<td><a class="ui blue left floated button" href="{{ url_for('page_manager.edit_page', id=u.id) }}">Edit</a></td>
                             <td> <a class="ui red left floated button" style="margin-top: 1px"
                                    href="{{ url_for('page_manager.delete_page', id=u.id) }}" onclick="return confirmDeletePage('{{ u.id }}');" u-content="{{ u.id }}">Delete</a></td>

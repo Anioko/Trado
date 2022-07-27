@@ -13,13 +13,13 @@
                     View and manage current shown on the landing page. Please make sure your image is 128x128 so that they fit well. Adding images are optional!
                 </div>
             </h2>
-			{# if data | length > 5 #}
+			{% if count >= 5 %}
 			
-			{# else #}
+			{% else %}
             <div class="ui header" style="width: 100%; height: 50px">
                 <a class="ui teal right floated button" href="{{ url_for('photo.add_photo') }}">Add New</a>
 			</div>			
-			{# endif #}
+			{% endif %}
 
             {# Use overflow-x: scroll so that mobile views don't freak out
              # when the table is too wide #}

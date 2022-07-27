@@ -10,4 +10,9 @@ from .content_manager import *  # noqa
 from .seeking import *  # noqa
 from .events import *  # noqa
 from .photo import *  # noqa
+from .messaging_manager import *  # noqa
+from .notification import *  # noqa
+from .blog import *  # noqa
+
+
 

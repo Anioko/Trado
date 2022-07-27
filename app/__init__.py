@@ -79,11 +79,8 @@ def create_app(config):
         SSLify(app)
 
     # Create app blueprints
-    from .public import public as public_blueprint
+    from .blueprints.public import public as public_blueprint
     app.register_blueprint(public_blueprint)
-
-    from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
 
 
     from .blueprints.content_manager import content_manager as content_manager_blueprint
@@ -99,14 +96,20 @@ def create_app(config):
 
     from .blueprints.page_manager import page_manager as page_manager_blueprint
     app.register_blueprint(page_manager_blueprint)
+
+    from .blueprints.messaging_manager import messaging_manager as messaging_manager_blueprint
+    app.register_blueprint(messaging_manager_blueprint, url_prefix='/message')
+
+    from .blueprints.notification import notification as notification_blueprint
+    app.register_blueprint(notification_blueprint, url_prefix='/notification')
     
-    from .account import account as account_blueprint
+    from .blueprints.account import account as account_blueprint
     app.register_blueprint(account_blueprint, url_prefix='/account')
 
     from .blueprints.photo import photo as photo_blueprint
     app.register_blueprint(photo_blueprint, url_prefix='/photo')
 
-    from .admin import admin as admin_blueprint
+    from .blueprints.admin import admin as admin_blueprint
     app.register_blueprint(admin_blueprint, url_prefix='/admin')
 
     return app
