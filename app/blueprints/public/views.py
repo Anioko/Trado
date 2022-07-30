@@ -40,8 +40,10 @@ def index():
     feature_title = FeatureTitle.query.first()
     process_title = ProcessTitle.query.first()
     process = Process.query.all()
+    landing_page_texts = LandingPageText.query.all()
     
-    return render_template('public/demo6.html', process_title=process_title, process=process,
+    return render_template('public/index.html', landing_page_texts=landing_page_texts,
+                           process_title=process_title, process=process,
                            features=features, feature_title = feature_title,
                            footer_image=footer_image, icons=media_icons,
                            footer_text=footer_text, slideshows=slideshows,

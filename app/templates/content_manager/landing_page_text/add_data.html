@@ -1,0 +1,54 @@
+{% extends 'layouts/base.html' %}
+{% import 'macros/form_macros.html' as f %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block content %}
+    <div class="ui stackable centered grid container">
+        <div class="twelve wide column">
+            <a class="ui basic compact button" href="{{ url_for('content_manager.index') }}">
+                <i class="caret left icon"></i>
+                Back to dashboard
+            </a>
+            <h2 class="ui header">
+                Add Landing Page Texts & Icons & Image
+                <div class="sub header">Add additional texts to the landing page. Images should be 545 x 391 px</div>
+            </h2>
+
+            {% set flashes = {
+                'error':   get_flashed_messages(category_filter=['form-error']),
+                'warning': get_flashed_messages(category_filter=['form-check-email']),
+                'info':    get_flashed_messages(category_filter=['form-info']),
+                'success': get_flashed_messages(category_filter=['form-success'])
+            } %}
+
+            {{ f.begin_form(form, flashes) }}
+
+
+                <div class="field">
+                    {{ f.render_form_field(form.image) }}
+                </div>
+				
+
+                    {{ f.render_form_field(form.title) }}
+                    {{ f.render_form_field(form.description) }}				
+                    {{ f.render_form_field(form.line_one_text) }}
+                    {{ f.render_form_field(form.line_two_text) }}
+                    {{ f.render_form_field(form.line_three_text) }}
+                    {{ f.render_form_field(form.line_four_text) }}
+			
+
+                {{ f.form_message(flashes['error'], header='Something went wrong.', class='error') }}
+                {{ f.form_message(flashes['warning'], header='Check your email.', class='warning') }}
+                {{ f.form_message(flashes['info'], header='Information', class='info') }}
+                {{ f.form_message(flashes['success'], header='Success!', class='success') }}
+
+                {% for field in form | selectattr('type', 'equalto', 'SubmitField') %}
+                    {{ f.render_form_field(field) }}
+                {% endfor %}
+
+            {{ f.end_form() }}
+        </div>
+    </div>
+{% endblock %}

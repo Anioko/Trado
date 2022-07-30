@@ -92,6 +92,33 @@ def hometext_serializer(hometext):
         'secondtext': hometext.secondtext,
         }
 
+
+class LandingPageText(db.Model):
+    __tablename__ = "landing_page_text"
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(150), nullable=True)
+    description = db.Column(db.String(250), nullable=True)
+    #icon_one = db.Column(db.String(15), nullable=True)
+    #icon_two = db.Column(db.String(15), nullable=True)
+    #icon_three = db.Column(db.String(15), nullable=True)
+    #icon_four = db.Column(db.String(15), nullable=True)
+    line_one_text = db.Column(db.String(80), nullable=True)
+    line_two_text = db.Column(db.String(80), nullable=True)
+    line_three_text = db.Column(db.String(80), nullable=True)
+    line_four_text = db.Column(db.String(80), nullable=True)
+    image = db.Column(db.String(256), nullable=True)
+    
+    @property
+    def image_url(self):
+        return url_for('_uploads.uploaded_file', setname='images',filename=self.image, external=True)
+
+    @property
+    def image_path(self):
+        from flask import current_app
+        return os.path.join(current_app.config['UPLOADED_IMAGES_DEST'], self.image)
+
+
+
 class Headline(db.Model):
     __tablename__ = "headline"
     id = db.Column(db.Integer, primary_key=True)

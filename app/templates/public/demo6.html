@@ -67,44 +67,43 @@
       <!-- /.navbar -->
     </header>
     <!-- /header -->
-    <section class="wrapper bg-soft-primary">
-      <div class="container pt-5 pb-15 py-lg-17 py-xl-19 pb-xl-20 position-relative">
-        <img class="position-lg-absolute col-12 col-lg-10 col-xl-11 col-xxl-10 px-lg-5 px-xl-0 ms-n5 ms-sm-n8 ms-md-n10 ms-lg-0 mb-md-4 mb-lg-0" src="{{ background_image.image_url }}" srcset="./assets/img/photos/devices@2x.png 2x" data-cue="fadeIn" alt="" style="top: -1%; left: -21%;" />
-        <div class="row gx-0 align-items-center">
-          <div class="col-md-10 offset-md-1 col-lg-5 offset-lg-7 offset-xxl-6 ps-xxl-12 mt-md-n9 text-center text-lg-start" data-cues="slideInDown" data-group="page-title" data-delay="600">
-            <h1 class="display-2 mb-4 mx-sm-n2 mx-md-0">{{ home_title.firstext }}</h1>
-            <p class="lead fs-lg mb-7 px-md-10 px-lg-0">{{ home_title.secondtext }}.</p>
-            <div class="d-flex justify-content-center justify-content-lg-start" data-cues="slideInDown" data-group="page-title-buttons" data-delay="900">
-              <span><a href="/account/login" class="btn btn-primary btn-icon btn-icon-start rounded me-2"> Login</a></span>
-              <span><a href="/account/register" class="btn btn-green btn-icon btn-icon-start rounded">Register</a></span>
-            </div>            
-          </div>
-          <!-- /column -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container -->
-    </section>
-    <!-- /section -->	
+	<section class="wrapper bg-soft-primary">
+		  <div class="container pt-5 pb-15 py-lg-17 py-xl-19 pb-xl-20 position-relative">
+			<img class="position-lg-absolute col-12 col-lg-10 col-xl-11 col-xxl-10 px-lg-5 px-xl-0 ms-n5 ms-sm-n8 ms-md-n10 ms-lg-0 mb-md-4 mb-lg-0" src="{{ background_image.image_url }}" srcset="{{ background_image.image_url }} 2x" data-cue="fadeIn" alt="" style="top: -1%; left: -21%; animation-name: fadeIn; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 0ms; animation-direction: normal; animation-fill-mode: both;" data-show="true">
+			<div class="row gx-0 align-items-center">
+			  <div class="col-md-10 offset-md-1 col-lg-5 offset-lg-7 offset-xxl-6 ps-xxl-12 mt-md-n9 text-center text-lg-start" data-cues="slideInDown" data-group="page-title" data-delay="600" data-disabled="true">
+				<h1 class="display-2 mb-4 mx-sm-n2 mx-md-0" data-cue="slideInDown" data-group="page-title" data-delay="600" data-show="true" style="animation-name: slideInDown; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 600ms; animation-direction: normal; animation-fill-mode: both;">{{ home_title.firstext }}</h1>
+				<p class="lead fs-lg mb-7 px-md-10 px-lg-0" data-cue="slideInDown" data-group="page-title" data-delay="600" data-show="true" style="animation-name: slideInDown; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 900ms; animation-direction: normal; animation-fill-mode: both;">{{ home_title.secondtext }}</p>
+				<div class="d-flex justify-content-center justify-content-lg-start" data-cues="slideInDown" data-group="page-title-buttons" data-delay="900" data-cue="slideInDown" data-disabled="true" data-show="true" style="animation-name: slideInDown; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 900ms; animation-direction: normal; animation-fill-mode: both;">
+				  <span data-cue="slideInDown" data-group="page-title-buttons" data-delay="900" data-show="true" style="animation-name: slideInDown; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 1200ms; animation-direction: normal; animation-fill-mode: both;"><a href="/account/login" class="btn btn-primary btn-icon btn-icon-start rounded me-2"></i> Login</a></span>
+				  <span data-cue="slideInDown" data-group="page-title-buttons" data-delay="900" data-show="true" style="animation-name: slideInDown; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 1500ms; animation-direction: normal; animation-fill-mode: both;"><a href="/account/register" class="btn btn-green btn-icon btn-icon-start rounded"></i> Register</a></span>
+				</div>
+			  </div>
+			  <!-- /column -->
+			</div>
+			<!-- /.row -->
+		  </div>
+		  <!-- /.container -->
+		</section>
+		<!--- /. Section -->	
     {% if features %} 
-  <section class="wrapper bg-light">
+<section class="wrapper bg-light">
       <div class="container py-14 py-md-17">
-	  {% if feature_title %}
         <div class="row text-center mt-xl-12">
           <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+		  {% if feature_title %}
             <h2 class="fs-15 text-uppercase text-muted mb-3">{{ feature_title.title }}</h2>
             <h3 class="display-4 mb-9 px-xxl-11">{{ feature_title.description }}</h3>
           </div>
           <!-- /column -->
         </div>
         <!-- /.row -->
-        {% endif %}
-        <div class="row gx-lg-8 gx-xl-12 gy-8 mb-14 mb-md-17" data-cues="slideInUp" data-group="services">
+        <div class="row gx-lg-8 gx-xl-12 gy-8 mb-14 mb-md-17" data-cues="slideInUp" data-group="services" data-disabled="true">
 		{% for f in features %}
-          <div class="col-md-6 col-lg-4">
+          <div class="col-md-6 col-lg-4" data-cue="slideInUp" data-group="services" data-show="true" style="animation-name: slideInUp; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 0ms; animation-direction: normal; animation-fill-mode: both;">
             <div class="d-flex flex-row">
               <div>
-                <img src="{{ url_for('static', filename='Sandbox/assets/img/icons/')}}{{f.icon }}.svg" class="svg-inject icon-svg icon-svg-sm text-aqua me-4" alt="" />
+                <img src="{{ url_for('static', filename='Sandbox/assets/img/icons/')}}{{f.icon }}.svg" class="svg-inject icon-svg icon-svg-sm text-aqua me-4" alt="">
               </div>
               <div>
                 <h4 class="mb-1">{{ f.title }}</h4>
@@ -113,9 +112,10 @@
             </div>
           </div>
           <!--/column -->
-          {% endfor %}
+		  {% endfor %}
         </div>
         <!--/.row -->
+		  {% endif %}
 		{% if process %}
         <div class="row gx-lg-8 gx-xl-10 mb-lg-19 mb-xl-22 align-items-center">
           <div class="col-lg-6">

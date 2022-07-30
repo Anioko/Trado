@@ -37,7 +37,80 @@ def index():
 ####################Content Management System Start #################
 
 
+# Add LandingPageText-Image
 
+@content_manager.route('/landing_page_text')
+@login_required
+@admin_required
+def added_landing_page_text():
+    """View available landing_page_text image"""
+    datas = LandingPageText.query.all()
+    if datas is None:
+        return redirect(url_for('content_manager.add_landing_page_text'))
+    return render_template(
+        'content_manager/landing_page_text/added_data.html', datas=datas)
+
+
+
+# Add LandingPageText
+@content_manager.route('/landing_page_text/add', methods=['POST', 'GET'])
+@login_required
+@admin_required
+def add_landing_page_text():
+    form = LandingPageTextForm()
+    if form.validate_on_submit():
+        data = LandingPageText(
+            title=form.title.data,
+            description=form.description.data,
+            image = images.save(request.files['image']),
+            line_one_text = form.line_one_text.data,
+            line_two_text = form.line_two_text.data,
+            line_three_text = form.line_three_text.data,
+            line_four_text = form.line_four_text.data
+            )
+        db.session.add(data)
+        db.session.commit()
+        flash("Added Successfully.", "success")
+        return redirect(url_for('content_manager.added_landing_page_text'))
+    return render_template('content_manager/landing_page_text/add_data.html', form=form)
+
+### LandingPageText Image add method
+##@content_manager.route('/landing_page_text/add', methods=['POST', 'GET'])
+##@login_required
+##@admin_required
+##def add_landing_page_text():
+##    form = LandingPageTextForm(request.form)
+##    if request.method == 'POST':
+##        image = images.save(request.files['landing_page_text'])
+##        data = LandingPageText(landing_page_text=image,
+##                                    title = form.title.data,
+##                                    description = form.description.data,
+##                                    #icon_one=form.icon_one.data,
+##                                    #icon_two = form.icon_two.data,
+##                                    #icon_three = form.icon_three.data,
+##                                    #icon_four = form.icon_four.data,
+##                                    line_one_text = form.line_one_text.data,
+##                                    line_two_text = form.line_two_text.data,
+##                                    line_three_text = form.line_three_text.data,
+##                                    line_four_text = form.line_four_text.data
+##                                    )
+##        
+##        db.session.add(data)
+##        db.session.commit()
+##        flash("LandingPageText Added Successfully .", "success")
+##        return redirect(url_for('content_manager.added_landing_page_text'))
+##    return render_template('content_manager/landing_page_text/add_data.html', form=form)
+
+# LandingPageText Delete Method 
+@content_manager.route('/landing_page_text/delete/<int:landing_page_text_id>', methods=['POST', 'GET'])
+@login_required
+@admin_required
+def delete_landing_page_text(landing_page_text_id):
+    data = LandingPageText.query.get(landing_page_text_id)
+    db.session.delete(data)
+    db.session.commit()
+    flash("Image Deleted Successfully.", "success")
+    return redirect(url_for('content_manager.added_landing_page_text'))
 
 @content_manager.route('/slideshows-list')
 @login_required

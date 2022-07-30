@@ -104,21 +104,137 @@
       <!-- /.container -->
     </section>
     <!-- /section -->
-    <section class="wrapper bg-light">
-      <div class="container py-14 py-md-16">
+
+<section class="wrapper bg-light">
+      <div class="container pb-14 pb-md-16 mb-lg-22 mb-xl-24">
         <div class="row gx-0 mb-16 mb-mb-20">
-          <div class="col-9 col-sm-10 col-lg-9 mx-auto mt-n15 mt-md-n20" data-cues data-group="images" data-delay="1500">
-            <img class="img-fluid mx-auto rounded shadow-lg" data-cue="slideInUp" src="{{ background_image.image_url }} srcset="{{ background_image.image_url }}" alt="" />
-            <img class="position-absolute rounded shadow-lg" data-cue="slideInRight" src="{{ background_image.image_url }}" srcset="./assets/img/photos/sa2@2x.jpg 2x" style="top: 20%; right:-10%; max-width:30%; height: auto;" alt="" />
-            <img class="position-absolute rounded shadow-lg" data-cue="slideInLeft" src="{{ url_for('static', filename='Sandbox/')}}/assets/img/photos/sa3.jpg" srcset="./assets/img/photos/sa3@2x.jpg 2x" style="top: 10%; left:-10%; max-width:30%; height: auto;" alt="" />
-            <img class="position-absolute rounded shadow-lg" data-cue="slideInLeft" src="{{ url_for('static', filename='Sandbox/')}}/assets/img/photos/sa4.jpg" srcset="./assets/img/photos/sa4@2x.jpg 2x" style="bottom: 10%; left:-13%; max-width:30%; height: auto;" alt="" />
+          <div class="col-9 col-sm-10 col-lg-9 mx-auto mt-n15 mt-md-n20" data-cues="" data-group="images" data-delay="1500" data-disabled="true">
+            <!----<img class="img-fluid mx-auto rounded shadow-lg" data-cue="slideInUp" src="{# background_image.image_url #}" srcset="{# background_image.image_url #} 2x" alt="" data-group="images" data-delay="1500" data-show="true" style="animation-name: slideInUp; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 1500ms; animation-direction: normal; animation-fill-mode: both;">
+            <img class="position-absolute rounded shadow-lg" data-cue="slideInRight" src="{# background_image.image_url #}" srcset="{# background_image.image_url #} 2x" style="top: 20%; right: -10%; max-width: 30%; height: auto; animation-name: slideInRight; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 1800ms; animation-direction: normal; animation-fill-mode: both;" alt="" data-group="images" data-delay="1500" data-show="true">
+            <img class="position-absolute rounded shadow-lg" data-cue="slideInLeft" src="{# background_image.image_url #}" srcset="{# background_image.image_url #} 2x" style="top: 10%; left: -10%; max-width: 30%; height: auto; animation-name: slideInLeft; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 2100ms; animation-direction: normal; animation-fill-mode: both;" alt="" data-group="images" data-delay="1500" data-show="true">
+            <img class="position-absolute rounded shadow-lg" data-cue="slideInLeft" src="./assets/img/photos/sa4.jpg" srcset="./assets/img/photos/sa4@2x.jpg 2x" style="bottom: 10%; left: -13%; max-width: 30%; height: auto; animation-name: slideInLeft; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 2400ms; animation-direction: normal; animation-fill-mode: both;" alt="" data-group="images" data-delay="1500" data-show="true">----->
+			
+			<img class="img-fluid mx-auto rounded shadow-lg" data-cue="slideInUp" src="{{ background_image.image_url }}" srcset="{{ background_image.image_url }} 2x" alt="" data-group="images" data-delay="1500" data-show="true" style="animation-name: slideInUp; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 1500ms; animation-direction: normal; animation-fill-mode: both;">
           </div>
           <!-- /column -->
         </div>
+        <!-- /.row -->
+				  {% for landing_page_text in landing_page_texts %}
+		  {% if landing_page_text.id == 1 %}
+        <div class="row gx-lg-8 gx-xl-12 gy-10 align-items-center mb-14 mb-md-18">
+          <div class="col-lg-6 position-relative">
+            <div class="shape rounded bg-pale-red rellax d-block" data-rellax-speed="0" style="top: 50%; left: 50%; width: 50%; height: 60%; transform: translate3d(0px, 0px, 0px) translate(-50%, -50%); z-index: 0;"></div>
+            <div class="row gx-md-5 gy-5 position-relative">
+                <img class="img-fluid rounded shadow-lg d-flex col-10" data-cue="fadeIn" data-delay="1200" src="{{ landing_page_text.image_url }}" srcset="{{ landing_page_text.image_url }} 2x" alt="">
+            </div>
+            <!-- /.row -->
+          </div>
+          <!--/column -->
+          <div class="col-lg-6">
+            <h3 class="display-4 mb-5">{{ ('\n' ~ landing_page_text.title) | wordwrap(25) }}</h3>
+            <p class="mb-5">{{ ('\n' ~ landing_page_text.description) | wordwrap(25) }}</p>
+            <div class="row gy-3">
+              <div class="col-xl-6">
+                <ul class="icon-list bullet-bg bullet-soft-red mb-0">
+                  <li><span><i class="uil uil-check"></i></span><span>{{ ('\n' ~ landing_page_text.line_one_text) | wordwrap(17) }}</span></li>
+                  <li class="mt-3"><span><i class="uil uil-check"></i></span><span>{{ ('\n' ~ landing_page_text.line_two_text) | wordwrap(17) }}</span></li>
+                </ul>
+              </div>
+              <!--/column -->
+              <div class="col-xl-6">
+                <ul class="icon-list bullet-bg bullet-soft-red mb-0">
+                  <li><span><i class="uil uil-check"></i></span><span>{{ ('\n' ~ landing_page_text.line_three_text) | wordwrap(17) }}</span></li>
+                  <li class="mt-3"><span><i class="uil uil-check"></i></span><span>{{ ('\n' ~ landing_page_text.line_four_text) | wordwrap(17) }}</span></li>
+                </ul>
+              </div>
+              <!--/column -->
+            </div>
+            <!--/.row -->
+          </div>
+          <!--/column -->
+        </div>
         <!--/.row -->
+			{% endif %}
+			{% endfor %}
+			{% for landing_page_text in landing_page_texts %}
+		  {% if landing_page_text.id == 2 %}
+        <div class="row gx-lg-8 gx-xl-12 gy-10 align-items-center mb-14 mb-md-18">
+          <div class="col-lg-6 position-relative order-lg-2">
+            <div class="shape rounded bg-pale-green rellax d-block" data-rellax-speed="0" style="top: 50%; left: 50%; width: 50%; height: 60%; transform: translate3d(0px, 0px, 0px) translate(-50%, -50%); z-index: 0;"></div>
+            <div class="row gx-md-5 gy-5 position-relative">
+                <img class="img-fluid rounded shadow-lg d-flex col-10" data-cue="fadeIn" data-delay="1200" src="{{ landing_page_text.image_url }}" srcset="{{ landing_page_text.image_url }} 2x" alt="">
+              <!-- /column -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!--/column -->
+          <div class="col-lg-6">
+            <h3 class="display-4 mb-5">{{ ('\n' ~ landing_page_text.title) | wordwrap(25) }}</h3>
+            <p class="mb-5">{{ ('\n' ~ landing_page_text.description) | wordwrap(25) }}</p>
+            <div class="row gy-3">
+              <div class="col-xl-6">
+                <ul class="icon-list bullet-bg bullet-soft-green mb-0">
+                  <li><span><i class="uil uil-check"></i></span><span>{{ ('\n' ~ landing_page_text.line_one_text) | wordwrap(17) }}</span></li>
+                  <li class="mt-3"><span><i class="uil uil-check"></i></span><span>Nullam quis risus eget urna mollis ornare aenean leo.</span></li>
+                </ul>
+              </div>
+              <!--/column -->
+              <div class="col-xl-6">
+                <ul class="icon-list bullet-bg bullet-soft-green mb-0">
+                  <li><span><i class="uil uil-check"></i></span><span>{{ ('\n' ~ landing_page_text.line_two_text) | wordwrap(17) }}</span></li>
+                  <li class="mt-3"><span><i class="uil uil-check"></i></span><span>{{ ('\n' ~ landing_page_text.line_three_text) | wordwrap(17) }}</span></li>
+                </ul>
+              </div>
+              <!--/column -->
+            </div>
+            <!--/.row -->
+          </div>
+          <!--/column -->
+        </div>
+        <!--/.row -->
+			{% endif %}
+			{% endfor %}
+			{% for landing_page_text in landing_page_texts %}
+		  {% if landing_page_text.id == 3 %}
+        <div class="row gx-lg-8 gx-xl-12 gy-10 align-items-center">
+          <div class="col-lg-6 position-relative">
+            <div class="shape rounded bg-pale-yellow rellax d-block" data-rellax-speed="0" style="top: 50%; left: 50%; width: 50%; height: 60%; transform: translate3d(0px, 0px, 0px) translate(-50%, -50%); z-index: 0;"></div>
+            <div class="row gx-md-5 gy-5 position-relative align-items-center">
+                <img class="img-fluid rounded shadow-lg d-flex col-10" data-cue="fadeIn" data-delay="1200" src="{{ landing_page_text.image_url }}" srcset="{{ landing_page_text.image_url }} 2x" alt="">
+            </div>
+            <!-- /.row -->
+          </div>
+          <!--/column -->
+          <div class="col-lg-6">
+            <h3 class="display-4 mb-5">{{ ('\n' ~ landing_page_text.title) | wordwrap(25) }}</h3>
+            <p class="mb-5">{{ ('\n' ~ landing_page_text.description) | wordwrap(25) }}</p>
+            <div class="row gy-3">
+              <div class="col-xl-6">
+                <ul class="icon-list bullet-bg bullet-soft-yellow mb-0">
+                  <li><span><i class="uil uil-check"></i></span><span>{{ ('\n' ~ landing_page_text.line_two_text) | wordwrap(25) }}</span></li>
+                  <li class="mt-3"><span><i class="uil uil-check"></i></span><span>{{ ('\n' ~ landing_page_text.line_two_text) | wordwrap(25) }}</span></li>
+                </ul>
+              </div>
+              <!--/column -->
+              <div class="col-xl-6">
+                <ul class="icon-list bullet-bg bullet-soft-yellow mb-0">
+                  <li><span><i class="uil uil-check"></i></span><span>{{ ('\n' ~ landing_page_text.line_three_text) | wordwrap(25) }}</span></li>
+                  <li class="mt-3"><span><i class="uil uil-check"></i></span><span>{{ ('\n' ~ landing_page_text.line_four_text) | wordwrap(25) }}</span></li>
+                </ul>
+              </div>
+              <!--/column -->
+            </div>
+            <!--/.row -->
+          </div>
+          <!--/column -->
+        </div>
+        <!--/.row -->
+			{% endif %}
+			{% endfor %}
       </div>
       <!-- /.container -->
     </section>
+
     <!-- /section -->
     {% if features %}
     <section class="wrapper bg-soft-primary">
@@ -127,7 +243,7 @@
         <div class="row text-center">
           <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <h2 class="fs-15 text-uppercase text-muted mb-3">{{ feature_title.title }}</h2>
-            <h3 class="display-4 mb-9 px-xl-11">{{ feature_title.description }}</h3>
+            <h3 class="display-4 mb-9 px-xl-11">{{ ('\n' ~ feature_title.description) | wordwrap(38) }}</h3>
           </div>
           <!-- /column -->
         </div>

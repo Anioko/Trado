@@ -191,6 +191,16 @@ class BackgroundImageForm(FlaskForm):
     #default = BooleanField('Is it the main image?', default=False)
     submit = SubmitField('Submit')
 
+class LandingPageTextForm(FlaskForm):
+    image = FileField('Background (545 x 391 px)', validators=[FileRequired(), FileAllowed(images, 'Images Only allowed!')])
+    title = StringField("Title ", validators=[DataRequired(), Length(min=2, max=150)])
+    description = StringField("Description . Max 250 characters", validators=[DataRequired(), Length(min=0, max=250)])
+    line_one_text = StringField(" one line sentence . Max 80 characters", validators=[ Length(min=0, max=80)])
+    line_two_text = StringField(" one line sentence . Max 80 characters", validators=[Length(min=0, max=80)])
+    line_three_text = StringField(" one line sentence . Max 80 characters", validators=[Length(min=0, max=80)])
+    line_four_text = StringField(" one line sentence . Max 80 characters", validators=[Length(min=0, max=80)])
+    submit = SubmitField('Submit')
+
 class FaviconImageForm(FlaskForm):
     image = FileField('Favicon (32x32)', validators=[FileRequired(), FileAllowed(images, 'Images Only allowed!')])
     submit = SubmitField('Submit')

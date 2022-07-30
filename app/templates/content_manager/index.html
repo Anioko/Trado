@@ -45,9 +45,6 @@
             <div class="ui two column stackable grid">
                 {{ dashboard_option('Manage Brand Name', 'content_manager.add_brand_name',
                                     description='Manage brand name', icon='pencil alternate icon') }}
-                                    
-                {{ dashboard_option('Manage Headline Texts', 'content_manager.add_headline',
-                                    description='Manage headline texts', icon='heading icon') }}
 									
                 {{ dashboard_option('Manage Services', 'content_manager.added_services',
                                     description='Manage landingpage services', icon='car icon') }}	
@@ -79,7 +76,7 @@
                 {{ dashboard_option('Manage Testimonial Area Description', 'content_manager.added_testimonial_title',
                                     description='Manage Testimonial Area Description', icon='edit icon') }}
 									
-		<! Testimonials had a bug. Fix it before enabling on some templates----->
+		<!---- Testimonials had a bug. Fix it before enabling on some templates----->
                 {{ dashboard_option('Manage Testimonials', 'content_manager.added_testimonial',
                                     description='Manage testimonials', icon='id card outline icon') }}	
 									
@@ -88,6 +85,10 @@
 
                 {{ dashboard_option('Manage Home Page Titles', 'content_manager.home_text',
                                     description='Manage landingpage headline', icon='home icon') }}	
+
+                {{ dashboard_option('Manage LandingPageText', 'content_manager.added_landing_page_text',
+                                    description='Manage additional landing page texts', icon='home icon') }}	
+
 
                 {{ dashboard_option('Manage SEO Information', 'content_manager.added_seo',
                                     description='Optimize for search engines like Google', icon='pencil alternate icon') }}										
