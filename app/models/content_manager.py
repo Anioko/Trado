@@ -313,9 +313,7 @@ def members_serializer(members):
 class Video(db.Model):
     __tablename__ = "video"
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), nullable=True)
     url = db.Column(db.String(80), nullable=True)
-    description = db.Column(db.Text)
     image = db.Column(db.String(256), nullable=True)
 
     @property
@@ -330,9 +328,38 @@ class Video(db.Model):
 def video_serializer(video):
     return {
         'id':video.id,
-        'title':video.title ,
         'url': video.url,
-        'description': video.description,
+        }
+
+class VideoText(db.Model):
+    __tablename__ = "video_text"
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80), nullable=True)
+    icon_one = db.Column(db.String(50), nullable=True)
+    icon_two = db.Column(db.String(50), nullable=True)
+    icon_three = db.Column(db.String(50), nullable=True)
+    icon_one_title = db.Column(db.String(50), nullable=True)
+    icon_two_title = db.Column(db.String(50), nullable=True)
+    icon_three_title = db.Column(db.String(50), nullable=True)
+    icon_one_text = db.Column(db.String(50), nullable=True)
+    icon_two_text = db.Column(db.String(50), nullable=True)
+    icon_three_text = db.Column(db.String(50), nullable=True)
+
+
+
+def video_text_serializer(video):
+    return {
+        'id':video.id,
+        'title':video.title ,
+        'icon_one': video.icon_one,
+        'icon_two': video.icon_two,
+        'icon_three': video.icon_three,
+        'icon_one_title': video.icon_one_title,
+        'icon_two_title': video.icon_two_title,
+        'icon_three_title': video.icon_three_title,
+        'icon_one_text': video.icon_one_text,
+        'icon_two_text': video.icon_two_text,
+        'icon_three_text': video.icon_three_text,
         }
 
 class Portfolio(db.Model):

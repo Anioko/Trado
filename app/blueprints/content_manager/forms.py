@@ -101,10 +101,21 @@ class TeamForm(BaseModelForm):
     submit = SubmitField('Submit')
 
 class VideoForm(BaseModelForm):
-    title = StringField("Video Title", validators=[DataRequired(), Length(min=2, max=80)])
     url = StringField("url e.g https://www.youtube.com/watch?v=jDDaplaOz7Q", validators=[DataRequired(), Length(min=2, max=80)])
     image = FileField('Video background image (1024 × 760 px)', validators=[FileRequired(), FileAllowed(images, 'Images only allowed!')])
-    description = TextAreaField("Description")
+    submit = SubmitField('Submit')
+
+class VideoTextForm(BaseModelForm):
+    title = StringField("Video Title", validators=[DataRequired(), Length(min=2, max=80)])
+    icon_one = StringField("Icon from Flaticons or Font Awesome only e.g shopping-basket")
+    icon_two = StringField("Icon from Flaticons or Font Awesome only e.g shopping-basket")
+    icon_three = StringField("Icon from Flaticons or Font Awesome only e.g shopping-basket")
+    icon_one_title = StringField("Video Title", validators=[ Length(min=2, max=40)])
+    icon_two_title = StringField("Video Title", validators=[ Length(min=2, max=40)])
+    icon_three_title = StringField("Video Title", validators=[ Length(min=2, max=40)])
+    icon_one_text = StringField("Video Title", validators=[ Length(min=2, max=40)])
+    icon_two_text = StringField("Video Title", validators=[Length(min=2, max=40)])
+    icon_three_text = StringField("Video Title", validators=[Length(min=2, max=40)])
     submit = SubmitField('Submit')
 
 class PortfolioForm(BaseModelForm):

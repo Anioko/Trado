@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+{% block custom_head_tags %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='slick/slick.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='slick/slick-theme.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lightbox/css/lightbox.min.css') }}">
+    <style>
+        .slick-prev:before, .slick-next:before {
+            color: black;
+        }
+        .slick-prev {
+            left: 0px;
+            z-index: 100;
+        }
+        .slick-next {
+            right: 0px;
+            z-index: 100;
+        }
+
+    </style>
+{% endblock %}
+{% block content %}
+
+{{ test_search }}
+{% endblock %}
+

@@ -41,8 +41,9 @@ def index():
     process_title = ProcessTitle.query.first()
     process = Process.query.all()
     landing_page_texts = LandingPageText.query.all()
+    video_texts = VideoText.query.first()
     
-    return render_template('public/index.html', landing_page_texts=landing_page_texts,
+    return render_template('public/index.html', video_texts=video_texts, landing_page_texts=landing_page_texts,
                            process_title=process_title, process=process,
                            features=features, feature_title = feature_title,
                            footer_image=footer_image, icons=media_icons,

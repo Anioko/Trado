@@ -7,13 +7,13 @@
 {% block content %}
     <div class="ui stackable centered grid container">
         <div class="twelve wide column">
-            <a class="ui basic compact button" href="{{ url_for('content_manager.index') }}">
+            <a class="ui basic compact button" href="{{ url_for('admin.index') }}">
                 <i class="caret left icon"></i>
                 Back to dashboard
             </a>
             <h2 class="ui header">
-                Add Marketing Video
-                <div class="sub header">Add a video to the landing page</div>
+                Add Marketing Video Texts
+                <div class="sub header">Add a video texts to the landing page</div>
             </h2>
 
             {% set flashes = {
@@ -25,11 +25,29 @@
 
             {{ f.begin_form(form, flashes) }}
 
-                <div class="two fields">
-                    {{ f.render_form_field(form.url) }}
-                    {{ f.render_form_field(form.image) }}
+
+                <div class="field">
+                    {{ f.render_form_field(form.title) }}
                 </div>
 
+                <div class="three fields">
+                    {{ f.render_form_field(form.icon_one) }}
+                    {{ f.render_form_field(form.icon_one_title) }}
+                    {{ f.render_form_field(form.icon_one_text) }}
+                </div>
+		
+                <div class="three fields">
+                    {{ f.render_form_field(form.icon_two) }}
+                    {{ f.render_form_field(form.icon_two_title) }}
+                    {{ f.render_form_field(form.icon_two_text) }}
+                </div>
+
+                <div class="three fields">
+                    {{ f.render_form_field(form.icon_three) }}
+                    {{ f.render_form_field(form.icon_three_title) }}
+                    {{ f.render_form_field(form.icon_three_text) }}
+                </div>
+				
                 {{ f.form_message(flashes['error'], header='Something went wrong.', class='error') }}
                 {{ f.form_message(flashes['warning'], header='Check your email.', class='warning') }}
                 {{ f.form_message(flashes['info'], header='Information', class='info') }}

@@ -13,9 +13,11 @@
                     View added video to the landing page. It could be a marketing video or a livefeed. Make sure you include the full url link. 
                 </div>
             </h2>
+
+
             <div class="ui header" style="width: 100%; height: 50px">
-                <!----<a class="ui teal right floated button" href="{# url_for('content_manager.add_video') #}">Add New </a>---->
-			</div>
+                <a class="ui teal right floated button" href="{{ url_for('content_manager.add_video') }}">Add New</a>
+	    </div>
             {# Use overflow-x: scroll so that mobile views don't freak out
              # when the table is too wide #}
             <div style="overflow-x: scroll;">
@@ -23,9 +25,7 @@
                     <thead>
                         <tr>
 					        <th>ID</th>
-                            <th>Video Title</th>
                             <th>URL</th>
-                            <th>Description</th>
                             <th>Background Image</th>
                             <th>Delete</th>
                         </tr>
@@ -35,9 +35,7 @@
                         <tr>
 
                             <td>{{ data.id }}</td>
-                            <td>{{ data.title }}</td>
                             <td>{{ data.url }}</td>
-                            <td>{{ data.description }}</td>
                             <td>{{ data.image }}</td>
                             <td> <a class="ui red left floated button" style="margin-top: 1px"
                                    href="{{ url_for('content_manager.delete_video', id=data.id) }}" onclick="return confirmDeleteVideo('{{ data.id }}');" data-content="{{ data.id }}">Delete</a></td>

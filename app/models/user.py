@@ -6,7 +6,7 @@ from itsdangerous import BadSignature, SignatureExpired
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .. import db, login_manager
-
+from app import whooshee
 
 class Permission:
     GENERAL = 0x01
@@ -45,7 +45,7 @@ class Role(db.Model):
     def __repr__(self):
         return '<Role \'%s\'>' % self.name
 
-
+@whooshee.register_model('username', 'marital_type', 'age', 'country', 'religion', 'ethnicity', 'state', 'education_level' )
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -66,6 +66,7 @@ class User(UserMixin, db.Model):
     marital_type = db.Column(db.String(64), index=True)
     body_type = db.Column(db.String(64), index=True)
     church_denomination = db.Column(db.String(64), index=True)
+    #about = db.Column(db.Text)
     current_status = db.Column(db.String(64), index=True)
     drinking_status = db.Column(db.String(64), index=True)
     smoking_status = db.Column(db.String(64), index=True)

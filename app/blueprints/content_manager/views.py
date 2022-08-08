@@ -782,9 +782,7 @@ def add_video():
     form = VideoForm()
     if form.validate_on_submit():
         data = Video(
-            title = form.title.data,
             url = form.url.data,
-            description = form.description.data,
             image = images.save(request.files['image'])
             )
         db.session.add(data)
@@ -806,6 +804,56 @@ def delete_video(id):
         return redirect(url_for('content_manager.add_video'))
     return redirect(url_for('content_manager.added_video'))
 
+
+# Add VideoText
+@content_manager.route('/videotext')
+@login_required
+@admin_required
+def added_video_text():
+    """View added video text """
+    datas = VideoText.query.all()
+    if datas is None:
+        return redirect(url_for('content_manager.add_video_text'))
+    return render_template(
+        'content_manager/video/added_video_text.html', datas=datas)
+
+
+@content_manager.route('/videotext/add', methods=['POST', 'GET'])
+@login_required
+@admin_required
+def add_video_text():
+    form = VideoTextForm()
+    if form.validate_on_submit():
+        data = VideoText(
+            title = form.title.data,
+            icon_one = form.icon_one.data,
+            icon_two = form.icon_two.data,
+            icon_three = form.icon_three.data,
+            icon_one_title = form.icon_one_title.data,
+            icon_two_title = form.icon_two_title.data,
+            icon_three_title = form.icon_three_title.data,
+            icon_one_text = form.icon_one_text.data,
+            icon_two_text = form.icon_two_text.data,
+            icon_three_text = form.icon_three_text.data
+            )
+        db.session.add(data)
+        db.session.commit()
+        flash("Video Texts Added Successfully.", "success")
+        return redirect(url_for('content_manager.added_video_text'))
+    return render_template('content_manager/video/add_video_text.html', form=form)
+
+@content_manager.route('/video/<int:id>/_delete', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def delete_video_text(id):
+    """Delete the video added """
+    data = Video.query.filter_by(id=id).first()
+    db.session.commit()
+    db.session.delete(data)
+    flash('Successfully deleted ' , 'success')
+    if data is None:
+        return redirect(url_for('content_manager.add_video'))
+    return redirect(url_for('content_manager.added_video'))
 
 # Add Portfolio
 @content_manager.route('/portfolio')

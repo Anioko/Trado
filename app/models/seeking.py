@@ -2,6 +2,13 @@ import os
 
 from flask import url_for
 from .. import db
+from app import whooshee
+
+@whooshee.register_model('seeking_partner', 'seeking_from_height', 'seeking_to_height',
+                         'seeking_sex', 'seeking_from_age','seeking_to_age'
+                         'seeking_church_denomination_one', 'seeking_church_denomination_two', 'seeking_church_denomination_three',
+                         'seeking_church_denomination_four', 'seeking_church_denomination_five', 'seeking_church_denomination_six',
+                         'seeking_open_for_relocation' )
 
 class Seeking(db.Model):
     __tablename__ = 'seeking'

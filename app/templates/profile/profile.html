@@ -1,0 +1,215 @@
+{% extends 'layouts/base.html' %}
+
+{% block custom_head_tags %}
+<title>{{ user.username }}, {{ user.age }}, {{ user.sex }} in {{ user.country }} seeking {{ preferences_data.seeking_partner }} from {{ preferences_data.seeking_from_age}} to {{ preferences_data.seeking_to_age}}.
+Interested in {{ preferences_data.seeking_marital_type_one }}</title>
+<meta name="description" content="{{ user.username }}, {{ user.current_status }}, {{ user.ethnicity }}, {{ user.religion }}, {{ user.height }}, {{ user.age }}, {{ user.sex }} in {{ user.country }} seeking {{ preferences_data.seeking_partner }}. Interested in {{ preferences_data.seeking_marital_type_one }}. View profile for more details"/>
+
+
+
+{% endblock %}
+
+{% block content %}
+    <div class="ui stackable centered grid container">
+        <div class="sixteen wide column">
+			<div class="ui center aligned segment">
+			<img class="ui centered medium circular image" src="{{ profile_picture.image_url }}" style="width: 152px; height: 152px">
+				<h2 class="ui centered header">
+				  {{ user.username }}, {{ user.age }}, {{ user.sex }}, {{ user.country }}
+				</h2>
+			</div>
+			  <div class="ui segment">
+				<h4 class="ui centered header">
+				  <i class="tasks icon"></i>
+				  Partner Preferences
+				</h4>
+				<table class="ui definition table">
+				  <tbody>
+					<tr>
+						<td>Type of partner sought</td>
+						{% if preferences_data.seeking_partner %}
+						<td>{{ preferences_data.seeking_partner }}</td>
+						{% endif %}
+					</tr>
+					<tr>
+						<td>Type of relationship sought</td>
+						{% if preferences_data.seeking_marital_type_one %}
+						<td>{{ preferences_data.seeking_marital_type_one }}</td>
+						{% endif %}
+					</tr>
+					<tr>
+						<td>From Height</td>
+						{% if  data %}
+						<td>{{preferences_data.seeking_from_height }}</td>
+						{% endif %}
+					</tr>
+					<tr>
+						<td>To Height</td>
+						{% if  data %}
+						<td>{{ preferences_data.seeking_to_height }}</td>
+						{% endif  %}
+						
+					</tr>
+					<tr>
+						<td>Sex</td>
+						{% if  data %}
+						<td>{{ preferences_data.seeking_sex }}</td>
+						{% endif %}
+					</tr>
+						<td>From Age</td>
+						{% if  data %}
+						<td>{{ preferences_data.seeking_from_age}} </td>
+						{% endif %}
+					</tr>
+						<td>To Age</td>
+						{% if  data %}
+						<td>{{ preferences_data.seeking_to_age}} </td>
+						{% endif %}
+					</tr>
+					<tr>
+						<td>Education Level</td>
+						<td><ul>
+						{% if  data %}
+						{% if preferences_data.seeking_education_level_one %}
+						<li>{{ preferences_data.seeking_education_level_one}}
+						</li>
+						{% endif %}
+						{% if preferences_data.seeking_education_level_two %}
+						<li>{{ preferences_data.seeking_education_level_two}}</li>
+						{% endif %}
+						{% if preferences_data.seeking_education_level_three %}
+						<li>{{ preferences_data.seeking_education_level_three}}</li>
+						{% endif %}
+						{% if preferences_data.seeking_education_level_four %}
+						<li>{{ preferences_data.seeking_education_level_four}}</li>
+						{% endif %}
+						{% if preferences_data.seeking_education_level_ive %}}
+						<li>{{ preferences_data.seeking_education_level_five}}</li>
+						{% endif %}
+						{% if preferences_data.seeking_education_level_six %}
+						<li>{{ preferences_data.seeking_education_level_six}}</li>
+						{% endif %}
+						{% if preferences_data.seeking_education_level_seven %}
+						<li>{{ preferences_data.seeking_education_level_seven}}</li>
+						{% endif %}
+						{% if preferences_data.seeking_education_level_eight %}
+						<li>{{ preferences_data.seeking_education_level_eight}}</li>
+						{% endif %}
+						{% endif %}
+						</ul>
+						</td>
+
+					</tr>
+					<tr>
+						<td>Partner with the following religion/religions</td>
+						<td><ul>
+						{% if  data %}
+						{% if preferences_data.seeking_religion_one %}
+						<li>{{ preferences_data.seeking_religion_one }}</li>
+						{% endif %}
+						{% if preferences_data.seeking_religion_two %}
+						<li>{{ preferences_data.seeking_religion_two }}</li>
+						{% endif %}
+						{% if preferences_data.seeking_religion_three %}
+						<li>{{ preferences_data.seeking_religion_three }}</li>
+						{% endif %}
+						{% endif %}
+						</ul>
+						</td>
+					</tr>
+
+					<tr>
+						<td>Partner from the following ethnicity/ethinicities</td>
+						<td><ul>
+						{% if  data %}
+						{% if preferences_data.seeking_ethnicity_one %}
+						<li>{{ preferences_data.seeking_ethnicity_one }}</li>
+						{% endif %}
+						{% if preferences_data.seeking_ethnicity_two %}
+						<li>{{ preferences_data.seeking_ethnicity_two }}</li>
+						{% endif %}
+						{% if preferences_data.seeking_ethnicity_three %}
+						<li>{{ preferences_data.seeking_ethnicity_three }}</li>
+						{% endif %}
+						{% if preferences_data.seeking_ethnicity_four %}
+						<li>{{ preferences_data.seeking_ethnicity_four }}</li>
+						{% endif %}
+						{% if preferences_data.seeking_ethnicity_five %}
+						<li>{{ preferences_data.seeking_ethnicity_five }}</li>
+						{% endif %}
+						{% endif %}
+						</ul>
+						</td>
+					</tr>
+					<tr>
+						<td>Partner from any of the following country/countries</td>
+						<td><ul>
+						{% if  data %}
+						{% if preferences_data.seeking_country_one %}
+						<li>{{ preferences_data.seeking_country_one }}</li>
+						{% endif %}
+						{% if preferences_data.seeking_country_two %}
+						<li>{{ preferences_data.seeking_country_two }}</li>
+						{% endif %}
+						{% if preferences_data.seeking_country_three %}
+						<li>{{ preferences_data.seeking_country_three }}</li>
+						{% endif %}
+						
+						{% if preferences_data.seeking_country_four %}
+						<li>{{ preferences_data.seeking_country_four }}</li>
+						{% endif %}
+						{% if preferences_data.seeking_country_five %}
+						<li>{{ preferences_data.seeking_country_five }}</li>
+						{% endif %}
+						{% if preferences_data.seeking_country_six %}
+						<li>{{ preferences_data.seeking_country_six }}</li>
+						{% endif %}
+						{% if preferences_data.seeking_country_seven %}
+						<li>{{ preferences_data.seeking_country_seven }}</li>
+						{% endif %}
+						{% if preferences_data.seeking_country_eight %}
+						<li>{{ preferences_data.seeking_country_eight }}</li>
+						{% endif %}
+						{% endif %}
+						</ul></td>
+					</tr>
+				</table>
+			  </div>
+			  <div class="ui segment">
+				<h4 class="ui centered header">
+				  <i class="tasks icon"></i>
+				  About {{ user.username }}
+				</h4>
+				<table class="ui definition table">
+					<tr><td>Height</td><td>{{ user.height }}</td></tr>
+					<tr><td>Religion</td><td>{{ user.religion }}</td></tr>
+					<tr><td>Ethnicity</td><td>{{ user.ethnicity }}</td></tr>
+					<tr><td>Marital Type</td><td>{{ user.marital_type }}</td></tr>
+					<tr><td>Body Type</td><td>{{ user.body_type }}</td></tr>
+					<tr><td>Church Denomination</td><td>{{ user.church_denomination }}</td></tr>
+					<tr><td>Current Status</td><td>{{ user.current_status }}</td></tr>
+					<tr><td>Drinking Status</td><td>{{ user.drinking_status }}</td></tr>
+					<tr><td>Smoking Status</td><td>{{ user.smoking_status }}</td></tr>
+					<tr><td>Education Level</td><td>{{ user.education_level }}</td></tr>
+					<tr><td>Has Children</td><td>{{ user.has_children }}</td></tr>
+					<tr><td>Want Children</td><td>{{ user.want_children }}</td></tr>
+					<tr><td>Open for relocation</td><td>{{ user.open_for_relocation }}</td></tr>
+				</table>
+			  </div>
+			  <div class="ui segment">
+				<div class="ui link cards">
+				{% for p in photo_data %}
+				{% if p.profile_picture == False %}
+				  <div class="card" onclick='location.href="{{ url_for('photo.added_image', id=p.id) }}" '/>
+					<div class="image">
+					  <img src="{{ p.image_url }}">
+					</div>
+				  </div>
+				   {% endif %}
+				 {% endfor %}
+				</div>
+			  </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -47,15 +47,20 @@ def index(user_id, username):
     return render_template('profile/index.html', user=user)
 
 
-@profile.route('/<int:user_id>')
+@profile.route('/<username>')
 @login_required
 #@admin_required
-def view(user_id):
+def view(username):
     """View a user's profile."""
-    user = User.query.filter_by(id=user_id).first()
+    user = User.query.filter_by(username=username).first()
     if user is None:
         abort(404)
-    return render_template('profile/index.html', user=user)
+
+    profile_picture = Photo.query.filter_by(user_id=current_user.id, profile_picture=True).first()
+    photo_data = Photo.query.filter_by(user_id=current_user.id).all()
+    preferences_data = Seeking.query.filter_by(user_id=current_user.id).first()
+    return render_template('profile/profile.html', user=user, photo_data=photo_data, preferences_data=preferences_data,
+                           profile_picture=profile_picture)
 
 
 

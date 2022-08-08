@@ -15,10 +15,12 @@ from flask_ckeditor import CKEditor
 
 from app.assets import app_css, app_js, vendor_css, vendor_js
 from config import config as Config
+from flask_whooshee import Whooshee
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 mail = Mail()
+whooshee = Whooshee()
 db = SQLAlchemy()
 csrf = CSRFProtect()
 compress = Compress()
@@ -56,6 +58,7 @@ def create_app(config):
     configure_uploads(app, images)
     configure_uploads(app, docs)
     CKEditor(app)
+    whooshee.init_app(app)
 
     # Register Jinja template functions
     from .utils import register_template_utils
@@ -88,7 +91,7 @@ def create_app(config):
 
 
     from .blueprints.profile import profile as profile_blueprint
-    app.register_blueprint(profile_blueprint, url_prefix='/profile')
+    app.register_blueprint(profile_blueprint, url_prefix='/user')
 
 
     from .blueprints.seeking import seeking as seeking_blueprint
@@ -111,5 +114,8 @@ def create_app(config):
 
     from .blueprints.admin import admin as admin_blueprint
     app.register_blueprint(admin_blueprint, url_prefix='/admin')
+
+    from .blueprints.search import search as search_blueprint
+    app.register_blueprint(search_blueprint, url_prefix='/search')    
 
     return app
