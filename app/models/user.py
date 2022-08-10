@@ -7,6 +7,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from .. import db, login_manager
 from app import whooshee
+from .messaging_manager import *  # noqa
+from sqlalchemy import or_, and_
 
 class Permission:
     GENERAL = 0x01

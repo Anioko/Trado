@@ -1,7 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% import 'macros/form_macros.html' as f %}
-{% import 'macros/job_macros.html' as job_wid %}
-{% import 'macros/follow_macros.html' as follow %}
+
 
 {% block custom_head_tags %}
     <link rel="stylesheet" href="{{url_for('static', filename='css/emojionearea.min.css')}}"/>
@@ -20,23 +19,6 @@
                 <div class="computer only row">
                     <div class="left ui rail">
                         <p></p>
-                        <div class="ui sticky">
-                            <h3 class="ui header">Colleagues to follow</h3>
-                            <div class="ui divided items">
-                                {# for user in follow_lists #}
-                                    {#follow.follow_wid(user, current_user)#}
-                                {# endfor #}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="right ui right rail">
-                        <div class="ui sticky">
-                            <div class="ui cards">
-                                {# for job in jobs #}
-                                    {# job_wid.job_wid(job) #}
-                                {# endfor #}
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -59,7 +41,7 @@
 
             <div class="ui segment" style="margin: 1em" id="app">
                 <h3 style="border-bottom: 1px solid gainsboro;">Conversation With <a
-                        href="{{ url_for('main.user', id=recipient.id, full_name=recipient.full_name) }}">{{ recipient.full_name }}</a>
+                        href="{{ url_for('messaging_manager.send_message', recipient=recipient.id, username=recipient.username) }}">{{ recipient.username }}</a>
                     <span class="right floated ui">
                         <i v-if="recipient_online" class="circle green icon"></i>
                         <i v-else="recipient_online" class="circle icon"></i>
@@ -86,7 +68,7 @@
                                 <i class="icon huge hand paper"></i>
                             </div>
                             <div class="column twelve wide">
-                                Say Hello To {{ recipient.full_name }} to start the conversation
+                                Say Hello To {{ recipient.username }} to start the conversation
                             </div>
                         </div>
                     </div>

@@ -31,10 +31,10 @@ from sqlalchemy import or_
 messaging_manager = Blueprint('messaging_manager', __name__)
 
 
-@messaging_manager.route('/<recipient>/<int:profile_id>/<full_name>', methods=['GET', 'POST'])
+@messaging_manager.route('/<recipient>/<username>', methods=['GET', 'POST'])
 @login_required
 @login_required
-def send_message(recipient, full_name):
+def send_message(recipient, username):
     user = User.query.filter(User.id != current_user.id).filter_by(id=recipient).first_or_404()
     for message in current_user.history(user.id):
         if message.recipient_id == current_user.id:
@@ -50,7 +50,7 @@ def send_message(recipient, full_name):
             db.session.commit()
             user.add_notification('unread_message_count', user.new_messages())
             flash('Your message has been sent.')
-            return redirect(url_for('main.send_message', recipient=user.id, full_name=user.full_name))
+            return redirect(url_for('main.send_message', recipient=user.id, username=user.username))
     return render_template('messaging_manager/send_messages.html', title='Send Message',
                            form=form, recipient=user, current_user=current_user)
 

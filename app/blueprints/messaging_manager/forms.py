@@ -46,3 +46,9 @@ class ContactForm(FlaskForm):
     text = TextAreaField('Message', validators=[InputRequired()])
     submit = SubmitField('Send')
 
+
+class MessageForm(FlaskForm):
+    message = StringField(('Message'), validators=[
+        DataRequired(), Length(min=1, max=2500)])
+    submit = SubmitField(('Submit'))
+

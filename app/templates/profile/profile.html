@@ -17,7 +17,11 @@ Interested in {{ preferences_data.seeking_marital_type_one }}</title>
 				<h2 class="ui centered header">
 				  {{ user.username }}, {{ user.age }}, {{ user.sex }}, {{ user.country }}
 				</h2>
+                <div class="ui button">
+                    <a href="{{ url_for('messaging_manager.send_message', recipient=user.id, username=user.username) }}">Message</a>
+                </div>
 			</div>
+
 			  <div class="ui segment">
 				<h4 class="ui centered header">
 				  <i class="tasks icon"></i>

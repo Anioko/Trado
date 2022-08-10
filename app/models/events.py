@@ -1,5 +1,6 @@
 import os
 import datetime
+from datetime import date
 from flask import url_for
 from .. import db
 from time import time
@@ -22,7 +23,7 @@ class Event(db.Model):
     __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True)
     image_filename = db.Column(db.String, default=None, nullable=True)
-    pub_date = db.Column(db.DateTime, default=datetime.datetime.today(), nullable=False)
+    pub_date = db.Column(db.DateTime, default=date.today(), nullable=False)
     start_date = db.Column(db.String, default='now', nullable=False)
     end_date = db.Column(db.String, default='now', nullable=False)
     event_title = db.Column(db.String(255))
@@ -41,8 +42,8 @@ class Event(db.Model):
                                 backref=backref("events", cascade='all'),
                                 primaryjoin='Event.id==Attendee.event_id', cascade='all,delete')
     creator = db.relationship("User")
-    created_at = db.Column(db.DateTime, default=datetime.datetime.today())
-    updated_at = db.Column(db.DateTime, default=datetime.datetime.today(), onupdate=datetime.datetime.today())
+    created_at = db.Column(db.DateTime, default=date.today())
+    updated_at = db.Column(db.DateTime, default=date.today(), onupdate=date.today())
 
     @property
     def user_name(self):
@@ -65,5 +66,5 @@ class Attendee(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
     event = db.relationship('Event', cascade='all, delete')
     users = db.relationship('User', order_by=User.id, backref="attendees", cascade="all")
-    created_at = db.Column(db.DateTime, default=datetime.datetime.today())
-    updated_at = db.Column(db.DateTime, default=datetime.datetime.today(), onupdate=datetime.datetime.today())
+    created_at = db.Column(db.DateTime, default=date.today())
+    updated_at = db.Column(db.DateTime, default=date.today(), onupdate=date.today())
