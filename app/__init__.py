@@ -116,6 +116,9 @@ def create_app(config):
     app.register_blueprint(admin_blueprint, url_prefix='/admin')
 
     from .blueprints.search import search as search_blueprint
-    app.register_blueprint(search_blueprint, url_prefix='/search')    
+    app.register_blueprint(search_blueprint, url_prefix='/search')
+
+    from .blueprints.api import api as apis_blueprint
+    app.register_blueprint(apis_blueprint, url_prefix='/api')
 
     return app

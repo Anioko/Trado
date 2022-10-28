@@ -33,7 +33,7 @@ search = Blueprint('search', __name__)
 
 @search.route('/test')
 def test():
-    test_search = User.query.whooshee_search('mikano').order_by(User.id.desc()).first()
+    test_search = User.query.whooshee_search('Shawn').order_by(User.id.desc()).first()
     return render_template("search/search_test.html", test_search=test_search)
 
 @search.route('/')
@@ -74,14 +74,14 @@ def index():
 
         all_results = preference_results + user_results
         all_count = preference_results_count + user_results_count
-        results = sorted(all_results, key=operator.attrgetter("score"))
+        results = sorted(all_results)
         results.reverse()
         results = results[(page-1)*40:page*40]
         paginator = Pagination(items=results, page=page, per_page=40, query=None, total=all_count)
         results = paginator
 
     elif search_type == 'people':
-        results = User.query.whooshee_search(query, order_by_relevance=-1).paginate(page, per_page=40)
+        people_results = User.query.whooshee_search(query, order_by_relevance=-1).paginate(page, per_page=40)
         #results = sorted(user_results, key=operator.attrgetter("score"))
 ##    elif search_type == 'jobs':
 ##        results = Job.query.whooshee_search(query, order_by_relevance=-1).paginate(page, per_page=40)
@@ -94,9 +94,12 @@ def index():
         # results = sorted(products_results, key=operator.attrgetter("score"))
 
     elif search_type == 'preference':
-        results = Seeking.query.whooshee_search(query, order_by_relevance=-1).paginate(page, per_page=40)
+        preference_results = Seeking.query.whooshee_search(query, order_by_relevance=-1).paginate(page, per_page=40)
         #results = sorted(preference_results, key=operator.attrgetter("score"))
 
     
     return render_template("search/search_results.html", query=query, search_type=search_type, sort_by=sort_by,
-                           sort_dir=sort_dir, results=results)
+                           sort_dir=sort_dir, results=results,
+                           preference_results=preference_results,
+                           people_results=people_results,
+                           user_results=user_results)

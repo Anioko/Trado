@@ -75,8 +75,6 @@ def conversations(page):
         user_ids.remove(current_user.id)
     users = User.query.filter(User.id.in_(user_ids)).paginate(page, per_page=20)
 
-    follow_lists = User.query.filter(User.id != current_user.id).order_by(func.random()).limit(10).all()
-
     return render_template('messaging_manager/messages.html', messages=messages.items, users=users)
 
 

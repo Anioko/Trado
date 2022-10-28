@@ -21,8 +21,10 @@
 
 {% macro menu_items(current_user) %}
     {% set endpoints = [
-      ('public.about', 'About', 'info'),
-      ('search.index', 'Search', 'search')
+      ('search.index', 'Search', 'search'),
+      ('messaging_manager.conversations', 'Chat', 'comments'),
+	  ('notification.notifications', 'Notifications', 'alarm'),
+
     ]%}
     {% set user = [] %}
     {% if current_user.is_authenticated and not current_user.role.name == "User" %}

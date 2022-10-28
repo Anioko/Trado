@@ -35,12 +35,12 @@
                     <br>
                         <div class="ui celled list">
                             {% for user in users.items %}
-                                <div class="item conversation-holder" onclick="location.href='{{ url_for('messaging_manager.send_message', recipient=user.id, full_name=user.full_name) }}';">
+                                <div class="item conversation-holder" onclick="location.href='{{ url_for('messaging_manager.send_message', recipient_id=user.id, username=user.username) }}';">
                                     <img class="ui avatar image" src="{{ user.get_photo() }}">
                                     <div class="content">
                                         {% set count = current_user.new_messages(user.id)  %}
-                                        <div class="header">{{ user.full_name }}</div>
-                                        {{ current_user.last_message(user.id).user.full_name }}
+                                        <div class="header">{{ user.username }}</div>
+                                        {{ current_user.last_message(user.id).user.username }}
                                         : {{ current_user.last_message(user.id).body[:50] }}...
                                     </div>
                                     {% if count > 0 %}

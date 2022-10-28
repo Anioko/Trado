@@ -16,13 +16,6 @@
 		} %}
 
             <div class="ui grid">
-                <div class="computer only row">
-                    <div class="left ui rail">
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-            <div class="ui grid">
                 <div class="mobile only tablet only row">
                     <br>
                 </div>
@@ -41,7 +34,7 @@
 
             <div class="ui segment" style="margin: 1em" id="app">
                 <h3 style="border-bottom: 1px solid gainsboro;">Conversation With <a
-                        href="{{ url_for('messaging_manager.send_message', recipient=recipient.id, username=recipient.username) }}">{{ recipient.username }}</a>
+                        href="{{ url_for('profile.view', id=recipient.id, full_name=recipient.full_name) }}">{{ recipient.username }}</a>
                     <span class="right floated ui">
                         <i v-if="recipient_online" class="circle green icon"></i>
                         <i v-else="recipient_online" class="circle icon"></i>

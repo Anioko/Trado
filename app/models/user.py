@@ -196,6 +196,8 @@ class User(UserMixin, db.Model):
         for i in range(count):
             u = User(
                 first_name=fake.first_name(),
+                username=fake.first_name(),
+                country=fake.country(),
                 last_name=fake.last_name(),
                 email=fake.email(),
                 password='password',

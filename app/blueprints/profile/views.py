@@ -64,3 +64,8 @@ def view(username):
 
 
 
+@profile.route('/list/', defaults={'page': 1})
+@profile.route('/list/page/<int:page>', methods=['GET'])
+def members(page):
+    paginated = User.query.filter(User.id != current_user.id).order_by(User.id.desc()).paginate(page, per_page=25)
+    return render_template('profile/members.html', paginated=paginated)
