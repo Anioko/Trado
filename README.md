@@ -1,11 +1,5 @@
-# flask-base
-[![Circle CI](https://circleci.com/gh/hack4impact/flask-base.svg?style=svg)](https://circleci.com/gh/hack4impact/flask-base) 
-[![Code Climate](https://codeclimate.com/github/hack4impact/flask-base/badges/gpa.svg)](https://codeclimate.com/github/hack4impact/flask-base/coverage)
-[![Issue Count](https://codeclimate.com/github/hack4impact/flask-base/badges/issue_count.svg)](https://codeclimate.com/github/hack4impact/flask-base) ![python3.x](https://img.shields.io/badge/python-3.x-brightgreen.svg)  ![python2.x](https://img.shields.io/badge/python-2.x-yellow.svg)
+# TraditionalMarriage
 
-
-
-A Flask application template with the boilerplate code already done for you.
 
 
 **Documentation available at [http://hack4impact.github.io/flask-base](http://hack4impact.github.io/flask-base).**
@@ -44,14 +38,10 @@ Admin Editing Users:
 
 ## Setting up
 
-##### Create your own repository from this Template
-
-Navigate to the [main project page](https://github.com/hack4impact/flask-base) and click the big, green "Use this template" button at the top right of the page. Give your new repository a name and save it.
-
 ##### Clone the repository 
 
 ```
-$ git clone https://github.com/YOUR_USERNAME/REPO_NAME.git
+$ git clone https://github.com/Anioko/Trado.git
 $ cd REPO_NAME
 ```
 
@@ -195,7 +185,7 @@ For Windows users having issues with binding to a redis port locally, refer to [
 
 ##### Clone the repository 
 ```
-$ git clone https://github.com/YOUR_USERNAME/REPO_NAME.git
+$ git clone https://github.com/Anioko/Trado.git
 $ cd REPO_NAME
 ```
 ##### Create and run the images:
