@@ -15,6 +15,7 @@ Flask-RQ
 Flask-Script
 Flask-SQLAlchemy
 Flask-SSLify
+flask-migrate
 Flask-WTF
 gunicorn
 honcho
@@ -42,5 +43,7 @@ urllib3
 webassets
 Werkzeug
 WTForms
+wtforms-alchemy
 Flask-Uploads
 Flask-Ckeditor
+typer
