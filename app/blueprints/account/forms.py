@@ -10,7 +10,7 @@ from wtforms.fields import (
     TextAreaField,
     EmailField)
     
-from wtforms.validators import Length, Required, ValidationError, InputRequired, Email, Optional, EqualTo
+from wtforms.validators import Length, ValidationError, InputRequired, Email, Optional, EqualTo
 
 from wtforms_alchemy import Unique#, ModelForm, model_form_factory
 from app.models import User
