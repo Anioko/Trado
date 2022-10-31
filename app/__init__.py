@@ -2,15 +2,15 @@ import os
 
 from flask import Flask
 from flask_assets import Environment
-from flask_compress import Compress
+#from flask_compress import Compress
 from flask_login import LoginManager
 from flask_mail import Mail
-from flask_rq import RQ
+from app.common.flask_rq import RQ
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
 
 
-from flask_uploads import UploadSet, configure_uploads, IMAGES
+from app.common.flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_ckeditor import CKEditor
 
 from app.assets import app_css, app_js, vendor_css, vendor_js
@@ -23,7 +23,7 @@ mail = Mail()
 whooshee = Whooshee()
 db = SQLAlchemy()
 csrf = CSRFProtect()
-compress = Compress()
+#compress = Compress()
 images = UploadSet('images', IMAGES)
 docs = UploadSet('docs', ('rtf', 'odf', 'ods', 'gnumeric', 'abw', 'doc', 'docx', 'xls', 'xlsx', 'pdf', 'css'))
 
@@ -53,7 +53,7 @@ def create_app(config):
     db.init_app(app)
     login_manager.init_app(app)
     csrf.init_app(app)
-    compress.init_app(app)
+    #compress.init_app(app)
     RQ(app)
     configure_uploads(app, images)
     configure_uploads(app, docs)

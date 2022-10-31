@@ -12,7 +12,7 @@ from flask_login import (
     login_user,
     logout_user,
 )
-from flask_rq import get_queue
+from app.common.flask_rq import get_queue
 
 from app import db
 from app.blueprints.account.forms import (
@@ -38,7 +38,7 @@ def login():
     """Log in an existing user."""
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user:User = User.query.filter_by(email=form.email.data).first()
         if user is not None and user.password_hash is not None and \
                 user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)

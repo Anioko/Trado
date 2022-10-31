@@ -21,11 +21,11 @@ def make_shell_context():
 
 
 #manager.add_command('shell', Shell(make_context=make_shell_context))
-#manager.add_command('db')
+# manager.add_command('db')
 #manager.add_command('runserver', Server(host="0.0.0.0"))
 
 
-@manager.command
+@manager.command()
 def test():
     """Run the unit tests."""
     import unittest
@@ -34,7 +34,7 @@ def test():
     unittest.TextTestRunner(verbosity=2).run(tests)
 
 
-@manager.command
+@manager.command()
 def recreate_db():
     """
     Recreates a local database. You probably should not use this on
@@ -45,22 +45,21 @@ def recreate_db():
     db.session.commit()
 
 
-@manager.command
+@manager.command()
+def runserver():
+    app.run()
+
+
+@manager.command()
 def create_tables():
     """
     Creates only database tables without dropping the database.
     """
-    #db.drop_all()
+    # db.drop_all()
     db.create_all()
     db.session.commit()
 
-@manager.option(
-    '-n',
-    '--number-users',
-    default=10,
-    type=int,
-    help='Number of each model type to create',
-    dest='number_users')
+
 def add_fake_data(number_users):
     """
     Adds fake data to the database.
@@ -68,13 +67,13 @@ def add_fake_data(number_users):
     User.generate_fake(count=number_users)
 
 
-@manager.command
+@manager.command()
 def setup_dev():
     """Runs the set-up needed for local development."""
     setup_general()
 
 
-@manager.command
+@manager.command()
 def setup_prod():
     """Runs the set-up needed for production."""
     setup_general()
@@ -98,7 +97,7 @@ def setup_general():
             print('Added administrator {}'.format(user.full_name()))
 
 
-@manager.command
+@manager.command()
 def run_worker():
     """Initializes a slim rq task queue."""
     listen = ['default']
@@ -113,7 +112,7 @@ def run_worker():
         worker.work()
 
 
-@manager.command
+@manager.command()
 def format():
     """Runs the yapf and isort formatters over the project."""
     isort = 'isort -rc *.py app/'
@@ -127,4 +126,4 @@ def format():
 
 
 if __name__ == '__main__':
-    manager.run()
+    manager()

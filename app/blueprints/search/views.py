@@ -8,9 +8,8 @@ from flask import (
     url_for,
 )
 from flask_login import current_user, login_required
-from flask_rq import get_queue
 from flask_ckeditor import upload_success
-from flask_sqlalchemy import Pagination
+from flask_sqlalchemy.pagination import Pagination
 from sqlalchemy import desc, func
 import operator
 

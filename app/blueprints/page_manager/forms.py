@@ -27,7 +27,8 @@ from wtforms.validators import (
     DataRequired
 )
 from wtforms_alchemy import Unique, ModelForm, model_form_factory
-from flask_uploads import UploadSet, IMAGES
+from app.common.flask_uploads import UploadSet, IMAGES
+
 
 BaseModelForm = model_form_factory(FlaskForm)
 

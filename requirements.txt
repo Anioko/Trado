@@ -11,11 +11,11 @@ Flask-Assets
 #Flask-Compress
 Flask-Login
 Flask-Mail
-Flask-RQ
 Flask-Script
 Flask-SQLAlchemy
 Flask-SSLify
 flask-migrate
+flask-whooshee
 Flask-WTF
 gunicorn
 honcho
@@ -38,12 +38,12 @@ requests
 rq
 six
 SQLAlchemy
+sqlalchemy-mptt
 text-unidecode
 urllib3
 webassets
 Werkzeug
 WTForms
 wtforms-alchemy
-Flask-Uploads
 Flask-Ckeditor
 typer

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from flask_uploads import UploadSet, IMAGES
+from app.common.flask_uploads import UploadSet, IMAGES
 from flask_wtf.file import FileAllowed
 from flask_ckeditor import CKEditorField
 from wtforms import ValidationError

@@ -2,8 +2,9 @@ import json
 
 from flask import render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
-from flask_rq import get_queue
-from flask_uploads import UploadSet, IMAGES
+from app.common.flask_rq import get_queue
+from app.common.flask_uploads import UploadSet, IMAGES
+
 from flask_wtf.file import FileAllowed
 from wtforms import Flags
 
@@ -29,7 +30,8 @@ def blog_index():
 @login_required
 @admin_required
 def blog_categories(page):
-    categories = BlogCategory.query.order_by(BlogCategory.created_at.asc()).paginate(page, per_page=50)
+    categories = BlogCategory.query.order_by(
+        BlogCategory.created_at.asc()).paginate(page, per_page=50)
     categories_count = BlogCategory.query.count()
     return render_template('admin/blog/categories/index.html', categories=categories, categories_count=categories_count)
 
@@ -65,7 +67,8 @@ def blog_category_edit(category_id):
             category.order = form.order.data
             db.session.add(category)
             db.session.commit()
-            flash('Category {} successfully Updated'.format(category.name), 'success')
+            flash('Category {} successfully Updated'.format(
+                category.name), 'success')
             return redirect(url_for('admin.blog_categories'))
     return render_template('admin/blog/categories/add-edit.html', form=form, category=category)
 
@@ -86,7 +89,8 @@ def blog_category_delete(category_id):
 @login_required
 @admin_required
 def blog_tags(page):
-    tags = BlogTag.query.order_by(BlogTag.created_at.asc()).paginate(page, per_page=50)
+    tags = BlogTag.query.order_by(
+        BlogTag.created_at.asc()).paginate(page, per_page=50)
     tags_count = BlogTag.query.count()
     return render_template('admin/blog/tags/index.html', tags=tags, tags_count=tags_count)
 
@@ -100,7 +104,7 @@ def blog_tags_create():
         if form.validate_on_submit():
             cat = BlogTag(
                 name=form.name.data,
-                )
+            )
             db.session.add(cat)
             db.session.commit()
             flash('Category {} successfully created'.format(cat.name), 'success')
@@ -140,7 +144,8 @@ def blog_tag_delete(tag_id):
 @login_required
 @admin_required
 def blog_posts(page):
-    posts = BlogPost.query.order_by(BlogPost.created_at.asc()).paginate(page, per_page=50)
+    posts = BlogPost.query.order_by(
+        BlogPost.created_at.asc()).paginate(page, per_page=50)
     posts_count = BlogPost.query.count()
     return render_template('admin/blog/posts/index.html', posts=posts, posts_count=posts_count)
 
@@ -232,7 +237,8 @@ def blog_post_delete(post_id):
 @login_required
 @admin_required
 def blog_subs(page):
-    subs = BlogNewsLetter.query.order_by(BlogNewsLetter.created_at.asc()).paginate(page, per_page=50)
+    subs = BlogNewsLetter.query.order_by(
+        BlogNewsLetter.created_at.asc()).paginate(page, per_page=50)
     subs_count = BlogNewsLetter.query.count()
     return render_template('admin/blog/subs/index.html', subs=subs, subs_count=subs_count)
 
@@ -246,7 +252,7 @@ def blog_subs_create():
         if form.validate_on_submit():
             sub = BlogNewsLetter(
                 email=form.email.data,
-                )
+            )
             db.session.add(sub)
             db.session.commit()
             flash('Subscription {} successfully added'.format(sub.email), 'success')
@@ -265,7 +271,8 @@ def blog_subs_edit(sub_id):
             sub.email = form.email.data
             db.session.add(sub)
             db.session.commit()
-            flash('Subscription {} successfully Updated'.format(sub.email), 'success')
+            flash('Subscription {} successfully Updated'.format(
+                sub.email), 'success')
             return redirect(url_for('admin.blog_subs'))
     return render_template('admin/blog/subs/add-edit.html', form=form, sub=sub)
 
@@ -279,4 +286,3 @@ def blog_sub_delete(sub_id):
     db.session.commit()
     flash('Successfully deleted Blog Newsletter Subscription.', 'success')
     return redirect(url_for('admin.blog_subs'))
-

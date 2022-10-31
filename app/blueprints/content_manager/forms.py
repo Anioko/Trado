@@ -30,7 +30,7 @@ from wtforms.validators import (
 from app import db
 from app.models import *
 from wtforms_alchemy import Unique, ModelForm, model_form_factory
-from flask_uploads import UploadSet, IMAGES
+from app.common.flask_uploads import UploadSet, IMAGES
 
 images = UploadSet('images', IMAGES)
 docs = UploadSet('docs', ('rtf', 'odf', 'ods', 'gnumeric', 'abw', 'doc', 'docx', 'xls', 'xlsx', 'pdf', 'css'))
