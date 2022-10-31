@@ -9,10 +9,10 @@ from wtforms.fields import (
     SelectField,
     TextAreaField,
     EmailField)
-    
+
 from wtforms.validators import Length, ValidationError, InputRequired, Email, Optional, EqualTo
 
-from wtforms_alchemy import Unique#, ModelForm, model_form_factory
+from wtforms_alchemy import Unique  # , ModelForm, model_form_factory
 from app.models import User
 
 #BaseModelForm = model_form_factory(FlaskForm)
@@ -30,14 +30,17 @@ class LoginForm(FlaskForm):
 
 class RegistrationForm(FlaskForm):
 
-    username = StringField('Unique username', validators=[InputRequired()])#, Unique(User.username)])
-                                                          #Length(1, 64),
-                                                          #Username()])
-                                                          #Unique(User.username)])
+    # , Unique(User.username)])
+    username = StringField('Unique username', validators=[InputRequired()])
+    #Length(1, 64),
+    # Username()])
+    # Unique(User.username)])
+
     def validate_username(form, field):
         if User.query.filter_by(username=field.data).first():
-            raise ValidationError('Username not available. Choose another username')
-        
+            raise ValidationError(
+                'Username not available. Choose another username')
+
     first_name = StringField(
         'First name', validators=[InputRequired(),
                                   Length(1, 64)])
@@ -98,7 +101,7 @@ class RegistrationForm(FlaskForm):
         ('7 feet 10 inches', '7 feet 10 inches'),
         ('7 feet 11 inches', '7 feet 11 inches'),
         ('8 feet', '8 feet')])
-    
+
     sex = SelectField(' Looking for', choices=[
         ('Male', 'Female')])
 
@@ -187,11 +190,11 @@ class RegistrationForm(FlaskForm):
         ('98', '98'),
         ('99', '99'),
         ('100', '100')])
-    
+
     state = StringField(
         'Your State', validators=[InputRequired(),
                                   Length(1, 64)])
-    
+
     country = SelectField(u'Select Country', choices=[
 
         ('Afganistan', 'Afghanistan'),
@@ -462,8 +465,8 @@ class RegistrationForm(FlaskForm):
         ('Pacific Islander', 'Pacific Islander'),
         ('Caribbean', 'Caribbean'),
         ('Mixed Race', 'Mixed Race'),
-        ('Other Ethnicity', 'Other Ethnicity')        
-        ])
+        ('Other Ethnicity', 'Other Ethnicity')
+    ])
 
     marital_type = SelectField(' Relationship Preference', choices=[
         ('Monogamy', 'Monogamy'),
@@ -477,12 +480,12 @@ class RegistrationForm(FlaskForm):
         ('A Few Extra Pounds', 'A Few Extra Pounds'),
         ('Big & Tall/BBW', 'Big & Tall/BBW'),
         ('Muscular', 'Muscular'),
-        
+
         ('Voluptuous', 'Voluptuous'),
         ('Petite', 'Petite'),
         ('Well Proportioned', 'Well Proportioned'),
         ('Curvy/Curvaceous', 'Curvy/Curvaceous'),
-         ])
+    ])
 
     church_denomination = SelectField(' Select Christian Denomination', choices=[
         ('7th Day Adventist', '7th Day Adventist'),
@@ -491,13 +494,13 @@ class RegistrationForm(FlaskForm):
         ('Baptist', 'Baptist'),
         ('Catholic', 'Catholic'),
         ('Charismatic', 'Charismatic'),
-        
+
         ('Christian Reformed', 'Christian Reformed'),
         ('Church of Christ', 'Church of Christ'),
         ('Church of God', 'Church of God'),
         ('Episcopalian', 'Episcopalian'),
         ('Evangelical', 'Evangelical'),
-        
+
         ('Interdenominational', 'Interdenominational'),
         ('Lutheran', 'Lutheran'),
         ('Mennonite', 'Mennonite'),
@@ -518,8 +521,8 @@ class RegistrationForm(FlaskForm):
         ('United', 'United'),
         ('United Pentecostal Church', 'United Pentecostal Church'),
         ('Jehovah Withness', 'Jehovah Withness'),
-        ('Other', 'Other')      
-         ])
+        ('Other', 'Other')
+    ])
 
     current_status = SelectField(' Are you single? Married, Seperated or Widowed?', choices=[
         ('Married', 'Married'),
@@ -552,7 +555,7 @@ class RegistrationForm(FlaskForm):
         ('2 Yr College Degree/Diploma', '2 Yr College Degree/Diploma'),
         ('4 Yr College Degree/Diploma', '4 Yr College Degree/Diploma'),
         ('Masters/Post Graduate Diploma', 'Masters/Post Graduate Diploma'),
-        
+
         ('Ph.D./Doctorate', 'Ph.D./Doctorate')])
 
     has_children = SelectField(' Do you have kids?', choices=[
@@ -569,7 +572,7 @@ class RegistrationForm(FlaskForm):
         ('Yes', 'Yes'),
         ('Maybe ', 'Maybe'),
         ('No', 'No')])
-    
+
     password = PasswordField(
         'Password',
         validators=[
@@ -583,10 +586,11 @@ class RegistrationForm(FlaskForm):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('Email already registered. (Did you mean to '
                                   '<a href="{}">log in</a> instead?)'.format(
-                                    url_for('account.login')))
+                                      url_for('account.login')))
+
 
 class UpdateDetailsForm(FlaskForm):
-    
+
     first_name = StringField(
         'First name', validators=[InputRequired(),
                                   Length(1, 64)])
@@ -643,7 +647,7 @@ class UpdateDetailsForm(FlaskForm):
         ('7 feet 10 inches', '7 feet 10 inches'),
         ('7 feet 11 inches', '7 feet 11 inches'),
         ('8 feet', '8 feet')])
-    
+
     sex = SelectField(' Looking for', choices=[
         ('Male', 'Female')])
 
@@ -732,11 +736,11 @@ class UpdateDetailsForm(FlaskForm):
         ('98', '98'),
         ('99', '99'),
         ('100', '100')])
-    
+
     state = StringField(
         'Your State', validators=[InputRequired(),
                                   Length(1, 64)])
-    
+
     country = SelectField(u'Select Country', choices=[
 
         ('Afganistan', 'Afghanistan'),
@@ -1007,8 +1011,8 @@ class UpdateDetailsForm(FlaskForm):
         ('Pacific Islander', 'Pacific Islander'),
         ('Caribbean', 'Caribbean'),
         ('Mixed Race', 'Mixed Race'),
-        ('Other Ethnicity', 'Other Ethnicity')        
-        ])
+        ('Other Ethnicity', 'Other Ethnicity')
+    ])
 
     marital_type = SelectField(' Relationship Preference', choices=[
         ('Monogamy', 'Monogamy'),
@@ -1022,12 +1026,12 @@ class UpdateDetailsForm(FlaskForm):
         ('A Few Extra Pounds', 'A Few Extra Pounds'),
         ('Big & Tall/BBW', 'Big & Tall/BBW'),
         ('Muscular', 'Muscular'),
-        
+
         ('Voluptuous', 'Voluptuous'),
         ('Petite', 'Petite'),
         ('Well Proportioned', 'Well Proportioned'),
         ('Curvy/Curvaceous', 'Curvy/Curvaceous'),
-         ])
+    ])
 
     church_denomination = SelectField(' Select Christian Denomination', choices=[
         ('7th Day Adventist', '7th Day Adventist'),
@@ -1036,13 +1040,13 @@ class UpdateDetailsForm(FlaskForm):
         ('Baptist', 'Baptist'),
         ('Catholic', 'Catholic'),
         ('Charismatic', 'Charismatic'),
-        
+
         ('Christian Reformed', 'Christian Reformed'),
         ('Church of Christ', 'Church of Christ'),
         ('Church of God', 'Church of God'),
         ('Episcopalian', 'Episcopalian'),
         ('Evangelical', 'Evangelical'),
-        
+
         ('Interdenominational', 'Interdenominational'),
         ('Lutheran', 'Lutheran'),
         ('Mennonite', 'Mennonite'),
@@ -1063,8 +1067,8 @@ class UpdateDetailsForm(FlaskForm):
         ('United', 'United'),
         ('United Pentecostal Church', 'United Pentecostal Church'),
         ('Jehovah Withness', 'Jehovah Withness'),
-        ('Other', 'Other')      
-         ])
+        ('Other', 'Other')
+    ])
 
     current_status = SelectField(' Are you single? Married, Seperated or Widowed?', choices=[
         ('Married', 'Married'),
@@ -1097,7 +1101,7 @@ class UpdateDetailsForm(FlaskForm):
         ('2 Yr College Degree/Diploma', '2 Yr College Degree/Diploma'),
         ('4 Yr College Degree/Diploma', '4 Yr College Degree/Diploma'),
         ('Masters/Post Graduate Diploma', 'Masters/Post Graduate Diploma'),
-        
+
         ('Ph.D./Doctorate', 'Ph.D./Doctorate')])
 
     has_children = SelectField(' Do you have kids?', choices=[
@@ -1114,8 +1118,9 @@ class UpdateDetailsForm(FlaskForm):
         ('Yes', 'Yes'),
         ('Maybe ', 'Maybe'),
         ('No', 'No')])
-    
+
     submit = SubmitField('Update')
+
 
 class RequestResetPasswordForm(FlaskForm):
     email = EmailField(
@@ -1185,13 +1190,15 @@ class ChangeEmailForm(FlaskForm):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('Email already registered.')
 
+
 class ChangeUsernameForm(FlaskForm):
     username = StringField(
         'New username', validators=[InputRequired(),
-                                 Length(1, 64)])
+                                    Length(1, 64)])
     password = PasswordField('Password', validators=[InputRequired()])
     submit = SubmitField('Update username')
 
     def validate_username(self, field):
         if User.query.filter_by(username=field.data).first():
-            raise ValidationError('Username already exist, try a different one.')
+            raise ValidationError(
+                'Username already exist, try a different one.')

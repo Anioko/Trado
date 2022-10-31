@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from flask_ckeditor import CKEditorField
 from flask_wtf.file import FileAllowed, FileRequired
 from wtforms import ValidationError
-from wtforms.ext.sqlalchemy.fields import QuerySelectField, QuerySelectMultipleField
+from wtforms_alchemy import QuerySelectField, QuerySelectMultipleField
 from wtforms.fields import (
     PasswordField,
     StringField,
