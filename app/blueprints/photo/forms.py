@@ -8,11 +8,12 @@ from wtforms.fields import (
     FileField,
     SubmitField,
     RadioField,
-    BooleanField
+    BooleanField,
+    EmailField
 
 
 )
-from wtforms.fields.html5 import EmailField
+
 from wtforms.validators import (
     Email,
     EqualTo,

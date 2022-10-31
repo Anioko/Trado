@@ -69,10 +69,10 @@ class Config:
 
     #uploads
 
-    UPLOADED_IMAGES_DEST = 'C:/Users/oem/Documents/GitHub/TraditionalMarriage/app/static/images' if \
+    UPLOADED_IMAGES_DEST = basedir + '/static/images' if \
         not os.environ.get('UPLOADED_IMAGES_DEST') else os.path.dirname(os.path.realpath(__file__)) + os.environ.get(
         'UPLOADED_IMAGES_DEST')
-    UPLOADED_DOCS_DEST = '.././app/static/docs/' if \
+    UPLOADED_DOCS_DEST = basedir + '/static/docs/' if \
         not os.environ.get('UPLOADED_DOCS_DEST') else os.path.dirname(os.path.realpath(__file__)) + os.environ.get(
         'UPLOADED_DOCS_DEST')
     docs = UPLOADED_DOCS_DEST

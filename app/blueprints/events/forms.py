@@ -1,8 +1,7 @@
 from flask_uploads import UploadSet, IMAGES
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import StringField, SubmitField, SelectField, TextAreaField
-from wtforms.fields.html5 import EmailField, DateField
+from wtforms import StringField, SubmitField, SelectField, TextAreaField, EmailField, DateField
 from wtforms.validators import Length, Required, ValidationError, InputRequired, Email, Optional
 
 images = UploadSet('images', IMAGES)
@@ -14,10 +13,10 @@ class EventForm(FlaskForm):
     event_type = SelectField(u'Select event type', choices=[('Training', 'Training'),
                                                                ('Speed Dating', 'Speed Dating'),
                                                                ('Hangout', 'Hangout'),
-                                                               ('Seminar', 'Seminar')]
+                                                               ('Seminar', 'Seminar')])
     free_or_paid = SelectField(u'Select event type', choices=[('Free', 'Free'),
                                                                ('Paid', 'Paid'),
-                                                               ('Free & Paid', 'Free & Paid')]
+                                                               ('Free & Paid', 'Free & Paid')])
     amount = StringField('Fee if any')
     street_address = StringField('Stree Address')
     post_code = StringField('Post code')

@@ -10,6 +10,7 @@ from app import whooshee
 from .messaging_manager import *  # noqa
 from sqlalchemy import or_, and_
 
+
 class Permission:
     GENERAL = 0x01
     ADMINISTER = 0xff
@@ -47,7 +48,8 @@ class Role(db.Model):
     def __repr__(self):
         return '<Role \'%s\'>' % self.name
 
-@whooshee.register_model('username', 'marital_type', 'age', 'country', 'religion', 'ethnicity', 'state', 'education_level' )
+
+@whooshee.register_model('username', 'marital_type', 'age', 'country', 'religion', 'ethnicity', 'state', 'education_level')
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -77,7 +79,8 @@ class User(UserMixin, db.Model):
     want_children = db.Column(db.String(64), index=True)
     open_for_relocation = db.Column(db.String(64), index=True)
     is_public = db.Column(db.Boolean, default=False, index=True)
-    seeking = db.relationship('Seeking', back_populates='user', lazy='dynamic', cascade='all')
+    seeking = db.relationship(
+        'Seeking', back_populates='user', lazy='dynamic', cascade='all')
     photos = db.relationship('Photo', backref='user',
                              lazy='dynamic')
     messages_received = db.relationship('Message',
@@ -86,7 +89,6 @@ class User(UserMixin, db.Model):
     notifications = db.relationship('Notification', backref='user',
                                     lazy='dynamic')
 
-    
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
         if self.role is None:
@@ -216,7 +218,7 @@ class User(UserMixin, db.Model):
         else:
             return Message.query.filter_by(recipient=self).filter(Message.read_at == None).filter(
                 Message.user_id == user_id).count()
-        
+
     def last_message(self, user_id):
         message = Message.query.order_by(Message.timestamp.desc()). \
             filter(or_(and_(Message.recipient_id == user_id, Message.user_id == self.id),
@@ -234,7 +236,8 @@ class User(UserMixin, db.Model):
 
         if not permanent:
             self.notifications.filter_by(name=name).delete()
-        n = Notification(name=name, payload_json=json.dumps(data), user=self, related_id=related_id)
+        n = Notification(name=name, payload_json=json.dumps(
+            data), user=self, related_id=related_id)
         db.session.add(n)
         db.session.commit()
         n = Notification.query.get(n.id)
@@ -258,7 +261,8 @@ class User(UserMixin, db.Model):
             ws_url = "http://localhost:3000"
             path = "socket.io"
         sio = socketio.Client()
-        sio.connect(ws_url + "?token={}".format(create_access_token(identity=current_user.email)), socketio_path=path)
+        sio.connect(ws_url + "?token={}".format(create_access_token(
+            identity=current_user.email)), socketio_path=path)
         data = n.parsed()
         u = jsonify_object(data['user'])
         tu = jsonify_object(self)

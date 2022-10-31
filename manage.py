@@ -11,7 +11,7 @@ from app import create_app, db
 from app.models import Role, User
 from config import Config
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+app = create_app(os.getenv('FLASK_CONFIG', 'default'))
 manager = Manager(app)
 migrate = Migrate(app, db)
 

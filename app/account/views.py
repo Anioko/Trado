@@ -52,7 +52,7 @@ def login():
 @account.route('/register', methods=['GET', 'POST'])
 def register():
     """Register a new user, and send them a confirmation email."""
-    form = RegistrationForm()
+    form:RegistrationForm = RegistrationForm()
     if form.validate_on_submit():
         user = User(
             username=form.username.data,
@@ -76,6 +76,7 @@ def register():
             has_children = form.has_children.data,
             want_children = form.want_children.data,
             open_for_relocation = form.open_for_relocation.data,
+            
             
             password=form.password.data)
         db.session.add(user)
@@ -128,9 +129,9 @@ def reset_password_request():
     """Respond to existing user's request to reset their password."""
     if not current_user.is_anonymous:
         return redirect(url_for('account.manage'))
-    form = RequestResetPasswordForm()
+    form:RequestResetPasswordForm = RequestResetPasswordForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user:User = User.query.filter_by(email=form.email.data).first()
         if user:
             token = user.generate_password_reset_token()
             reset_link = url_for(

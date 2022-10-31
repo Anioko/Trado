@@ -14,10 +14,9 @@ from wtforms.fields import (
     DateField, 
     TextAreaField,
     IntegerField,
-    BooleanField
-
-)
-from wtforms.fields.html5 import EmailField
+    BooleanField,
+    EmailField)
+    
 from wtforms.validators import (
     Email,
     EqualTo,

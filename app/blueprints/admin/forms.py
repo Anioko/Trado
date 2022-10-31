@@ -3,10 +3,9 @@ from flask_uploads import UploadSet, IMAGES
 from flask_wtf.file import FileAllowed
 from flask_ckeditor import CKEditorField
 from wtforms import ValidationError
-from wtforms.ext.sqlalchemy.fields import QuerySelectField, QuerySelectMultipleField
+from wtforms_alchemy import QuerySelectField, QuerySelectMultipleField
 from wtforms.fields import PasswordField, StringField, SubmitField, BooleanField, IntegerField, FloatField, \
-    MultipleFileField, TextAreaField, SelectField, FileField
-from wtforms.fields.html5 import EmailField
+    MultipleFileField, TextAreaField, SelectField, FileField, EmailField
 from wtforms.validators import (
     Email,
     EqualTo,

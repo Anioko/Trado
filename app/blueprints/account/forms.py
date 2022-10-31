@@ -7,9 +7,9 @@ from wtforms.fields import (
     StringField,
     SubmitField,
     SelectField,
-    TextAreaField
-)
-from wtforms.fields.html5 import EmailField
+    TextAreaField,
+    EmailField)
+    
 from wtforms.validators import Length, Required, ValidationError, InputRequired, Email, Optional, EqualTo
 
 from wtforms_alchemy import Unique#, ModelForm, model_form_factory
