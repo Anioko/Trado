@@ -1,7 +1,8 @@
 #import socketio
+from enum import Enum
 from flask import current_app
 from flask_login import AnonymousUserMixin, UserMixin
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from itsdangerous import URLSafeTimedSerializer as Serializer
 from itsdangerous import BadSignature, SignatureExpired
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -11,9 +12,9 @@ from .messaging_manager import *  # noqa
 from sqlalchemy import or_, and_
 
 
-class Permission:
-    GENERAL = 0x01
-    ADMINISTER = 0xff
+class Permission(str, Enum):
+    GENERAL = "General"
+    ADMINISTER = "Administer"
 
 
 class Role(db.Model):
@@ -22,7 +23,7 @@ class Role(db.Model):
     name = db.Column(db.String(64), unique=True)
     index = db.Column(db.String(64))
     default = db.Column(db.Boolean, default=False, index=True)
-    permissions = db.Column(db.Integer)
+    permissions = db.Column(db.String, default=Permission.GENERAL, index=True)
     users = db.relationship('User', backref='role', lazy='dynamic')
 
     @staticmethod
