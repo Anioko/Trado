@@ -16,6 +16,18 @@ def register_template_utils(app):
         from wtforms.fields import HiddenField
         return isinstance(field, HiddenField)
 
+    @app.template_filter('user')
+    def user(o):
+        """check if object is user"""
+        from app.models import User
+        return o.__class__ == User
+
+    @app.template_filter('preference')
+    def preference(o):
+        """check if object is user"""
+        from app.models import Seeking
+        return o.__class__ == Seeking    
+
     app.add_template_global(index_for_role)
 
 

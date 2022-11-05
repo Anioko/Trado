@@ -14,12 +14,12 @@ from flask_ckeditor import upload_success
 from flask_sqlalchemy.pagination import Pagination
 
 from app import db
-#from app.admin.forms import (
-    #ChangeAccountTypeForm,
-    #ChangeUserEmailForm,
-    #InviteUserForm,
-    #NewUserForm,
-#)
+# from app.admin.forms import (
+# ChangeAccountTypeForm,
+# ChangeUserEmailForm,
+# InviteUserForm,
+# NewUserForm,
+# )
 from app.decorators import admin_required
 from app.models import *
 from app.blueprints.messaging_manager.forms import *
@@ -36,7 +36,8 @@ messaging_manager = Blueprint('messaging_manager', __name__)
 @login_required
 @login_required
 def send_message(recipient, username):
-    user = User.query.filter(User.id != current_user.id).filter_by(id=recipient).first_or_404()
+    user = User.query.filter(User.id != current_user.id).filter_by(
+        id=recipient).first_or_404()
     for message in current_user.history(user.id):
         if message.recipient_id == current_user.id:
             message.read_at = db.func.now()
@@ -65,7 +66,7 @@ def conversations(page):
 
     messages = current_user.messages_received.order_by(
         Message.timestamp.desc()).paginate(
-        page, 10, False)
+        page=page, per_page=10)
     conversations = Message.query.filter(
         or_(Message.user_id == current_user.id, Message.recipient_id == current_user.id)).all()
     user_ids = [conversation.user_id for conversation in conversations] + [conversation.recipient_id for conversation in
@@ -74,7 +75,8 @@ def conversations(page):
 
     if current_user.id in user_ids:
         user_ids.remove(current_user.id)
-    users = User.query.filter(User.id.in_(user_ids)).paginate(page, per_page=20)
+    users = User.query.filter(User.id.in_(
+        user_ids)).paginate(page=page, per_page=20)
 
     return render_template('messaging_manager/messages.html', messages=messages.items, users=users)
 
@@ -86,11 +88,11 @@ def conversations(page):
 def contact_messages(mtype, page):
     if mtype == 'primary':
         contact_messages_result = ContactMessage.query.filter_by(spam=False).order_by(
-            ContactMessage.created_at.desc()).paginate(page, per_page=100)
+            ContactMessage.created_at.desc()).paginate(page=page, per_page=100)
     elif mtype == 'spam':
         contact_messages_result = ContactMessage.query.filter(
             (ContactMessage.spam == True) | (ContactMessage.spam == None)).order_by(
-            ContactMessage.created_at.desc()).paginate(page, per_page=100)
+            ContactMessage.created_at.desc()).paginate(page=page, per_page=100)
         print(contact_messages_result.items)
     else:
         abort(404)
@@ -153,7 +155,8 @@ def batch_delete():
         flash('Something went wrong, pls try again.', 'error')
         return redirect(url_for('messaging_manager.contact_messages'))
 
-    messages = ContactMessage.query.filter(ContactMessage.id.in_(ids)).delete(synchronize_session=False)
+    messages = ContactMessage.query.filter(
+        ContactMessage.id.in_(ids)).delete(synchronize_session=False)
     # db.session.delete(messages)
     db.session.commit()
     flash('Successfully deleted Messages.', 'success')
