@@ -13,7 +13,7 @@ from flask_wtf import CSRFProtect
 from app.common.flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_ckeditor import CKEditor
 
-from app.assets import app_css, app_js, vendor_css, vendor_js
+from app.common.assets import app_css, app_js, vendor_css, vendor_js
 from config import config as Config
 from flask_whooshee import Whooshee
 
@@ -62,7 +62,7 @@ def create_app(config):
     whooshee.init_app(app)
 
     # Register Jinja template functions
-    from .utils import register_template_utils
+    from app.common.utils import register_template_utils
     register_template_utils(app)
 
     # Set up asset pipeline

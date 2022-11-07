@@ -1,4 +1,3 @@
-import os
 from flask import (
     Blueprint,
     abort,
@@ -9,23 +8,10 @@ from flask import (
     url_for
 )
 from flask_login import current_user, login_required
-from app.common.flask_rq import get_queue
-
-from flask_ckeditor import upload_success
-from flask_sqlalchemy.pagination import Pagination
-
 from app import db
-#from app.page_manager.forms import (
-    #ChangeAccountTypeForm,
-    #ChangeUserEmailForm,
-    #InviteUserForm,
-    #NewUserForm,
-#)
-from app.decorators import admin_required
-from app.email import send_email
 from app.models import *
 from app.blueprints.photo.forms import *
-from werkzeug.utils import secure_filename
+
 
 photo = Blueprint('photo', __name__)
 

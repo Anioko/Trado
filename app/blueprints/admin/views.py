@@ -19,8 +19,8 @@ from app.blueprints.admin.forms import (
     InviteUserForm,
     NewUserForm,
 )
-from app.decorators import admin_required
-from app.email import send_email
+from app.common.decorators import admin_required
+from app.common.email import send_email
 from app.models import EditableHTML, Role, User, Seeking
 
 admin = Blueprint('admin', __name__)

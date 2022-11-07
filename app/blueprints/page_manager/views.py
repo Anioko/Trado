@@ -8,9 +8,6 @@ from flask import (
     url_for,
 )
 from flask_login import current_user, login_required
-from app.common.flask_rq import get_queue
-
-from flask_ckeditor import upload_success
 from flask_sqlalchemy.pagination import Pagination
 
 from app import db
@@ -20,8 +17,8 @@ from app import db
     #InviteUserForm,
     #NewUserForm,
 #)
-from app.decorators import admin_required
-from app.email import send_email
+from app.common.decorators import admin_required
+from app.common.email import send_email
 from app.models import *
 from app.blueprints.page_manager.forms import *
 

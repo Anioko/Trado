@@ -8,21 +8,9 @@ from flask import (
     url_for,
 )
 from flask_login import current_user, login_required
-from flask_ckeditor import upload_success
 from flask_sqlalchemy.pagination import QueryPagination
 from sqlalchemy import desc, func
-import operator
-
-
 from app import db
-# from app.page_manager.forms import (
-# ChangeAccountTypeForm,
-# ChangeUserEmailForm,
-# InviteUserForm,
-# NewUserForm,
-# )
-from app.decorators import admin_required
-from app.email import send_email
 from app.models import *
 from app.blueprints.search.forms import *
 
@@ -48,7 +36,6 @@ def index():
     query = query if query is not None else ''
     page = page if page is not None else 1
 
-    print(query)
     try:
         page = int(page)
     except:
@@ -67,27 +54,22 @@ def index():
             query, order_by_relevance=0).all()
         preference_results = Seeking.query.whooshee_search(
             query, order_by_relevance=0).all()
-##        questions_results = Question.query.whooshee_search(query, order_by_relevance=0).all()
-        #products_results = MProduct.query.whooshee_search(query).all()
 
         user_results_count = User.query.whooshee_search(
             query, order_by_relevance=0).count()
         preference_results_count = Seeking.query.whooshee_search(
             query, order_by_relevance=0).count()
-##        questions_results_count = Question.query.whooshee_search(query, order_by_relevance=0).count()
-##        products_results_count = MProduct.query.whooshee_search(query, order_by_relevance=0).count()
-
         all_results = preference_results + user_results
         all_count = preference_results_count + user_results_count
         results = sorted(all_results)
         results.reverse()
         results = results[(page-1)*40:page*40]
-        if len(results) > 0: 
+        if len(results) > 0:
             paginator = QueryPagination(items=results, page=page,
-                               per_page=40, query=None, total=all_count)
+                                        per_page=40, query=None, total=all_count)
             results = paginator
         else:
-            results = []    
+            results = []
     elif search_type == 'people':
         results = User.query.whooshee_search(
             query, order_by_relevance=-1).paginate(page, per_page=40)
@@ -95,7 +77,6 @@ def index():
     elif search_type == 'preference':
         results = Seeking.query.whooshee_search(
             query, order_by_relevance=-1).paginate(page, per_page=40)
-    
 
     return render_template("search/search_results.html", query=query, search_type=search_type, sort_by=sort_by,
                            sort_dir=sort_dir, results=results)

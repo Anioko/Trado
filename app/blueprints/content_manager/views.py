@@ -20,8 +20,8 @@ from app import db
     #InviteUserForm,
     #NewUserForm,
 #)
-from app.decorators import admin_required
-from app.email import send_email
+from app.common.decorators import admin_required
+from app.common.email import send_email
 from app.models import *
 from app.models.content_manager import Headline
 from app.blueprints.content_manager.forms import *

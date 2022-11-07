@@ -1,8 +1,10 @@
 import time
 import unittest
-
+from flask_login import login_user, current_user
 from app import create_app, db
 from app.models import AnonymousUser, Permission, Role, User
+from flask import url_for, request
+import responses
 
 
 class UserModelTestCase(unittest.TestCase):
@@ -56,7 +58,7 @@ class UserModelTestCase(unittest.TestCase):
         u = User(password='password')
         db.session.add(u)
         db.session.commit()
-        token = u.generate_confirmation_token(1)
+        token = u.generate_confirmation_token()
         time.sleep(2)
         self.assertFalse(u.confirm_account(token))
 
@@ -125,9 +127,27 @@ class UserModelTestCase(unittest.TestCase):
         r = Role.query.filter_by(permissions=Permission.ADMINISTER).first()
         u = User(email='user@example.com', password='password', role=r)
         self.assertTrue(u.can(Permission.ADMINISTER))
-        self.assertTrue(u.can(Permission.GENERAL))
+        self.assertFalse(u.can(Permission.GENERAL))
         self.assertTrue(u.is_admin())
 
     def test_anonymous(self):
         u = AnonymousUser()
         self.assertFalse(u.can(Permission.GENERAL))
+
+        """Tests user login details"""
+        """
+        print(result)"""
+
+    def test_user_login_page(self):
+        """Test a 200 status code for login page"""
+        link = 'http://localhost:5000/account/login'
+        with self.app_context.app.app_context():
+            client = self.app_context.app.test_client()
+            result = client.get(link)
+            self.assertTrue(result.status_code == 200)
+            u = User(password='password', email="test@gmail.com")
+            db.session.add(u)
+            db.session.commit()
+            result = client.post(link, data={
+                'email': '"test@gmail.com"', 'password': 'password'})
+            self.assertTrue(result.request.path == '/account/manage')

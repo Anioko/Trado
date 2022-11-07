@@ -214,7 +214,7 @@ class User(UserMixin, db.Model):
                 db.session.rollback()
 
     def new_messages(self, user_id=None):
-        if not user_id:
+        if user_id is None:
             return Message.query.filter_by(recipient=self).filter(Message.read_at == None).distinct('user_id').count()
         else:
             return Message.query.filter_by(recipient=self).filter(Message.read_at == None).filter(

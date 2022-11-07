@@ -6,38 +6,40 @@ from flask import (
     render_template,
     request,
     url_for,
+    jsonify
 )
 from flask_login import current_user, login_required
 from app.common.flask_rq import get_queue
 
 from flask_ckeditor import upload_success
-from flask_sqlalchemy import Pagination
+from flask_sqlalchemy.pagination import Pagination
 from sqlalchemy import desc, func
 
 from app import db
-#from app.page_manager.forms import (
-    #ChangeAccountTypeForm,
-    #ChangeUserEmailForm,
-    #InviteUserForm,
-    #NewUserForm,
-#)
-from app.decorators import admin_required
-from app.email import send_email
+# from app.page_manager.forms import (
+# ChangeAccountTypeForm,
+# ChangeUserEmailForm,
+# InviteUserForm,
+# NewUserForm,
+# )
 from app.models import *
 from app.blueprints.notification.forms import *
 
 notification = Blueprint('notification', __name__)
 
+
 @notification.route('/read/<notification_id>')
 @login_required
 def read_notification(notification_id):
-    notification = current_user.notifications.filter_by(id=notification_id).first_or_404()
+    notification = current_user.notifications.filter_by(
+        id=notification_id).first_or_404()
     notification.read = True
     db.session.add(notification)
     db.session.commit()
     if 'unread_message' in notification.name:
         user = User.query.filter_by(id=notification.related_id).first_or_404()
-        link = url_for('notification.send_message', recipient=user.id, full_name=user.full_name)
+        link = url_for('notification.send_message',
+                       recipient=user.id, full_name=user.full_name)
 
     return redirect(link)
 
@@ -45,7 +47,8 @@ def read_notification(notification_id):
 @notification.route('/count')
 @login_required
 def notifications_count():
-    notifications = Notification.query.filter_by(read=False).filter_by(user_id=current_user.id).count()
+    notifications = Notification.query.filter_by(
+        read=False).filter_by(user_id=current_user.id).count()
     messages = current_user.new_messages()
 
     return jsonify({
@@ -63,7 +66,8 @@ def notifications():
     parsed_notifications = []
     for notification in notifications:
         parsed_notifications.append(notification.parsed())
-    parsed_notifications = sorted(parsed_notifications, key=lambda i: i['time'])
+    parsed_notifications = sorted(
+        parsed_notifications, key=lambda i: i['time'])
     parsed_notifications.reverse()
     parsed_notifications = parsed_notifications[0:15]
     return render_template('notification/notifications.html', users=users,
@@ -81,7 +85,8 @@ def more_notifications(count):
     parsed_notifications = []
     for notification in notifications:
         parsed_notifications.append(notification.parsed())
-    parsed_notifications = sorted(parsed_notifications, key=lambda i: i['time'])
+    parsed_notifications = sorted(
+        parsed_notifications, key=lambda i: i['time'])
     parsed_notifications.reverse()
     if count == 0:
         parsed_notifications = parsed_notifications[0:15]

@@ -26,8 +26,6 @@ class Config:
     else:
         SECRET_KEY = 'SECRET_KEY_ENV_VAR_NOT_SET'
         print('SECRET KEY ENV VAR NOT SET! SHOULD NOT SEE IN PRODUCTION')
-    SQLALCHEMY_COMMIT_ON_TEARDOWN = True
-
 
     # Email
     MAIL_SERVER = os.environ.get('MAIL_SERVER', 'smtp.sendgrid.net')
@@ -67,14 +65,14 @@ class Config:
     RQ_DEFAULT_PASSWORD = url.password
     RQ_DEFAULT_DB = 0
 
-    #uploads
+    # uploads
 
     UPLOADED_IMAGES_DEST = basedir + '/static/images' if \
         not os.environ.get('UPLOADED_IMAGES_DEST') else os.path.dirname(os.path.realpath(__file__)) + os.environ.get(
-        'UPLOADED_IMAGES_DEST')
+            'UPLOADED_IMAGES_DEST')
     UPLOADED_DOCS_DEST = basedir + '/static/docs/' if \
         not os.environ.get('UPLOADED_DOCS_DEST') else os.path.dirname(os.path.realpath(__file__)) + os.environ.get(
-        'UPLOADED_DOCS_DEST')
+            'UPLOADED_DOCS_DEST')
     docs = UPLOADED_DOCS_DEST
     UPLOADED_PATH = os.path.join(basedir, 'uploads')
 
@@ -87,7 +85,7 @@ class DevelopmentConfig(Config):
     DEBUG = True
     ASSETS_DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL',
-        'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite'))
+                                             'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite'))
 
     @classmethod
     def init_app(cls, app):
@@ -98,7 +96,7 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL',
-        'sqlite:///' + os.path.join(basedir, 'data-test.sqlite'))
+                                             'sqlite:///' + os.path.join(basedir, 'data-test.sqlite'))
     WTF_CSRF_ENABLED = False
 
     @classmethod
@@ -111,7 +109,7 @@ class ProductionConfig(Config):
     DEBUG = False
     USE_RELOADER = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL',
-        'sqlite:///' + os.path.join(basedir, 'data.sqlite'))
+                                             'sqlite:///' + os.path.join(basedir, 'data.sqlite'))
     SSL_DISABLE = (os.environ.get('SSL_DISABLE', 'True') == 'True')
 
     @classmethod

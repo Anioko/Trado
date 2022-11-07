@@ -1,12 +1,13 @@
 .webassets-cache/
 webassets-external/
 .DS_Store
+.pytest_cache
 *.pyc
 *.pyo
 env
+__pycache__
 venv
 *.env
-whooshee
 env*
 dist
 *.egg
@@ -16,3 +17,4 @@ dist
 dump.rdb
 .vscode/
 .history/
+whooshee

@@ -1,5 +1,3 @@
-import json
-
 from flask import render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from app.common.flask_rq import get_queue
@@ -11,9 +9,9 @@ from wtforms import Flags
 from app import db
 from app.blueprints.admin.forms import BlogCategoryForm, BlogTagForm, BlogPostForm, BlogNewsLetterForm
 from app.blueprints.admin.views import admin
-from app.decorators import admin_required
-from app.email import send_email
-from app.models import User, Role, BlogCategory, BlogTag, BlogPost, BlogNewsLetter
+from app.common.decorators import admin_required
+from app.common.email import send_email
+from app.models import User, BlogCategory, BlogTag, BlogPost, BlogNewsLetter
 
 images = UploadSet('images', IMAGES)
 

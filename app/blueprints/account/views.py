@@ -26,11 +26,10 @@ from app.blueprints.account.forms import (
     ResetPasswordForm,
     UpdateDetailsForm
 )
-from app.email import send_email
+from app.common.email import send_email
 from app.models import User, Photo, Seeking
 
 account = Blueprint('account', __name__)
-
 
 
 @account.route('/login', methods=['GET', 'POST'])
@@ -38,7 +37,7 @@ def login():
     """Log in an existing user."""
     form = LoginForm()
     if form.validate_on_submit():
-        user:User = User.query.filter_by(email=form.email.data).first()
+        user: User = User.query.filter_by(email=form.email.data).first()
         if user is not None and user.password_hash is not None and \
                 user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
@@ -59,24 +58,24 @@ def register():
             first_name=form.first_name.data,
             last_name=form.last_name.data,
             email=form.email.data,
-            height = form.height.data,
-            sex = form.sex.data,
-            age = form.age.data,
-            state = form.state.data,
-            country = form.country.data,
-            religion = form.religion.data,
-            ethnicity = form.ethnicity.data, 
-            marital_type = form.marital_type.data,
-            body_type = form.body_type.data,
-            church_denomination = form.church_denomination.data,
-            current_status = form.current_status.data,
-            drinking_status = form.drinking_status.data, 
-            smoking_status = form.smoking_status.data,
-            education_level = form.education_level.data, 
-            has_children = form.has_children.data,
-            want_children = form.want_children.data,
-            open_for_relocation = form.open_for_relocation.data,
-            
+            height=form.height.data,
+            sex=form.sex.data,
+            age=form.age.data,
+            state=form.state.data,
+            country=form.country.data,
+            religion=form.religion.data,
+            ethnicity=form.ethnicity.data,
+            marital_type=form.marital_type.data,
+            body_type=form.body_type.data,
+            church_denomination=form.church_denomination.data,
+            current_status=form.current_status.data,
+            drinking_status=form.drinking_status.data,
+            smoking_status=form.smoking_status.data,
+            education_level=form.education_level.data,
+            has_children=form.has_children.data,
+            want_children=form.want_children.data,
+            open_for_relocation=form.open_for_relocation.data,
+
             password=form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -89,7 +88,7 @@ def register():
             template='account/email/confirm',
             user=user,
             confirm_link=confirm_link)"""
-        print(confirm_link)    
+        print(confirm_link)
         flash('A confirmation link has been sent to {}.'.format(user.email),
               'warning')
         return redirect(url_for('account.manage'))
@@ -109,15 +108,18 @@ def logout():
 @login_required
 def manage():
     """Display a user's account information."""
-    data = Photo.query.filter_by(user_id=current_user.id, profile_picture=True).first()
+    data = Photo.query.filter_by(
+        user_id=current_user.id, profile_picture=True).first()
     return render_template('account/manage.html', user=current_user, form=None, data=data)
+
 
 @account.route('/profile', methods=['GET', 'POST'])
 @account.route('/profile/info', methods=['GET', 'POST'])
 @login_required
 def profile():
     """Display a user's profile."""
-    profile_picture = Photo.query.filter_by(user_id=current_user.id, profile_picture=True).first()
+    profile_picture = Photo.query.filter_by(
+        user_id=current_user.id, profile_picture=True).first()
     photo_data = Photo.query.filter_by(user_id=current_user.id).all()
     preferences_data = Seeking.query.filter_by(user_id=current_user.id).first()
     return render_template('account/profile.html', user=current_user, photo_data=photo_data, preferences_data=preferences_data,
@@ -204,6 +206,7 @@ def change_username_request():
             flash('Invalid email or password.', 'form-error')
     return render_template('account/manage.html', form=form)
 
+
 @account.route('/manage/update-details', methods=['GET', 'POST'])
 @login_required
 def update_details():
@@ -211,8 +214,8 @@ def update_details():
     user = User.query.filter_by(id=current_user.id).first()
     form = UpdateDetailsForm(obj=user)
     if form.validate_on_submit():
-        user.first_name=form.first_name.data
-        user.last_name=form.last_name.data
+        user.first_name = form.first_name.data
+        user.last_name = form.last_name.data
         user.height = form.height.data
         user.sex = form.sex.data
         user.age = form.age.data
@@ -224,9 +227,9 @@ def update_details():
         user.body_type = form.body_type.data
         user.church_denomination = form.church_denomination.data
         user.current_status = form.current_status.data
-        user.drinking_status = form.drinking_status.data 
+        user.drinking_status = form.drinking_status.data
         user.smoking_status = form.smoking_status.data
-        user.education_level = form.education_level.data 
+        user.education_level = form.education_level.data
         user.has_children = form.has_children.data
         user.want_children = form.want_children.data
         user.open_for_relocation = form.open_for_relocation.data
@@ -237,6 +240,7 @@ def update_details():
     else:
         flash('Invalid email or password.', 'form-error')
     return render_template('account/manage.html', form=form)
+
 
 @account.route('/manage/change-email', methods=['GET', 'POST'])
 @login_required

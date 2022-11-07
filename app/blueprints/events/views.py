@@ -6,11 +6,6 @@ from .forms import *
 events = Blueprint('events', __name__)
 
 
-@events.errorhandler(Exception)
-def page_not_found(error):
-    print(error)
-    return render_template('errors/404.html')
-
 @events.route('/list/events/')
 def events_list():
     appts = Event.query.filter(Event).filter(Event.end_date >= datetime.now()).order_by(Event.pub_date.asc()).all()
