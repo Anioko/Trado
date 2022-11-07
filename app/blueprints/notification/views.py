@@ -1,21 +1,13 @@
-from flask import (
-    Blueprint,
-    abort,
-    flash,
-    redirect,
-    render_template,
-    request,
-    url_for,
-    jsonify
-)
-from flask_login import current_user, login_required
-from app.common.flask_rq import get_queue
-
+from flask import (Blueprint, abort, flash, jsonify, redirect, render_template,
+                   request, url_for)
 from flask_ckeditor import upload_success
+from flask_login import current_user, login_required
 from flask_sqlalchemy.pagination import Pagination
 from sqlalchemy import desc, func
 
 from app import db
+from app.blueprints.notification.forms import *
+from app.common.flask_rq import get_queue
 # from app.page_manager.forms import (
 # ChangeAccountTypeForm,
 # ChangeUserEmailForm,
@@ -23,7 +15,6 @@ from app import db
 # NewUserForm,
 # )
 from app.models import *
-from app.blueprints.notification.forms import *
 
 notification = Blueprint('notification', __name__)
 
@@ -39,7 +30,8 @@ def read_notification(notification_id):
     if 'unread_message' in notification.name:
         user = User.query.filter_by(id=notification.related_id).first_or_404()
         link = url_for('notification.send_message',
-                       recipient=user.id, full_name=user.full_name)
+                       recipient=user.id,
+                       full_name=user.full_name)
 
     return redirect(link)
 
@@ -47,8 +39,8 @@ def read_notification(notification_id):
 @notification.route('/count')
 @login_required
 def notifications_count():
-    notifications = Notification.query.filter_by(
-        read=False).filter_by(user_id=current_user.id).count()
+    notifications = Notification.query.filter_by(read=False).filter_by(
+        user_id=current_user.id).count()
     messages = current_user.new_messages()
 
     return jsonify({
@@ -66,11 +58,12 @@ def notifications():
     parsed_notifications = []
     for notification in notifications:
         parsed_notifications.append(notification.parsed())
-    parsed_notifications = sorted(
-        parsed_notifications, key=lambda i: i['time'])
+    parsed_notifications = sorted(parsed_notifications,
+                                  key=lambda i: i['time'])
     parsed_notifications.reverse()
     parsed_notifications = parsed_notifications[0:15]
-    return render_template('notification/notifications.html', users=users,
+    return render_template('notification/notifications.html',
+                           users=users,
                            notifications=parsed_notifications)
 
 
@@ -85,8 +78,8 @@ def more_notifications(count):
     parsed_notifications = []
     for notification in notifications:
         parsed_notifications.append(notification.parsed())
-    parsed_notifications = sorted(
-        parsed_notifications, key=lambda i: i['time'])
+    parsed_notifications = sorted(parsed_notifications,
+                                  key=lambda i: i['time'])
     parsed_notifications.reverse()
     if count == 0:
         parsed_notifications = parsed_notifications[0:15]
@@ -94,7 +87,8 @@ def more_notifications(count):
         return "<br><br><h2>No more Notifications</h2>"
     else:
         parsed_notifications = parsed_notifications[count:count + 15]
-    return render_template('notification/more_notifications.html', notifications=parsed_notifications)
+    return render_template('notification/more_notifications.html',
+                           notifications=parsed_notifications)
 
 
 @notification.route('/notification_test')
@@ -103,6 +97,9 @@ def notification_test():
     n = Notification.query.get(379)
     related = User.query.get(32)
     extraextra = Answer.query.get(25)
-    return render_template('account/email/notification.html', user=current_user, link="http://www.google.com",
-                           notification=n, related=related,
+    return render_template('account/email/notification.html',
+                           user=current_user,
+                           link="http://www.google.com",
+                           notification=n,
+                           related=related,
                            extraextra=extraextra)

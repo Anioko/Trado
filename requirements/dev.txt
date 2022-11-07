@@ -8,3 +8,7 @@ flake8
 tox
 pytest-flake8
 pytest-cov
+responses
+nox
+isort
+yapf

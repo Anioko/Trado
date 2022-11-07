@@ -12,12 +12,11 @@
 
 __version__ = '0.2'
 
-import redis
-
-from flask import current_app
 from urllib.parse import urlparse
-from rq import Queue, Worker
 
+import redis
+from flask import current_app
+from rq import Queue, Worker
 
 default_config = {
     'RQ_DEFAULT_HOST': 'localhost',
@@ -82,6 +81,7 @@ def job(func_or_queue=None):
         queue = func_or_queue
 
     def wrapper(fn):
+
         def delay(*args, **kwargs):
             q = get_queue(queue)
             return q.enqueue(fn, *args, **kwargs)
@@ -96,6 +96,7 @@ def job(func_or_queue=None):
 
 
 class RQ(object):
+
     def __init__(self, app=None):
         if app is not None:
             self.init_app(app)

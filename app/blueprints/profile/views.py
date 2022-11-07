@@ -1,15 +1,9 @@
-from flask import (
-    Blueprint,
-    abort,
-    render_template,
-    request,
-    url_for,
-)
+from flask import Blueprint, abort, render_template, request, url_for
 from flask_login import current_user, login_required
 
 from app import db
-from app.models import *
 from app.blueprints.profile.forms import *
+from app.models import *
 
 profile = Blueprint('profile', __name__)
 
@@ -19,7 +13,9 @@ profile = Blueprint('profile', __name__)
 def settings():
     return render_template('profile/settings.html')
 
+
 ####################Content Management System Start #################
+
 
 @profile.route('/<int:user_id>/<username>/info')
 @login_required
@@ -40,16 +36,20 @@ def view(username):
     if user is None:
         abort(404)
 
-    profile_picture = Photo.query.filter_by(user_id=current_user.id, profile_picture=True).first()
+    profile_picture = Photo.query.filter_by(user_id=current_user.id,
+                                            profile_picture=True).first()
     photo_data = Photo.query.filter_by(user_id=current_user.id).all()
     preferences_data = Seeking.query.filter_by(user_id=current_user.id).first()
-    return render_template('profile/profile.html', user=user, photo_data=photo_data, preferences_data=preferences_data,
+    return render_template('profile/profile.html',
+                           user=user,
+                           photo_data=photo_data,
+                           preferences_data=preferences_data,
                            profile_picture=profile_picture)
-
 
 
 @profile.route('/list/', defaults={'page': 1})
 @profile.route('/list/page/<int:page>', methods=['GET'])
 def members(page):
-    paginated = User.query.filter(User.id != current_user.id).order_by(User.id.desc()).paginate(page, per_page=25)
+    paginated = User.query.filter(User.id != current_user.id).order_by(
+        User.id.desc()).paginate(page, per_page=25)
     return render_template('profile/members.html', paginated=paginated)

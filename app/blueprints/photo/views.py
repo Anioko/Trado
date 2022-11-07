@@ -1,17 +1,10 @@
-from flask import (
-    Blueprint,
-    abort,
-    flash,
-    redirect,
-    render_template,
-    request,
-    url_for
-)
+from flask import (Blueprint, abort, flash, redirect, render_template, request,
+                   url_for)
 from flask_login import current_user, login_required
-from app import db
-from app.models import *
-from app.blueprints.photo.forms import *
 
+from app import db
+from app.blueprints.photo.forms import *
+from app.models import *
 
 photo = Blueprint('photo', __name__)
 
@@ -30,11 +23,9 @@ def add_photo():
     if count >= 5:
         return redirect(url_for('photo.added_images'))
     if form.validate_on_submit():
-        data = Photo(
-            image = images.save(request.files['image']),
-            profile_picture = form.profile_picture.data,
-            user_id = current_user.id
-            )
+        data = Photo(image=images.save(request.files['image']),
+                     profile_picture=form.profile_picture.data,
+                     user_id=current_user.id)
         db.session.add(data)
         db.session.commit()
         flash("Picture Added Successfully.", "success")
@@ -50,16 +41,18 @@ def added_images():
     photo_data = Photo.query.filter_by(user_id=current_user.id).all()
     if photo_data is None:
         return redirect(url_for('photo.add_photo'))
-    return render_template(
-        'photo/added_images.html', photo_data=photo_data, count=count)
+    return render_template('photo/added_images.html',
+                           photo_data=photo_data,
+                           count=count)
+
 
 @photo.route('/<id>')
 @login_required
 def added_image(id):
     """View added image."""
     data = Photo.query.filter_by(id=id).first()
-    return render_template(
-        'photo/added_image.html', data=data)
+    return render_template('photo/added_image.html', data=data)
+
 
 @photo.route('/<id>')
 @login_required
@@ -68,8 +61,8 @@ def show(id):
     data = Photo.query.filter_by(id=id).first()
     if data is None:
         return redirect(url_for('photo.add_photo'))
-    return render_template(
-        'photo/added_images.html', data=data, photo=Photo())
+    return render_template('photo/added_images.html', data=data, photo=Photo())
+
 
 @photo.route('/<int:id>/_delete', methods=['GET', 'POST'])
 @login_required
@@ -78,7 +71,7 @@ def delete_photo(id):
     data = Photo.query.filter_by(id=id).first()
     db.session.commit()
     db.session.delete(data)
-    flash('Successfully deleted ' , 'success')
+    flash('Successfully deleted ', 'success')
     if data is None:
         return redirect(url_for('photo.upload'))
     return redirect(url_for('photo.added_images'))

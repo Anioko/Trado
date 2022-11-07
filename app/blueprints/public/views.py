@@ -42,24 +42,46 @@ def index():
     process = Process.query.all()
     landing_page_texts = LandingPageText.query.all()
     video_texts = VideoText.query.first()
-    
-    return render_template('public/index.html', video_texts=video_texts, landing_page_texts=landing_page_texts,
-                           process_title=process_title, process=process,
-                           features=features, feature_title = feature_title,
-                           footer_image=footer_image, icons=media_icons,
-                           footer_text=footer_text, slideshows=slideshows,
-                           home_title=hometext, logo=logo, techno_img=techno_img,
-                           text_techno=text_techno, copyright_text=copyright_text,
-                           background_image=background_image, call_to_action=call_to_action,
-                           nav_menu=nav_menu, brand=brand, seo=seo,
-                           favicon_image=favicon_image, tracking_script=tracking_script, services=services,
-                           about=about, team=team, video=video, counts=counts, media_icons = media_icons,
-                           portfolio=portfolio, faq=faq, testimonial=testimonial, client=client,
-                           apple_touch_icon=apple_touch_icon, pages=pages)
+
+    return render_template('public/index.html',
+                           video_texts=video_texts,
+                           landing_page_texts=landing_page_texts,
+                           process_title=process_title,
+                           process=process,
+                           features=features,
+                           feature_title=feature_title,
+                           footer_image=footer_image,
+                           icons=media_icons,
+                           footer_text=footer_text,
+                           slideshows=slideshows,
+                           home_title=hometext,
+                           logo=logo,
+                           techno_img=techno_img,
+                           text_techno=text_techno,
+                           copyright_text=copyright_text,
+                           background_image=background_image,
+                           call_to_action=call_to_action,
+                           nav_menu=nav_menu,
+                           brand=brand,
+                           seo=seo,
+                           favicon_image=favicon_image,
+                           tracking_script=tracking_script,
+                           services=services,
+                           about=about,
+                           team=team,
+                           video=video,
+                           counts=counts,
+                           media_icons=media_icons,
+                           portfolio=portfolio,
+                           faq=faq,
+                           testimonial=testimonial,
+                           client=client,
+                           apple_touch_icon=apple_touch_icon,
+                           pages=pages)
 
 
 @public.route('/about')
 def about():
     editable_html_obj = EditableHTML.get_editable_html('about')
-    return render_template(
-        'public/about.html', editable_html_obj=editable_html_obj)
+    return render_template('public/about.html',
+                           editable_html_obj=editable_html_obj)

@@ -1,33 +1,24 @@
-from flask import (
-    Blueprint,
-    flash,
-    redirect,
-    render_template,
-    request,
-    url_for,
-)
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import (
     current_user,
     login_required,
-    login_user,
-    logout_user,
-)
-from app.common.flask_rq import get_queue
+    login_user,  # ignore
+    logout_user)
 
 from app import db
 from app.blueprints.account.forms import (
-    ChangeUsernameForm,
-    ChangeEmailForm,
+    ChangeEmailForm,  # ignore
     ChangePasswordForm,
+    ChangeUsernameForm,
     CreatePasswordForm,
     LoginForm,
     RegistrationForm,
     RequestResetPasswordForm,
     ResetPasswordForm,
-    UpdateDetailsForm
-)
+    UpdateDetailsForm)
 from app.common.email import send_email
-from app.models import User, Photo, Seeking
+from app.common.flask_rq import get_queue
+from app.models import Photo, Seeking, User
 
 account = Blueprint('account', __name__)
 
@@ -35,14 +26,16 @@ account = Blueprint('account', __name__)
 @account.route('/login', methods=['GET', 'POST'])
 def login():
     """Log in an existing user."""
-    form = LoginForm()
+    print(request.form)
+    form = LoginForm(request.form)
     if form.validate_on_submit():
         user: User = User.query.filter_by(email=form.email.data).first()
         if user is not None and user.password_hash is not None and \
                 user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
             flash('You are now logged in. Welcome back!', 'success')
-            return redirect(request.args.get('next') or url_for('account.manage'))
+            return redirect(
+                request.args.get('next') or url_for('account.manage'))
         else:
             flash('Invalid email or password.', 'error')
     return render_template('account/login.html', form=form)
@@ -53,30 +46,28 @@ def register():
     """Register a new user, and send them a confirmation email."""
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(
-            username=form.username.data,
-            first_name=form.first_name.data,
-            last_name=form.last_name.data,
-            email=form.email.data,
-            height=form.height.data,
-            sex=form.sex.data,
-            age=form.age.data,
-            state=form.state.data,
-            country=form.country.data,
-            religion=form.religion.data,
-            ethnicity=form.ethnicity.data,
-            marital_type=form.marital_type.data,
-            body_type=form.body_type.data,
-            church_denomination=form.church_denomination.data,
-            current_status=form.current_status.data,
-            drinking_status=form.drinking_status.data,
-            smoking_status=form.smoking_status.data,
-            education_level=form.education_level.data,
-            has_children=form.has_children.data,
-            want_children=form.want_children.data,
-            open_for_relocation=form.open_for_relocation.data,
-
-            password=form.password.data)
+        user = User(username=form.username.data,
+                    first_name=form.first_name.data,
+                    last_name=form.last_name.data,
+                    email=form.email.data,
+                    height=form.height.data,
+                    sex=form.sex.data,
+                    age=form.age.data,
+                    state=form.state.data,
+                    country=form.country.data,
+                    religion=form.religion.data,
+                    ethnicity=form.ethnicity.data,
+                    marital_type=form.marital_type.data,
+                    body_type=form.body_type.data,
+                    church_denomination=form.church_denomination.data,
+                    current_status=form.current_status.data,
+                    drinking_status=form.drinking_status.data,
+                    smoking_status=form.smoking_status.data,
+                    education_level=form.education_level.data,
+                    has_children=form.has_children.data,
+                    want_children=form.want_children.data,
+                    open_for_relocation=form.open_for_relocation.data,
+                    password=form.password.data)
         db.session.add(user)
         db.session.commit()
         token = user.generate_confirmation_token()
@@ -108,9 +99,12 @@ def logout():
 @login_required
 def manage():
     """Display a user's account information."""
-    data = Photo.query.filter_by(
-        user_id=current_user.id, profile_picture=True).first()
-    return render_template('account/manage.html', user=current_user, form=None, data=data)
+    data = Photo.query.filter_by(user_id=current_user.id,
+                                 profile_picture=True).first()
+    return render_template('account/manage.html',
+                           user=current_user,
+                           form=None,
+                           data=data)
 
 
 @account.route('/profile', methods=['GET', 'POST'])
@@ -118,11 +112,14 @@ def manage():
 @login_required
 def profile():
     """Display a user's profile."""
-    profile_picture = Photo.query.filter_by(
-        user_id=current_user.id, profile_picture=True).first()
+    profile_picture = Photo.query.filter_by(user_id=current_user.id,
+                                            profile_picture=True).first()
     photo_data = Photo.query.filter_by(user_id=current_user.id).all()
     preferences_data = Seeking.query.filter_by(user_id=current_user.id).first()
-    return render_template('account/profile.html', user=current_user, photo_data=photo_data, preferences_data=preferences_data,
+    return render_template('account/profile.html',
+                           user=current_user,
+                           photo_data=photo_data,
+                           preferences_data=preferences_data,
                            profile_picture=profile_picture)
 
 
@@ -136,18 +133,19 @@ def reset_password_request():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             token = user.generate_password_reset_token()
-            reset_link = url_for(
-                'account.reset_password', token=token, _external=True)
-            get_queue().enqueue(
-                send_email,
-                recipient=user.email,
-                subject='Reset Your Password',
-                template='account/email/reset_password',
-                user=user,
-                reset_link=reset_link,
-                next=request.args.get('next'))
-        flash('A password reset link has been sent to {}.'.format(
-            form.email.data), 'warning')
+            reset_link = url_for('account.reset_password',
+                                 token=token,
+                                 _external=True)
+            get_queue().enqueue(send_email,
+                                recipient=user.email,
+                                subject='Reset Your Password',
+                                template='account/email/reset_password',
+                                user=user,
+                                reset_link=reset_link,
+                                next=request.args.get('next'))
+        flash(
+            'A password reset link has been sent to {}.'.format(
+                form.email.data), 'warning')
         return redirect(url_for('account.login'))
     return render_template('account/reset_password.html', form=form)
 
@@ -251,8 +249,9 @@ def change_email_request():
         if current_user.verify_password(form.password.data):
             new_email = form.email.data
             token = current_user.generate_email_change_token(new_email)
-            change_email_link = url_for(
-                'account.change_email', token=token, _external=True)
+            change_email_link = url_for('account.change_email',
+                                        token=token,
+                                        _external=True)
             get_queue().enqueue(
                 send_email,
                 recipient=new_email,
@@ -295,8 +294,9 @@ def confirm_request():
         # current_user is a LocalProxy, we want the underlying user object
         user=current_user._get_current_object(),
         confirm_link=confirm_link)
-    flash('A new confirmation link has been sent to {}.'.format(
-        current_user.email), 'warning')
+    flash(
+        'A new confirmation link has been sent to {}.'.format(
+            current_user.email), 'warning')
     return redirect(url_for('account.manage'))
 
 
@@ -313,8 +313,8 @@ def confirm(token):
     return redirect(url_for('account.manage'))
 
 
-@account.route(
-    '/join-from-invite/<int:user_id>/<token>', methods=['GET', 'POST'])
+@account.route('/join-from-invite/<int:user_id>/<token>',
+               methods=['GET', 'POST'])
 def join_from_invite(user_id, token):
     """
     Confirm new user's account with provided token and prompt them to set
@@ -338,27 +338,27 @@ def join_from_invite(user_id, token):
             new_user.password = form.password.data
             db.session.add(new_user)
             db.session.commit()
-            flash('Your password has been set. After you log in, you can '
-                  'go to the "Your Account" page to review your account '
-                  'information and settings.', 'success')
+            flash(
+                'Your password has been set. After you log in, you can '
+                'go to the "Your Account" page to review your account '
+                'information and settings.', 'success')
             return redirect(url_for('account.login'))
         return render_template('account/join_invite.html', form=form)
     else:
-        flash('The confirmation link is invalid or has expired. Another '
-              'invite email with a new link has been sent to you.', 'error')
+        flash(
+            'The confirmation link is invalid or has expired. Another '
+            'invite email with a new link has been sent to you.', 'error')
         token = new_user.generate_confirmation_token()
-        invite_link = url_for(
-            'account.join_from_invite',
-            user_id=user_id,
-            token=token,
-            _external=True)
-        get_queue().enqueue(
-            send_email,
-            recipient=new_user.email,
-            subject='You Are Invited To Join',
-            template='account/email/invite',
-            user=new_user,
-            invite_link=invite_link)
+        invite_link = url_for('account.join_from_invite',
+                              user_id=user_id,
+                              token=token,
+                              _external=True)
+        get_queue().enqueue(send_email,
+                            recipient=new_user.email,
+                            subject='You Are Invited To Join',
+                            template='account/email/invite',
+                            user=new_user,
+                            invite_link=invite_link)
     return redirect(url_for('account.manage'))
 
 

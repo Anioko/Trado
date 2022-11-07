@@ -12,6 +12,7 @@ Flask-Assets
 Flask-Login
 Flask-Mail
 Flask-Script
+flask-restful
 Flask-SQLAlchemy
 Flask-SSLify
 flask-migrate

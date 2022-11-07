@@ -1,10 +1,10 @@
 import time
 import unittest
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user #ignore
 from app import create_app, db
 from app.models import AnonymousUser, Permission, Role, User
 from flask import url_for, request
-import responses
+import responses #ignore
 
 
 class UserModelTestCase(unittest.TestCase):
@@ -59,8 +59,8 @@ class UserModelTestCase(unittest.TestCase):
         db.session.add(u)
         db.session.commit()
         token = u.generate_confirmation_token()
-        time.sleep(2)
-        self.assertFalse(u.confirm_account(token))
+        time.sleep(10)
+        self.assertFalse(u.confirm_account(token, test=True))
 
     def test_valid_reset_token(self):
         u = User(password='password')
@@ -149,5 +149,6 @@ class UserModelTestCase(unittest.TestCase):
             db.session.add(u)
             db.session.commit()
             result = client.post(link, data={
-                'email': '"test@gmail.com"', 'password': 'password'})
+                'email': "test@gmail.com", 'password': 'password'})
+            print(result.request.path)
             self.assertTrue(result.request.path == '/account/manage')

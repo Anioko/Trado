@@ -1,21 +1,26 @@
-import os
 import datetime
+import os
 from datetime import date
-from flask import url_for
-from .. import db
 from time import time
+
+from flask import url_for
 from sqlalchemy.orm import backref
+
+from .. import db
 from .user import *  # noqa
 
 
 class EventAttendee(db.Model):
     __tablename__ = 'event_attendees'
     id = db.Column(db.Integer, primary_key=True)
-    attendee_id = db.Column(db.Integer, db.ForeignKey('attendees.id', ondelete="CASCADE"))
-    event_id = db.Column(db.Integer, db.ForeignKey('events.id', ondelete="CASCADE"))
+    attendee_id = db.Column(db.Integer,
+                            db.ForeignKey('attendees.id', ondelete="CASCADE"))
+    event_id = db.Column(db.Integer,
+                         db.ForeignKey('events.id', ondelete="CASCADE"))
     created_at = db.Column(db.DateTime, default=db.func.now())
-    updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
-
+    updated_at = db.Column(db.DateTime,
+                           default=db.func.now(),
+                           onupdate=db.func.now())
 
 
 #@whooshee.register_model('event_title', 'event_state', 'event_country')
@@ -37,13 +42,19 @@ class Event(db.Model):
     street_address = db.Column(db.String(255))
     post_code = db.Column(db.String(255))
     description = db.Column(db.Text)
-    creator_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
-    attendees = db.relationship("Attendee", secondary='event_attendees',
+    creator_id = db.Column(db.Integer,
+                           db.ForeignKey('users.id', ondelete="CASCADE"),
+                           nullable=False)
+    attendees = db.relationship("Attendee",
+                                secondary='event_attendees',
                                 backref=backref("events", cascade='all'),
-                                primaryjoin='Event.id==Attendee.event_id', cascade='all,delete')
+                                primaryjoin='Event.id==Attendee.event_id',
+                                cascade='all,delete')
     creator = db.relationship("User")
     created_at = db.Column(db.DateTime, default=date.today())
-    updated_at = db.Column(db.DateTime, default=date.today(), onupdate=date.today())
+    updated_at = db.Column(db.DateTime,
+                           default=date.today(),
+                           onupdate=date.today())
 
     @property
     def user_name(self):
@@ -51,7 +62,10 @@ class Event(db.Model):
 
     def get_photo(self):
         if self.image_filename:
-            return url_for('_uploads.uploaded_file', setname='images', filename=self.image_filename, _external=True)
+            return url_for('_uploads.uploaded_file',
+                           setname='images',
+                           filename=self.image_filename,
+                           _external=True)
         else:
             return self.user.get_photo()
 
@@ -62,9 +76,18 @@ class Event(db.Model):
 class Attendee(db.Model):
     __tablename__ = 'attendees'
     id = db.Column(db.Integer, primary_key=True)
-    event_id = db.Column(db.Integer, db.ForeignKey('events.id', ondelete="CASCADE"), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
+    event_id = db.Column(db.Integer,
+                         db.ForeignKey('events.id', ondelete="CASCADE"),
+                         nullable=False)
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey('users.id', ondelete="CASCADE"),
+                        nullable=False)
     event = db.relationship('Event', cascade='all, delete')
-    users = db.relationship('User', order_by=User.id, backref="attendees", cascade="all")
+    users = db.relationship('User',
+                            order_by=User.id,
+                            backref="attendees",
+                            cascade="all")
     created_at = db.Column(db.DateTime, default=date.today())
-    updated_at = db.Column(db.DateTime, default=date.today(), onupdate=date.today())
+    updated_at = db.Column(db.DateTime,
+                           default=date.today(),
+                           onupdate=date.today())

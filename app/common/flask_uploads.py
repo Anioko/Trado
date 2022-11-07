@@ -9,14 +9,14 @@ an `UploadSet` object and upload your files to it.
 :license:   MIT/X11, see LICENSE for details
 """
 
-from flask import Blueprint
+import os.path
+import posixpath
+import sys
+from itertools import chain
+
+from flask import Blueprint, abort, current_app, send_from_directory, url_for
 from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
-from itertools import chain
-from flask import current_app, send_from_directory, abort, url_for
-import posixpath
-import os.path
-import sys
 
 PY3 = sys.version_info[0] == 3
 
@@ -25,11 +25,10 @@ if PY3:
 else:
     string_types = basestring,
 
-
 # Extension presets
 
 #: This just contains plain text files (.txt).
-TEXT = ('txt',)
+TEXT = ('txt', )
 
 #: This contains various office document formats (.rtf, .odf, .ods, .gnumeric,
 #: .abw, .doc, .docx, .xls, and .xlsx). Note that the macro-enabled versions
@@ -143,7 +142,7 @@ def patch_request_class(app, size=64 * 1024 * 1024):
             return
         size = app.config.get('MAX_CONTENT_LENGTH')
     reqclass = app.request_class
-    patched = type(reqclass.__name__, (reqclass,),
+    patched = type(reqclass.__name__, (reqclass, ),
                    {'max_content_length': size})
     app.request_class = patched
 
@@ -204,7 +203,7 @@ def configure_uploads(app, upload_sets):
     :param upload_sets: The `UploadSet` instances to configure.
     """
     if isinstance(upload_sets, UploadSet):
-        upload_sets = (upload_sets,)
+        upload_sets = (upload_sets, )
 
     if not hasattr(app, 'upload_set_config'):
         app.upload_set_config = {}
@@ -340,8 +339,10 @@ class UploadSet(object):
         """
         base = self.config.base_url
         if base is None:
-            return url_for('_uploads.uploaded_file', setname=self.name,
-                           filename=filename, _external=True)
+            return url_for('_uploads.uploaded_file',
+                           setname=self.name,
+                           filename=filename,
+                           _external=True)
         else:
             return base + filename
 
@@ -380,8 +381,8 @@ class UploadSet(object):
 
         :param ext: The extension to check, without the dot.
         """
-        return ((ext in self.config.allow) or
-                (ext in self.extensions and ext not in self.config.deny))
+        return ((ext in self.config.allow)
+                or (ext in self.extensions and ext not in self.config.deny))
 
     def get_basename(self, filename):
         return lowercase_ext(secure_filename(filename))
@@ -485,11 +486,19 @@ class TestingFileStorage(FileStorage):
                     `None`.
     """
 
-    def __init__(self, stream=None, filename=None, name=None,
-                 content_type='application/octet-stream', content_length=-1,
+    def __init__(self,
+                 stream=None,
+                 filename=None,
+                 name=None,
+                 content_type='application/octet-stream',
+                 content_length=-1,
                  headers=None):
-        FileStorage.__init__(self, stream, filename, name=name,
-                             content_type=content_type, content_length=content_length,
+        FileStorage.__init__(self,
+                             stream,
+                             filename,
+                             name=name,
+                             content_type=content_type,
+                             content_length=content_length,
                              headers=None)
         self.saved = None
 

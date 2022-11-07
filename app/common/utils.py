@@ -3,7 +3,6 @@ from wtforms.fields import Field
 from wtforms.widgets import HiddenInput
 
 
-
 def register_template_utils(app):
     """Register Jinja 2 helpers (called from __init__.py)."""
 
@@ -26,7 +25,7 @@ def register_template_utils(app):
     def preference(o):
         """check if object is user"""
         from app.models import Seeking
-        return o.__class__ == Seeking    
+        return o.__class__ == Seeking
 
     app.add_template_global(index_for_role)
 
@@ -38,8 +37,13 @@ def index_for_role(role):
 class CustomSelectField(Field):
     widget = HiddenInput()
 
-    def __init__(self, label='', validators=None, multiple=False,
-                 choices=[], allow_custom=True, **kwargs):
+    def __init__(self,
+                 label='',
+                 validators=None,
+                 multiple=False,
+                 choices=[],
+                 allow_custom=True,
+                 **kwargs):
         super(CustomSelectField, self).__init__(label, validators, **kwargs)
         self.multiple = multiple
         self.choices = choices

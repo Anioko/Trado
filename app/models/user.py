@@ -1,15 +1,17 @@
 #import socketio
 from enum import Enum
+
 from flask import current_app
 from flask_login import AnonymousUserMixin, UserMixin
-from itsdangerous import URLSafeTimedSerializer as Serializer
 from itsdangerous import BadSignature, SignatureExpired
+from itsdangerous import URLSafeTimedSerializer as Serializer
+from sqlalchemy import and_, or_
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from .. import db, login_manager
 from app import whooshee
+
+from .. import db, login_manager
 from .messaging_manager import *  # noqa
-from sqlalchemy import or_, and_
 
 
 class Permission(str, Enum):
@@ -50,7 +52,8 @@ class Role(db.Model):
         return '<Role \'%s\'>' % self.name
 
 
-@whooshee.register_model('username', 'marital_type', 'age', 'country', 'religion', 'ethnicity', 'state', 'education_level')
+@whooshee.register_model('username', 'marital_type', 'age', 'country',
+                         'religion', 'ethnicity', 'state', 'education_level')
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -80,14 +83,17 @@ class User(UserMixin, db.Model):
     want_children = db.Column(db.String(64), index=True)
     open_for_relocation = db.Column(db.String(64), index=True)
     is_public = db.Column(db.Boolean, default=False, index=True)
-    seeking = db.relationship(
-        'Seeking', back_populates='user', lazy='dynamic', cascade='all')
-    photos = db.relationship('Photo', backref='user',
-                             lazy='dynamic')
+    seeking = db.relationship('Seeking',
+                              back_populates='user',
+                              lazy='dynamic',
+                              cascade='all')
+    photos = db.relationship('Photo', backref='user', lazy='dynamic')
     messages_received = db.relationship('Message',
                                         foreign_keys='Message.recipient_id',
-                                        backref='recipient', lazy='dynamic')
-    notifications = db.relationship('Notification', backref='user',
+                                        backref='recipient',
+                                        lazy='dynamic')
+    notifications = db.relationship('Notification',
+                                    backref='user',
                                     lazy='dynamic')
 
     def __init__(self, **kwargs):
@@ -138,11 +144,15 @@ class User(UserMixin, db.Model):
         s = Serializer(current_app.config['SECRET_KEY'])
         return s.dumps({'reset': self.id})
 
-    def confirm_account(self, token):
+    def confirm_account(self, token, test=False):
         """Verify that the provided token is for this user's id."""
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
-            data = s.loads(token, max_age=604800)
+            if test == False:
+                #used for testing purpose
+                data = s.loads(token, max_age=1)
+            else:
+                data = s.loads(token, max_age=604800)
         except (BadSignature, SignatureExpired):
             return False
         if data.get('confirm') != self.id:
@@ -188,25 +198,25 @@ class User(UserMixin, db.Model):
     @staticmethod
     def generate_fake(count=100, **kwargs):
         """Generate a number of fake users for testing."""
-        from sqlalchemy.exc import IntegrityError
-        from random import seed, choice
+        from random import choice, seed
+
         from faker import Faker
+        from sqlalchemy.exc import IntegrityError
 
         fake = Faker()
         roles = Role.query.all()
 
         seed()
         for i in range(count):
-            u = User(
-                first_name=fake.first_name(),
-                username=fake.first_name(),
-                country=fake.country(),
-                last_name=fake.last_name(),
-                email=fake.email(),
-                password='password',
-                confirmed=True,
-                role=choice(roles),
-                **kwargs)
+            u = User(first_name=fake.first_name(),
+                     username=fake.first_name(),
+                     country=fake.country(),
+                     last_name=fake.last_name(),
+                     email=fake.email(),
+                     password='password',
+                     confirmed=True,
+                     role=choice(roles),
+                     **kwargs)
             db.session.add(u)
             try:
                 db.session.commit()
@@ -215,10 +225,12 @@ class User(UserMixin, db.Model):
 
     def new_messages(self, user_id=None):
         if user_id is None:
-            return Message.query.filter_by(recipient=self).filter(Message.read_at == None).distinct('user_id').count()
+            return Message.query.filter_by(recipient=self).filter(
+                Message.read_at == None).distinct('user_id').count()
         else:
-            return Message.query.filter_by(recipient=self).filter(Message.read_at == None).filter(
-                Message.user_id == user_id).count()
+            return Message.query.filter_by(recipient=self).filter(
+                Message.read_at == None).filter(
+                    Message.user_id == user_id).count()
 
     def last_message(self, user_id):
         message = Message.query.order_by(Message.timestamp.desc()). \
@@ -237,8 +249,10 @@ class User(UserMixin, db.Model):
 
         if not permanent:
             self.notifications.filter_by(name=name).delete()
-        n = Notification(name=name, payload_json=json.dumps(
-            data), user=self, related_id=related_id)
+        n = Notification(name=name,
+                         payload_json=json.dumps(data),
+                         user=self,
+                         related_id=related_id)
         db.session.add(n)
         db.session.commit()
         n = Notification.query.get(n.id)
@@ -252,8 +266,7 @@ class User(UserMixin, db.Model):
             user=self.id,
             link=url_for('main.notifications', _external=True),
             notification=n.id,
-            **kwargs
-        )
+            **kwargs)
         if not current_app.config['DEBUG']:
             ws_url = "https://www.traditionalmarriage.org"
             path = 'sockets/socket.io'
@@ -262,23 +275,32 @@ class User(UserMixin, db.Model):
             ws_url = "http://localhost:3000"
             path = "socket.io"
         sio = socketio.Client()
-        sio.connect(ws_url + "?token={}".format(create_access_token(
-            identity=current_user.email)), socketio_path=path)
+        sio.connect(ws_url + "?token={}".format(
+            create_access_token(identity=current_user.email)),
+                    socketio_path=path)
         data = n.parsed()
         u = jsonify_object(data['user'])
         tu = jsonify_object(self)
-        data['user'] = {key: u[key] for key in u.keys()
-                        & {'first_name', 'id', 'email', 'socket_id'}}
-        data['touser'] = {key: tu[key] for key in tu.keys()
-                          & {'first_name', 'id', 'email', 'socket_id'}}
+        data['user'] = {
+            key: u[key]
+            for key in u.keys()
+            & {'first_name', 'id', 'email', 'socket_id'}
+        }
+        data['touser'] = {
+            key: tu[key]
+            for key in tu.keys()
+            & {'first_name', 'id', 'email', 'socket_id'}
+        }
         sio.emit('new_notification', {'notification': data})
         return n
 
     def get_photo(self):
         photos = self.photos.all()
         if len(photos) > 0:
-            return url_for('_uploads.uploaded_file', setname='images',
-                           filename=photos[0].image_filename, _external=True)
+            return url_for('_uploads.uploaded_file',
+                           setname='images',
+                           filename=photos[0].image_filename,
+                           _external=True)
         else:
             if self.gender == 'Female':
                 return "https://1.semantic-ui.com/images/avatar/large/veronika.jpg"
@@ -290,6 +312,7 @@ class User(UserMixin, db.Model):
 
 
 class AnonymousUser(AnonymousUserMixin):
+
     def can(self, _):
         return False
 

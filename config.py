@@ -42,11 +42,10 @@ class Config:
 
     # Admin account
     ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'password')
-    ADMIN_EMAIL = os.environ.get(
-        'ADMIN_EMAIL', 'flask-base-admin@example.com')
+    ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'flask-base-admin@example.com')
     EMAIL_SUBJECT_PREFIX = '[{}]'.format(APP_NAME)
-    EMAIL_SENDER = '{app_name} Admin <{email}>'.format(
-        app_name=APP_NAME, email=MAIL_USERNAME)
+    EMAIL_SENDER = '{app_name} Admin <{email}>'.format(app_name=APP_NAME,
+                                                       email=MAIL_USERNAME)
 
     REDIS_URL = os.getenv('REDISTOGO_URL', 'http://localhost:6379')
 
@@ -60,10 +59,16 @@ class Config:
         urlparse.uses_netloc.append('redis')
         url = urlparse.urlparse(REDIS_URL)
 
+    #Redis config
+
     RQ_DEFAULT_HOST = url.hostname
     RQ_DEFAULT_PORT = url.port
     RQ_DEFAULT_PASSWORD = url.password
     RQ_DEFAULT_DB = 0
+
+    #Celery config
+    CELERY_BROKER_URL = f'redis://{url.hostname}:{url.port}/0'
+    CELERY_RESULT_BACKEND = f'redis://{url.hostname}:{url.port}/0'
 
     # uploads
 
@@ -84,8 +89,9 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     ASSETS_DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL',
-                                             'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite'))
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        'DEV_DATABASE_URL',
+        'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite'))
 
     @classmethod
     def init_app(cls, app):
@@ -95,8 +101,9 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL',
-                                             'sqlite:///' + os.path.join(basedir, 'data-test.sqlite'))
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        'TEST_DATABASE_URL',
+        'sqlite:///' + os.path.join(basedir, 'data-test.sqlite'))
     WTF_CSRF_ENABLED = False
 
     @classmethod
@@ -108,8 +115,8 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     DEBUG = False
     USE_RELOADER = False
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL',
-                                             'sqlite:///' + os.path.join(basedir, 'data.sqlite'))
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        'DATABASE_URL', 'sqlite:///' + os.path.join(basedir, 'data.sqlite'))
     SSL_DISABLE = (os.environ.get('SSL_DISABLE', 'True') == 'True')
 
     @classmethod
@@ -121,6 +128,7 @@ class ProductionConfig(Config):
 
 
 class HerokuConfig(ProductionConfig):
+
     @classmethod
     def init_app(cls, app):
         ProductionConfig.init_app(app)
@@ -131,6 +139,7 @@ class HerokuConfig(ProductionConfig):
 
 
 class UnixConfig(ProductionConfig):
+
     @classmethod
     def init_app(cls, app):
         ProductionConfig.init_app(app)

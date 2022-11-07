@@ -2,20 +2,17 @@ import os
 
 from flask import Flask, render_template
 from flask_assets import Environment
+from flask_ckeditor import CKEditor
 #from flask_compress import Compress
 from flask_login import LoginManager
 from flask_mail import Mail
-from app.common.flask_rq import RQ
 from flask_sqlalchemy import SQLAlchemy
-from flask_wtf import CSRFProtect
-
-
-from app.common.flask_uploads import UploadSet, configure_uploads, IMAGES
-from flask_ckeditor import CKEditor
-
-from app.common.assets import app_css, app_js, vendor_css, vendor_js
-from config import config as Config
 from flask_whooshee import Whooshee
+from flask_wtf import CSRFProtect
+from app.common.assets import app_css, app_js, vendor_css, vendor_js
+from app.common.flask_rq import RQ
+from app.common.flask_uploads import IMAGES, UploadSet, configure_uploads
+from config import config as Config
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -25,8 +22,8 @@ db = SQLAlchemy()
 csrf = CSRFProtect()
 #compress = Compress()
 images = UploadSet('images', IMAGES)
-docs = UploadSet('docs', ('rtf', 'odf', 'ods', 'gnumeric',
-                 'abw', 'doc', 'docx', 'xls', 'xlsx', 'pdf', 'css'))
+docs = UploadSet('docs', ('rtf', 'odf', 'ods', 'gnumeric', 'abw', 'doc',
+                          'docx', 'xls', 'xlsx', 'pdf', 'css'))
 
 # Set up Flask-Login
 login_manager = LoginManager()
@@ -86,7 +83,8 @@ def create_app(config):
     from .blueprints.public import public as public_blueprint
     app.register_blueprint(public_blueprint)
 
-    from .blueprints.content_manager import content_manager as content_manager_blueprint
+    from .blueprints.content_manager import \
+        content_manager as content_manager_blueprint
     app.register_blueprint(content_manager_blueprint)
 
     from .blueprints.profile import profile as profile_blueprint
@@ -98,7 +96,8 @@ def create_app(config):
     from .blueprints.page_manager import page_manager as page_manager_blueprint
     app.register_blueprint(page_manager_blueprint)
 
-    from .blueprints.messaging_manager import messaging_manager as messaging_manager_blueprint
+    from .blueprints.messaging_manager import \
+        messaging_manager as messaging_manager_blueprint
     app.register_blueprint(messaging_manager_blueprint, url_prefix='/message')
 
     from .blueprints.notification import notification as notification_blueprint
