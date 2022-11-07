@@ -5,9 +5,11 @@ webassets-external/
 *.pyc
 *.pyo
 env
+.nox
 __pycache__
 venv
 *.env
+*.rdb
 env*
 dist
 *.egg
