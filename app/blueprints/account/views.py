@@ -26,7 +26,6 @@ account = Blueprint('account', __name__)
 @account.route('/login', methods=['GET', 'POST'])
 def login():
     """Log in an existing user."""
-    print(request.form)
     form = LoginForm(request.form)
     if form.validate_on_submit():
         user: User = User.query.filter_by(email=form.email.data).first()
@@ -46,39 +45,21 @@ def register():
     """Register a new user, and send them a confirmation email."""
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data,
-                    first_name=form.first_name.data,
-                    last_name=form.last_name.data,
-                    email=form.email.data,
-                    height=form.height.data,
-                    sex=form.sex.data,
-                    age=form.age.data,
-                    state=form.state.data,
-                    country=form.country.data,
-                    religion=form.religion.data,
-                    ethnicity=form.ethnicity.data,
-                    marital_type=form.marital_type.data,
-                    body_type=form.body_type.data,
-                    church_denomination=form.church_denomination.data,
-                    current_status=form.current_status.data,
-                    drinking_status=form.drinking_status.data,
-                    smoking_status=form.smoking_status.data,
-                    education_level=form.education_level.data,
-                    has_children=form.has_children.data,
-                    want_children=form.want_children.data,
-                    open_for_relocation=form.open_for_relocation.data,
-                    password=form.password.data)
+        user_data: dict = form.data
+        user_data.pop('password2')
+        user_data.pop('submit')
+        user_data.pop('csrf_token')
+        user = User(**user_data)
         db.session.add(user)
         db.session.commit()
         token = user.generate_confirmation_token()
         confirm_link = url_for('account.confirm', token=token, _external=True)
-        """get_queue().enqueue(
-            send_email,
-            recipient=user.email,
-            subject='Confirm Your Account',
-            template='account/email/confirm',
-            user=user,
-            confirm_link=confirm_link)"""
+        get_queue().enqueue(send_email,
+                            recipient=user.email,
+                            subject='Confirm Your Account',
+                            template='account/email/confirm',
+                            user=user,
+                            confirm_link=confirm_link)
         print(confirm_link)
         flash('A confirmation link has been sent to {}.'.format(user.email),
               'warning')
@@ -297,6 +278,7 @@ def confirm_request():
     flash(
         'A new confirmation link has been sent to {}.'.format(
             current_user.email), 'warning')
+    print(confirm_link)
     return redirect(url_for('account.manage'))
 
 

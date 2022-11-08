@@ -4,7 +4,7 @@ from enum import Enum
 from flask import current_app
 from flask_login import AnonymousUserMixin, UserMixin
 from itsdangerous import BadSignature, SignatureExpired
-from itsdangerous import URLSafeTimedSerializer as Serializer
+from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
 from sqlalchemy import and_, or_
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -129,24 +129,24 @@ class User(UserMixin, db.Model):
     def generate_confirmation_token(self):
         """Generate a confirmation token to email a new user."""
 
-        s = Serializer(current_app.config['SECRET_KEY'])
+        s = Serializer(current_app.config['SECRET_KEY'], current_app.config.get('SERIALIZER_SALT'))
         return s.dumps({'confirm': self.id})
 
     def generate_email_change_token(self, new_email):
         """Generate an email change token to email an existing user."""
-        s = Serializer(current_app.config['SECRET_KEY'])
+        s = Serializer(current_app.config['SECRET_KEY'], current_app.config.get('SERIALIZER_SALT'))
         return s.dumps({'change_email': self.id, 'new_email': new_email})
 
     def generate_password_reset_token(self):
         """
         Generate a password reset change token to email to an existing user.
         """
-        s = Serializer(current_app.config['SECRET_KEY'])
+        s = Serializer(current_app.config['SECRET_KEY'], current_app.config.get('SERIALIZER_SALT'))
         return s.dumps({'reset': self.id})
 
     def confirm_account(self, token, test=False):
         """Verify that the provided token is for this user's id."""
-        s = Serializer(current_app.config['SECRET_KEY'])
+        s = Serializer(current_app.config['SECRET_KEY'], current_app.config.get('SERIALIZER_SALT'))
         try:
             if test == False:
                 #used for testing purpose
@@ -154,7 +154,7 @@ class User(UserMixin, db.Model):
             else:
                 data = s.loads(token, max_age=604800)
         except (BadSignature, SignatureExpired):
-            return False
+            return False    
         if data.get('confirm') != self.id:
             return False
         self.confirmed = True

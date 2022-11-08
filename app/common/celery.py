@@ -1,7 +1,9 @@
 from celery import Celery
+from flask import Flask
 
 
-def make_celery(app):
+def make_celery(app: Flask = None):
+    """Instantiates a celery object """
     celery = Celery(app.import_name,
                     backend=app.config['CELERY_RESULT_BACKEND'],
                     broker=app.config['CELERY_BROKER_URL'])
