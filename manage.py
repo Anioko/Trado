@@ -113,15 +113,16 @@ def run_worker():
         worker = Worker(map(Queue, listen))
         worker.work()
 
+
 @manager.command()
 def run_cron_worker():
     """Triggers a celery worker process"""
     from app.common.celery import make_celery
-    
+
     queue = make_celery(app)
     worker = queue.Worker()
     worker.start()
-    
+
 
 @manager.command()
 def format():

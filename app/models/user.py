@@ -1,10 +1,11 @@
 #import socketio
+from datetime import datetime, timedelta, timezone
 from enum import Enum
 
+import jwt
 from flask import current_app
 from flask_login import AnonymousUserMixin, UserMixin
-from itsdangerous import BadSignature, SignatureExpired
-from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
+from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 from sqlalchemy import and_, or_
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -110,7 +111,7 @@ class User(UserMixin, db.Model):
 
     def can(self, permissions):
         return self.role is not None and \
-            self.role.permissions== permissions
+            self.role.permissions == permissions
 
     def is_admin(self):
         return self.can(Permission.ADMINISTER)
@@ -126,35 +127,58 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def generate_confirmation_token(self):
+    def generate_confirmation_token(self, expiration=604800):
         """Generate a confirmation token to email a new user."""
+        reset_token = jwt.encode(
+            {
+                "confirm":
+                self.id,
+                "exp":
+                datetime.now(tz=timezone.utc) + timedelta(seconds=expiration)
+            },
+            current_app.config['SECRET_KEY'],
+            algorithm="HS256")
+        return reset_token
 
-        s = Serializer(current_app.config['SECRET_KEY'], current_app.config.get('SERIALIZER_SALT'))
-        return s.dumps({'confirm': self.id})
-
-    def generate_email_change_token(self, new_email):
+    def generate_email_change_token(self, new_email, expiration=3600):
         """Generate an email change token to email an existing user."""
-        s = Serializer(current_app.config['SECRET_KEY'], current_app.config.get('SERIALIZER_SALT'))
-        return s.dumps({'change_email': self.id, 'new_email': new_email})
+        reset_token = jwt.encode(
+            {
+                'change_email':
+                self.id,
+                'new_email':
+                new_email,
+                "exp":
+                datetime.now(tz=timezone.utc) + timedelta(seconds=expiration)
+            },
+            current_app.config['SECRET_KEY'],
+            algorithm="HS256")
+        return reset_token
 
-    def generate_password_reset_token(self):
+    def generate_password_reset_token(self, expiration=3600):
         """
         Generate a password reset change token to email to an existing user.
         """
-        s = Serializer(current_app.config['SECRET_KEY'], current_app.config.get('SERIALIZER_SALT'))
-        return s.dumps({'reset': self.id})
+        reset_token = jwt.encode(
+            {
+                "reset":
+                self.id,
+                "exp":
+                datetime.now(tz=timezone.utc) + timedelta(seconds=expiration)
+            },
+            current_app.config['SECRET_KEY'],
+            algorithm="HS256")
+        return reset_token
 
-    def confirm_account(self, token, test=False):
+    def confirm_account(self, token, expiration=604800):
         """Verify that the provided token is for this user's id."""
-        s = Serializer(current_app.config['SECRET_KEY'], current_app.config.get('SERIALIZER_SALT'))
         try:
-            if test == False:
-                #used for testing purpose
-                data = s.loads(token, max_age=1)
-            else:
-                data = s.loads(token, max_age=604800)
-        except (BadSignature, SignatureExpired):
-            return False    
+            data = jwt.decode(token,
+                              current_app.config['SECRET_KEY'],
+                              leeway=timedelta(seconds=expiration),
+                              algorithms=["HS256"])
+        except (InvalidTokenError, ExpiredSignatureError):
+            return False
         if data.get('confirm') != self.id:
             return False
         self.confirmed = True
@@ -162,12 +186,14 @@ class User(UserMixin, db.Model):
         db.session.commit()
         return True
 
-    def change_email(self, token):
+    def change_email(self, token, expiration=3600):
         """Verify the new email for this user."""
-        s = Serializer(current_app.config['SECRET_KEY'])
         try:
-            data = s.loads(token, max_age=3600)
-        except (BadSignature, SignatureExpired):
+            data = jwt.decode(token,
+                              current_app.config['SECRET_KEY'],
+                              leeway=timedelta(seconds=expiration),
+                              algorithms=["HS256"])
+        except (InvalidTokenError, ExpiredSignatureError):
             return False
         if data.get('change_email') != self.id:
             return False
@@ -181,12 +207,14 @@ class User(UserMixin, db.Model):
         db.session.commit()
         return True
 
-    def reset_password(self, token, new_password):
+    def reset_password(self, token, new_password, expiration=3600):
         """Verify the new password for this user."""
-        s = Serializer(current_app.config['SECRET_KEY'])
         try:
-            data = s.loads(token, max_age=3600)
-        except (BadSignature, SignatureExpired):
+            data = jwt.decode(token,
+                              current_app.config['SECRET_KEY'],
+                              leeway=timedelta(seconds=expiration),
+                              algorithms=["HS256"])
+        except (InvalidTokenError, ExpiredSignatureError):
             return False
         if data.get('reset') != self.id:
             return False

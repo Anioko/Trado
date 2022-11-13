@@ -1,8 +1,7 @@
 import os
 import sys
+
 from dotenv import load_dotenv
-
-
 from raygun4py.middleware import flask as flask_raygun
 
 PYTHON_VERSION = sys.version_info[0]
@@ -12,7 +11,6 @@ else:
     import urlparse
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-
 """if os.path.exists('config.env'):
     print('Importing environment from .env file')
     for line in open('config.env'):

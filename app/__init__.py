@@ -9,10 +9,11 @@ from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from flask_whooshee import Whooshee
 from flask_wtf import CSRFProtect
+
 from app.common.assets import app_css, app_js, vendor_css, vendor_js
+from app.common.celery import make_celery
 from app.common.flask_rq import RQ
 from app.common.flask_uploads import IMAGES, UploadSet, configure_uploads
-from app.common.celery import make_celery
 from config import config as Config
 
 basedir = os.path.abspath(os.path.dirname(__file__))

@@ -1,21 +1,15 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
-from flask_login import (
-    current_user,
-    login_required,
-    login_user,  # ignore
-    logout_user)
+from flask_login import login_user  # ignore
+from flask_login import current_user, login_required, logout_user
 
 from app import db
-from app.blueprints.account.forms import (
-    ChangeEmailForm,  # ignore
-    ChangePasswordForm,
-    ChangeUsernameForm,
-    CreatePasswordForm,
-    LoginForm,
-    RegistrationForm,
-    RequestResetPasswordForm,
-    ResetPasswordForm,
-    UpdateDetailsForm)
+from app.blueprints.account.forms import ChangeEmailForm  # ignore
+from app.blueprints.account.forms import (ChangePasswordForm,
+                                          ChangeUsernameForm,
+                                          CreatePasswordForm, LoginForm,
+                                          RegistrationForm,
+                                          RequestResetPasswordForm,
+                                          ResetPasswordForm, UpdateDetailsForm)
 from app.common.email import send_email
 from app.common.flask_rq import get_queue
 from app.models import Photo, Seeking, User
