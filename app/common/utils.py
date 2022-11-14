@@ -1,3 +1,6 @@
+from datetime import datetime
+from math import ceil, floor
+
 from flask import url_for
 from wtforms.fields import Field
 from wtforms.widgets import HiddenInput
@@ -58,3 +61,79 @@ class CustomSelectField(Field):
             self.raw_data = [valuelist[1]]
         else:
             self.data = ''
+
+
+def pretty_date(time=False):
+    """
+    Get a datetime object or a int() Epoch timestamp and return a
+    pretty string like 'an hour ago', 'Yesterday', '3 months ago',
+    'just now', etc
+    """
+    from datetime import datetime
+    now = datetime.now()
+
+    if type(time) is int:
+        diff = now - datetime.fromtimestamp(time)
+    elif isinstance(time, datetime):
+        diff = now - time
+    elif not time:
+        diff = now - now
+    # diff = map(int, diff)
+    # diff = floor(diff)
+    second_diff = diff.seconds
+    day_diff = diff.days
+
+    if day_diff < 0:
+        return ''
+
+    if day_diff == 0:
+        if second_diff < 10:
+            return "just now"
+        if second_diff < 60:
+            return str(ceil(second_diff)) + " seconds ago"
+        if second_diff < 120:
+            return "a minute ago"
+        if second_diff < 3600:
+            return str(floor(second_diff / 60)) + " minutes ago"
+        if second_diff < 7200:
+            return "an hour ago"
+        if second_diff < 86400:
+            return str(floor(second_diff / 3600)) + " hours ago"
+    if day_diff == 1:
+        return "Yesterday"
+    if day_diff < 7:
+        # if d
+        return str(floor(day_diff)) + " days ago"
+    if day_diff < 31:
+        day_diff = floor(day_diff / 7)
+        if day_diff == 1:
+            return "a week ago"
+        else:
+            return str(day_diff) + " weeks ago"
+    if day_diff < 365:
+        return str(floor(day_diff / 30)) + " months ago"
+    return str(floor(day_diff / 365)) + " years ago"
+
+
+async def jsonify_object(item, only_date=True):
+    item = await item
+    new_item = {}
+    for item_attr in item._asdict():
+        if not item_attr.startswith('_'):
+            value = item.__dict__[item_attr] if type(
+                item.__dict__[item_attr]) is not datetime else (
+                    str(item.__dict__[item_attr]) if not only_date else
+                    pretty_date(item.__dict__[item_attr]))
+            new_item[item_attr] = value
+    return new_item
+
+
+def get_paginated_list(results):
+    return_value = jsonify_object(results)
+    items = []
+    for item in results.items:
+        items.append(jsonify_object(item))
+    items.reverse()
+    return_value['items'] = items
+    del (return_value['query'])
+    return return_value

@@ -1,15 +1,10 @@
 from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileRequired
-from wtforms import ValidationError
-from wtforms.fields import (BooleanField, DateField, EmailField, FileField,
-                            FloatField, IntegerField, MultipleFileField,
-                            PasswordField, SelectField, StringField,
-                            SubmitField, TextAreaField)
-from wtforms.validators import (DataRequired, Email, EqualTo, InputRequired,
-                                Length)
-from wtforms_alchemy import ModelForm, Unique, model_form_factory
-from wtforms_alchemy.fields import QuerySelectField, QuerySelectMultipleField
+from wtforms.fields import (BooleanField, FileField, FloatField, SelectField,
+                            StringField, SubmitField, TextAreaField)
+from wtforms.validators import DataRequired, Length
+from wtforms_alchemy import ModelForm, model_form_factory
 
 from app import db
 from app.common.flask_uploads import IMAGES, UploadSet
@@ -107,7 +102,7 @@ class HeadlineForm(BaseModelForm):
     headline = StringField("Headline Title Text")
     description = CKEditorField("Description")
     image = FileField(
-        'Images Only')  #, FileAllowed(images, 'Images only allowed!'))
+        'Images Only')  # , FileAllowed(images, 'Images only allowed!'))
     submit = SubmitField('Submit')
 
 
@@ -495,7 +490,7 @@ class TestimonialTitleForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
-#FeatureForm
+# FeatureForm
 class FeatureForm(FlaskForm):
     title = StringField("Title or Name",
                         validators=[DataRequired(),

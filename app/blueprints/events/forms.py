@@ -1,9 +1,8 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileAllowed, FileField, FileRequired
-from wtforms import (DateField, EmailField, SelectField, StringField,
-                     SubmitField, TextAreaField)
-from wtforms.validators import (Email, InputRequired, Length, Optional,
-                                ValidationError)
+from flask_wtf.file import FileAllowed, FileField
+from wtforms import (DateField, SelectField, StringField, SubmitField,
+                     TextAreaField)
+from wtforms.validators import InputRequired, Length, Optional
 
 from app.common.flask_uploads import IMAGES, UploadSet
 

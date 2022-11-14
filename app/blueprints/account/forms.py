@@ -3,11 +3,9 @@ from flask_wtf import FlaskForm  # ignore
 from wtforms import ValidationError  # ignore
 from wtforms.fields import EmailField  # ignore
 from wtforms.fields import (BooleanField, PasswordField, SelectField,
-                            StringField, SubmitField, TextAreaField)
+                            StringField, SubmitField)
 from wtforms.validators import InputRequired  # ignore
-from wtforms.validators import (Email, EqualTo, Length, Optional,
-                                ValidationError)
-from wtforms_alchemy import Unique  # , ModelForm, model_form_factory #ignore
+from wtforms.validators import Email, EqualTo, Length, ValidationError
 
 from app.models import User
 

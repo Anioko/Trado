@@ -1,7 +1,3 @@
-import os
-
-from flask import url_for
-
 from .. import db
 
 

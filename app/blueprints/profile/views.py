@@ -1,7 +1,5 @@
-from flask import Blueprint, abort, render_template, request, url_for
+from flask import Blueprint, abort, render_template, request
 from flask_login import current_user, login_required
-
-from app import db
 from app.blueprints.profile.forms import *
 from app.models import *
 
@@ -14,7 +12,7 @@ def settings():
     return render_template('profile/settings.html')
 
 
-####################Content Management System Start #################
+#################### Content Management System Start #################
 
 
 @profile.route('/<int:user_id>/<username>/info')
@@ -29,7 +27,7 @@ def index(user_id, username):
 
 @profile.route('/<username>')
 @login_required
-#@admin_required
+# @admin_required
 def view(username):
     """View a user's profile."""
     user = User.query.filter_by(username=username).first()

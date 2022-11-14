@@ -1,23 +1,22 @@
-from flask import (Blueprint, abort, flash, redirect, render_template, request,
+from flask import (Blueprint, flash, redirect, render_template, request,
                    url_for)
-from flask_ckeditor import upload_success
 from flask_login import current_user, login_required
-from flask_sqlalchemy.pagination import Pagination
-
-from app import db
-from app.blueprints.content_manager.forms import *
-#)
+from app import db, images
+from app.blueprints.content_manager.forms import (HeadlineForm, ImageTechnologyForm,
+                                                  BackgroundImageForm, FeatureTitleForm, PricingForm, ServiceTitleForm,
+                                                  TestimonialForm, VideoForm, VideoTextForm, LandingPageTextForm,
+                                                  SlideShowCrudForm, WebsiteLogoForm, ClientForm, ClientTitleForm,
+                                                  CallToActionForm, CostForm, CopyRightForm)
+# )
 from app.common.decorators import admin_required
-from app.common.email import send_email
-from app.common.flask_rq import get_queue
-from app.models import *
-from app.models.content_manager import Headline
+from app.models import (BackgroundImage, Portfolio, Testimonial, Video,
+                        VideoText, CallToAction, ClientTitle, Client, Cost,
+                        CopyRight, Counter)
 
-#from app.admin.forms import (
-#ChangeAccountTypeForm,
-#ChangeUserEmailForm,
-#InviteUserForm,
-#NewUserForm,
+from app.models.content_manager import (Headline, LandingPageText,
+                                        SlideShowImage, Feature, FaviconImage, FeatureTitle,
+                                        FooterText, Faq, Process, ProcessTitle)
+
 
 content_manager = Blueprint('content_manager', __name__)
 
@@ -29,7 +28,7 @@ def index():
     return render_template('content_manager/index.html')
 
 
-####################Content Management System Start #################
+#################### Content Management System Start #################
 
 # Add LandingPageText-Image
 
@@ -68,32 +67,32 @@ def add_landing_page_text():
                            form=form)
 
 
-### LandingPageText Image add method
-##@content_manager.route('/landing_page_text/add', methods=['POST', 'GET'])
-##@login_required
-##@admin_required
-##def add_landing_page_text():
+# LandingPageText Image add method
+# @content_manager.route('/landing_page_text/add', methods=['POST', 'GET'])
+# @login_required
+# @admin_required
+# def add_landing_page_text():
 ##    form = LandingPageTextForm(request.form)
-##    if request.method == 'POST':
+# if request.method == 'POST':
 ##        image = images.save(request.files['landing_page_text'])
-##        data = LandingPageText(landing_page_text=image,
+# data = LandingPageText(landing_page_text=image,
 ##                                    title = form.title.data,
 ##                                    description = form.description.data,
-##                                    #icon_one=form.icon_one.data,
-##                                    #icon_two = form.icon_two.data,
-##                                    #icon_three = form.icon_three.data,
-##                                    #icon_four = form.icon_four.data,
+# icon_one=form.icon_one.data,
+# icon_two = form.icon_two.data,
+# icon_three = form.icon_three.data,
+# icon_four = form.icon_four.data,
 ##                                    line_one_text = form.line_one_text.data,
 ##                                    line_two_text = form.line_two_text.data,
 ##                                    line_three_text = form.line_three_text.data,
 ##                                    line_four_text = form.line_four_text.data
-##                                    )
+# )
 ##
-##        db.session.add(data)
-##        db.session.commit()
+# db.session.add(data)
+# db.session.commit()
 ##        flash("LandingPageText Added Successfully .", "success")
-##        return redirect(url_for('content_manager.added_landing_page_text'))
-##    return render_template('content_manager/landing_page_text/add_data.html', form=form)
+# return redirect(url_for('content_manager.added_landing_page_text'))
+# return render_template('content_manager/landing_page_text/add_data.html', form=form)
 
 
 # LandingPageText Delete Method
@@ -581,7 +580,7 @@ def delete_information(id):
     return redirect(url_for('content_manager.added_information'))
 
 
-#Add Count
+# Add Count
 
 
 @content_manager.route('/counter')
@@ -1378,7 +1377,7 @@ def delete_copyright(id):
     return redirect(url_for('content_manager.added_copyright'))
 
 
-#Favicon
+# Favicon
 
 
 @content_manager.route('/favicon-image')
@@ -1422,7 +1421,7 @@ def delete_favicon_image(favicon_image_id):
     return redirect(url_for('content_manager.added_favicon_image'))
 
 
-#Apple Touch Icon
+# Apple Touch Icon
 
 
 @content_manager.route('/apple_touch_icon')
@@ -1603,8 +1602,8 @@ def added_pricing():
     if data is None:
         return redirect(url_for('content_manager.add_pricing'))
     return render_template('content_manager/pricing/added_pricing.html',
-                           data=data)  #, cost_data = Cost.query.all(),
-    #pricing_attributes = PricingAttribute.query.all())
+                           data=data)  # , cost_data = Cost.query.all(),
+    # pricing_attributes = PricingAttribute.query.all())
 
 
 @content_manager.route('/pricing/setting/add', methods=['POST', 'GET'])
@@ -1666,7 +1665,7 @@ def delete_pricing(id):
     return redirect(url_for('content_manager.added_pricing'))
 
 
-#Add Pricing Attribute
+# Add Pricing Attribute
 @content_manager.route('/pricing/<title>/feature/<int:id>/add',
                        methods=['POST', 'GET'])
 @login_required

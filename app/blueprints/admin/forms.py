@@ -2,10 +2,8 @@ from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
 from wtforms import ValidationError
-from wtforms.fields import (BooleanField, EmailField, FileField, FloatField,
-                            IntegerField, MultipleFileField, PasswordField,
-                            SelectField, StringField, SubmitField,
-                            TextAreaField)
+from wtforms.fields import (BooleanField, EmailField, FileField, IntegerField,
+                            PasswordField, StringField, SubmitField)
 from wtforms.validators import Email, EqualTo, InputRequired, Length
 from wtforms_alchemy import (ModelForm, QuerySelectField,
                              QuerySelectMultipleField, Unique,

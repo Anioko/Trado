@@ -1,18 +1,23 @@
-#import socketio
+import json
 from datetime import datetime, timedelta, timezone
 from enum import Enum
 
 import jwt
-from flask import current_app
-from flask_login import AnonymousUserMixin, UserMixin
+import socketio
+from flask import current_app, url_for
+from flask_jwt_extended import create_access_token
+from flask_login import AnonymousUserMixin, UserMixin, current_user
 from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 from sqlalchemy import and_, or_
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import whooshee
+from app.common.flask_rq import get_queue
+from app.common.utils import jsonify_object
 
 from .. import db, login_manager
-from .messaging_manager import *  # noqa
+from .messaging_manager import Message  # noqa
+from .notification import Notification
 
 
 class Permission(str, Enum):
@@ -273,7 +278,7 @@ class User(UserMixin, db.Model):
         return messages
 
     def add_notification(self, name, data, related_id=0, permanent=False):
-        from app.email import send_email
+        from app.common.email import send_email
 
         if not permanent:
             self.notifications.filter_by(name=name).delete()
