@@ -72,6 +72,7 @@ class User(UserMixin, db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     height = db.Column(db.String(64), index=True)
     sex = db.Column(db.String(64), index=True)
+    seeking_gender = db.Column(db.String(10), index=True)
     age = db.Column(db.String(64), index=True)
     state = db.Column(db.String(64), index=True)
     country = db.Column(db.String(64), index=True)
@@ -310,7 +311,7 @@ class User(UserMixin, db.Model):
         sio = socketio.Client()
         sio.connect(ws_url + "?token={}".format(
             create_access_token(identity=current_user.email)),
-                    socketio_path=path)
+            socketio_path=path)
         data = n.parsed()
         u = jsonify_object(data['user'])
         tu = jsonify_object(self)

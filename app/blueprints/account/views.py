@@ -39,14 +39,14 @@ def register():
     """Register a new user, and send them a confirmation email."""
     form = RegistrationForm()
     if form.validate_on_submit():
-        user_data: dict = form.data
-        user_data.pop('password2')
-        user_data.pop('submit')
-        user_data.pop('csrf_token')
-        user = User(**user_data)
+        user: User = User(first_name=form.first_name.data, email=form.email.data,
+                          password=form.password.data, current_status=form.current_status.data,
+                          username=form.username.data, age=form.age.data,
+                          sex=form.sex.data,
+                          last_name=form.last_name.data)
         db.session.add(user)
         db.session.commit()
-        token = user.generate_confirmation_token()
+        token: str = user.generate_confirmation_token()
         confirm_link = url_for('account.confirm', token=token, _external=True)
         get_queue().enqueue(send_email,
                             recipient=user.email,
@@ -190,7 +190,6 @@ def update_details():
         user.first_name = form.first_name.data
         user.last_name = form.last_name.data
         user.height = form.height.data
-        user.sex = form.sex.data
         user.age = form.age.data
         user.state = form.state.data
         user.country = form.country.data
@@ -205,6 +204,10 @@ def update_details():
         user.education_level = form.education_level.data
         user.has_children = form.has_children.data
         user.want_children = form.want_children.data
+        if user.sex == "Male":
+            user.seeking_gender = "Female"
+        else:
+            user.seeking_gender = "Male"
         user.open_for_relocation = form.open_for_relocation.data
         db.session.add(user)
         db.session.commit()
@@ -343,7 +346,7 @@ def before_request():
     """Force user to confirm email before accessing login-required routes."""
     if current_user.is_authenticated \
             and not current_user.confirmed \
-            and request.endpoint[:8] != 'account.' \
+            and not request.endpoint.startswith('account.') \
             and request.endpoint != 'static':
         return redirect(url_for('account.unconfirmed'))
 
