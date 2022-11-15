@@ -15,6 +15,7 @@ from app.common.celery import make_celery
 from app.common.flask_rq import RQ
 from app.common.flask_uploads import IMAGES, UploadSet, configure_uploads
 from config import config as Config
+from authlib.integrations.flask_client import OAuth
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -61,7 +62,7 @@ def create_app(config):
     whooshee.init_app(app)
     celery = make_celery(app)
     celery.conf.update(app.config)
-
+    OAuth(app)
     # Register Jinja template functions
     from app.common.utils import register_template_utils
     register_template_utils(app)

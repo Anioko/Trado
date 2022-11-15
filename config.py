@@ -82,6 +82,19 @@ class Config:
     docs = UPLOADED_DOCS_DEST
     UPLOADED_PATH = os.path.join(basedir, 'uploads')
 
+    # for google oauth support
+    GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID', )
+    GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET')
+    GOOGLE_CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+
+    # for twitter oauth support
+    TWITTER_CLIENT_ID = os.environ.get('TWITTER_CLIENT_ID')
+    TWITTER_CLIENT_SECRET = os.environ.get('TWITTER_CLIENT_SECRET')
+
+    # Facebook Oauth Config
+    FACEBOOK_CLIENT_ID = os.environ.get('FACEBOOK_CLIENT_ID')
+    FACEBOOK_CLIENT_SECRET = os.environ.get('FACEBOOK_CLIENT_SECRET')
+
     @staticmethod
     def init_app(app):
         pass

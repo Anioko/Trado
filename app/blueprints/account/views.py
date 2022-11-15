@@ -1,7 +1,7 @@
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for, current_app
 from flask_login import login_user  # ignore
 from flask_login import current_user, login_required, logout_user
-
+from authlib.integrations.flask_client import OAuth
 from app import db
 from app.blueprints.account.forms import ChangeEmailForm  # ignore
 from app.blueprints.account.forms import (ChangePasswordForm,
@@ -15,6 +15,8 @@ from app.common.flask_rq import get_queue
 from app.models import Photo, Seeking, User
 
 account = Blueprint('account', __name__)
+
+oauth = OAuth(current_app)
 
 
 @account.route('/login', methods=['GET', 'POST'])
@@ -67,6 +69,96 @@ def logout():
     logout_user()
     flash('You have been logged out.', 'info')
     return redirect(url_for('account.manage'))
+
+
+"""OAuth implementations"""
+
+
+@account.route('/google/')
+def google():
+
+    # Google Oauth Config
+    # Get client_id and client_secret from environment variables
+    # For developement purpose you can directly put it here inside double quotes
+    oauth.register(
+        name='google',
+        client_id=current_app.config['GOOGLE_CLIENT_ID'],
+        client_secret=current_app.config['GOOGLE_CLIENT_SECRET'],
+        server_metadata_url=current_app.config['GOOGLE_CONF_URL'],
+        client_kwargs={
+            'scope': 'openid email profile'
+        }
+    )
+
+    # Redirect to google_auth function
+    redirect_uri = url_for('account.google_auth', _external=True)
+    return oauth.google.authorize_redirect(redirect_uri)
+
+
+@account.route('/google/auth/')
+def google_auth():
+    token = oauth.google.authorize_access_token()
+    user = oauth.google.parse_id_token(token)
+    print(" Google User ", user)
+    return redirect(url_for('account.manage'))
+
+
+@account.route('/twitter/')
+def twitter():
+
+    # Twitter Oauth Config
+    oauth.register(
+        name='twitter',
+        client_id=current_app.config['TWITTER_CLIENT_ID'],
+        client_secret=current_app.config['TWITTER_CLIENT_SECRET'],
+        request_token_url='https://api.twitter.com/oauth/request_token',
+        request_token_params=None,
+        access_token_url='https://api.twitter.com/oauth/access_token',
+        access_token_params=None,
+        authorize_url='https://api.twitter.com/oauth/authenticate',
+        authorize_params=None,
+        api_base_url='https://api.twitter.com/1.1/',
+        client_kwargs=None,
+    )
+    redirect_uri = url_for('account.twitter_auth', _external=True)
+    return oauth.twitter.authorize_redirect(redirect_uri)
+
+
+@account.route('/twitter/auth/')
+def twitter_auth():
+    token = oauth.twitter.authorize_access_token()
+    resp = oauth.twitter.get('account/verify_credentials.json')
+    profile = resp.json()
+    print(" Twitter User", profile)
+    return redirect('/')
+
+
+@account.route('/facebook/')
+def facebook():
+    # Facebook Oauth Config
+    oauth.register(
+        name='facebook',
+        client_id=current_app.config['FACEBOOK_CLIENT_ID'],
+        client_secret=current_app.config['FACEBOOK_CLIENT_SECRET'],
+        access_token_url='https://graph.facebook.com/oauth/access_token',
+        access_token_params=None,
+        authorize_url='https://www.facebook.com/dialog/oauth',
+        authorize_params=None,
+        api_base_url='https://graph.facebook.com/',
+        client_kwargs={'scope': 'email'},
+    )
+    redirect_uri = url_for('account.facebook_auth', _external=True)
+    return oauth.facebook.authorize_redirect(redirect_uri)
+
+
+@account.route('/facebook/auth/')
+def facebook_auth():
+    token = oauth.facebook.authorize_access_token()
+    resp = oauth.facebook.get(
+        'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
+    profile = resp.json()
+    print("Facebook User ", profile)
+    return redirect('/')
 
 
 @account.route('/manage', methods=['GET', 'POST'])
