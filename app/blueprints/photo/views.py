@@ -1,10 +1,10 @@
-from flask import (Blueprint, abort, flash, redirect, render_template, request,
+from flask import (Blueprint, flash, redirect, render_template, request,
                    url_for)
 from flask_login import current_user, login_required
-
-from app import db
-from app.blueprints.photo.forms import *
-from app.models import *
+from typing import List
+from app import db, images
+from app.blueprints.photo.forms import ImageForm
+from app.models import Photo
 
 photo = Blueprint('photo', __name__)
 
@@ -19,13 +19,13 @@ def index():
 @login_required
 def add_photo():
     form = ImageForm()
-    count = Photo.query.filter_by(user_id=current_user.id).count()
+    count: int = Photo.query.filter_by(user_id=current_user.id).count()
     if count >= 5:
         return redirect(url_for('photo.added_images'))
     if form.validate_on_submit():
-        data = Photo(image=images.save(request.files['image']),
-                     profile_picture=form.profile_picture.data,
-                     user_id=current_user.id)
+        data: Photo = Photo(image=images.save(request.files['image']),
+                            profile_picture=form.profile_picture.data,
+                            user_id=current_user.id)
         db.session.add(data)
         db.session.commit()
         flash("Picture Added Successfully.", "success")
@@ -37,8 +37,9 @@ def add_photo():
 @login_required
 def added_images():
     """View added images."""
-    count = Photo.query.filter_by(user_id=current_user.id).count()
-    photo_data = Photo.query.filter_by(user_id=current_user.id).all()
+    count: int = Photo.query.filter_by(user_id=current_user.id).count()
+    photo_data: List[Photo] = Photo.query.filter_by(
+        user_id=current_user.id).all()
     if photo_data is None:
         return redirect(url_for('photo.add_photo'))
     return render_template('photo/added_images.html',

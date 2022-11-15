@@ -1,18 +1,13 @@
-import operator
-
+import json
 from flask import (Blueprint, abort, flash, redirect, render_template, request,
                    url_for)
-from flask_ckeditor import upload_success
 from flask_login import current_user, login_required
-from flask_sqlalchemy import Pagination
-from flask_sqlalchemy.pagination import Pagination
-from sqlalchemy import desc, func, or_
-
+from sqlalchemy import or_
+from datetime import datetime
 from app import db
-from app.blueprints.messaging_manager.forms import *
+from app.blueprints.messaging_manager.forms import MessageForm
 from app.blueprints.messaging_manager.views import messaging_manager
-from app.common.flask_rq import get_queue
-from app.models import *
+from app.models import User, ContactMessage, Message
 
 messaging_manager = Blueprint('messaging_manager', __name__)
 

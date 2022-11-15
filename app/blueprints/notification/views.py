@@ -1,20 +1,7 @@
-from flask import (Blueprint, abort, flash, jsonify, redirect, render_template,
-                   request, url_for)
-from flask_ckeditor import upload_success
+from flask import (Blueprint, jsonify, redirect, render_template, url_for)
 from flask_login import current_user, login_required
-from flask_sqlalchemy.pagination import Pagination
-from sqlalchemy import desc, func
-
 from app import db
-from app.blueprints.notification.forms import *
-from app.common.flask_rq import get_queue
-# from app.page_manager.forms import (
-# ChangeAccountTypeForm,
-# ChangeUserEmailForm,
-# InviteUserForm,
-# NewUserForm,
-# )
-from app.models import *
+from app.models import User, Notification
 
 notification = Blueprint('notification', __name__)
 
@@ -22,6 +9,7 @@ notification = Blueprint('notification', __name__)
 @notification.route('/read/<notification_id>')
 @login_required
 def read_notification(notification_id):
+    """Returns a notification object while also setting read value"""
     notification = current_user.notifications.filter_by(
         id=notification_id).first_or_404()
     notification.read = True
@@ -39,6 +27,7 @@ def read_notification(notification_id):
 @notification.route('/count')
 @login_required
 def notifications_count():
+    """Returns a number representing user notifications"""
     notifications = Notification.query.filter_by(read=False).filter_by(
         user_id=current_user.id).count()
     messages = current_user.new_messages()
@@ -53,6 +42,7 @@ def notifications_count():
 @notification.route('/')
 @login_required
 def notifications():
+    """Returns a list of user notifications"""
     users = User.query.order_by(User.username).all()
     notifications = current_user.notifications.all()
     parsed_notifications = []
@@ -70,11 +60,8 @@ def notifications():
 @notification.route('/more/<int:count>')
 @login_required
 def more_notifications(count):
-    # follow_lists = User.query.filter(User.id != current_user.id).order_by(func.random()).limit(10).all()
-    # jobs = Job.query.filter(Job.organisation != None).filter(Job.end_date >= datetime.now()).order_by(Job.pub_date.asc()).all()
-    # users = User.query.order_by(User.full_name).all()
+    """Allows a callbck to fetch remaining notifications"""
     notifications = current_user.notifications.all()
-    print(len(notifications))
     parsed_notifications = []
     for notification in notifications:
         parsed_notifications.append(notification.parsed())
@@ -89,17 +76,3 @@ def more_notifications(count):
         parsed_notifications = parsed_notifications[count:count + 15]
     return render_template('notification/more_notifications.html',
                            notifications=parsed_notifications)
-
-
-@notification.route('/notification_test')
-@login_required
-def notification_test():
-    n = Notification.query.get(379)
-    related = User.query.get(32)
-    extraextra = Answer.query.get(25)
-    return render_template('account/email/notification.html',
-                           user=current_user,
-                           link="http://www.google.com",
-                           notification=n,
-                           related=related,
-                           extraextra=extraextra)

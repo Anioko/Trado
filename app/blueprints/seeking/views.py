@@ -1,10 +1,11 @@
-from flask import (Blueprint, abort, flash, redirect, render_template, request,
+from flask import (Blueprint, flash, redirect, render_template,
                    url_for)
 from flask_login import current_user, login_required
 
 from app import db
-from app.blueprints.seeking.forms import *
-from app.models import *
+from app.blueprints.seeking.forms import SeekingForm
+from app.models import Seeking, User
+
 
 seeking = Blueprint('seeking', __name__)
 
@@ -58,7 +59,7 @@ def add_preference(id, username):
     form = SeekingForm()
     if form.validate_on_submit():
         seeking = Seeking(
-            user_id=user.id,
+            user_id=current_user.id,
             seeking_partner=form.seeking_partner.data,
             seeking_from_height=form.seeking_from_height.data,
             seeking_to_height=form.seeking_to_height.data,
@@ -145,6 +146,7 @@ def add_preference(id, username):
 @seeking.route('/<int:id>/<username>/edit', methods=['POST', 'GET'])
 @login_required
 def edit(id, username):
+    """Edits a range of user seeking requirements"""
     data = Seeking.query.filter_by(user_id=id).first()
     if data is None:
         return redirect(

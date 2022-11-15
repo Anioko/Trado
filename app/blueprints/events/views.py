@@ -1,9 +1,9 @@
 from flask import (Blueprint, abort, flash, jsonify, redirect, render_template,
                    request, url_for)
 from flask_login import current_user, login_required
-
-from app.models import *
-
+from datetime import datetime
+from app.models import Event, User, Attendee
+from app import db
 from .forms import *
 
 events = Blueprint('events', __name__)
@@ -20,18 +20,17 @@ def events_list():
     '/<int:event_id>/<event_title>/<event_city>/<event_state>/<event_country>')
 def event_details(event_id, event_title, event_city, event_state,
                   event_country):
-    appts = Event.query.filter(Event.id == event_id).first_or_404()
+    appts = Event.query.filter(Event.id == event_id, Event.event_title == event_title,
+                               Event.event_city == event_city, Event.event_country == event_country).first_or_404()
     users = User.query.all()
     return render_template('events/event_details.html',
                            appt=appts,
-                           orgs=orgs,
                            users=users)
 
 
 @events.route('/create/event', methods=['Get', 'POST'])
 @login_required
 def create_event():
-    user = User.query.filter_by(user_id=current_user.id).first_or_404()
     form = EventForm()
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -42,7 +41,7 @@ def create_event():
                 event_title=form.event_title.data,
                 creator_id=current_user.id,
                 image_filename=image_filename,
-                user_id=user_id,
+                user_id=current_user.id,
                 event_city=form.event_city.data,
                 event_state=form.event_state.data,
                 event_country=form.event_country.data,
@@ -88,7 +87,6 @@ def event_attend(event_id, event_title):
                 "You can't click attend to {0} because you created it".format(
                     appt.event_title), 'warning')
             return redirect(url_for('events.events_list'))
-        extra = Extra.query.filter_by(user_id=current_user.id).first()
         attendees = Attendee.query.filter(Attendee.event_id == appt.id).all()
         applicants = [appt.user_id for appt in attendees]
         if current_user.id in attendees:

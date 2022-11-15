@@ -1,7 +1,8 @@
 from flask import Blueprint, abort, render_template, request
 from flask_login import current_user, login_required
-from app.blueprints.profile.forms import *
-from app.models import *
+from app.models import User, Photo, Seeking
+from flask_sqlalchemy.pagination import Pagination
+from typing import List
 
 profile = Blueprint('profile', __name__)
 
@@ -48,6 +49,6 @@ def view(username):
 @profile.route('/list/', defaults={'page': 1})
 @profile.route('/list/page/<int:page>', methods=['GET'])
 def members(page):
-    paginated = User.query.filter(User.id != current_user.id).order_by(
+    paginated: List[Pagination] = User.query.filter(User.id != current_user.id).order_by(
         User.id.desc()).paginate(page, per_page=25)
     return render_template('profile/members.html', paginated=paginated)
