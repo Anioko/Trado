@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms.fields import SelectField, SubmitField
-from wtforms_alchemy import  model_form_factory
-
+from wtforms_alchemy import model_form_factory
 from app.common.flask_uploads import IMAGES, UploadSet
 
 BaseModelForm = model_form_factory(FlaskForm)

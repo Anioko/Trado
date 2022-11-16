@@ -1,6 +1,6 @@
 import pytest
 from app import create_app
-from flask import Flask
+
 
 @pytest.fixture()
 def app():
@@ -17,10 +17,10 @@ def app():
 
 
 @pytest.fixture()
-def client(app:Flask):
+def client(app):
     return app.test_client()
 
 
 @pytest.fixture()
-def runner(app:Flask):
+def runner(app):
     return app.test_cli_runner()

@@ -1,10 +1,7 @@
 import time
 import unittest
-from flask_login import login_user, current_user  # ignore
 from app import create_app, db
 from app.models import AnonymousUser, Permission, Role, User
-from flask import url_for, request
-import responses  # ignore
 
 
 class UserModelTestCase(unittest.TestCase):

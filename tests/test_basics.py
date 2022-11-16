@@ -1,5 +1,4 @@
 import unittest
-
 from app import create_app, db
 from flask import current_app
 

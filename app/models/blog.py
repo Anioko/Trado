@@ -5,6 +5,9 @@ from .. import db
 
 
 class BlogCategory(db.Model):
+    """
+    Represents a post category 
+    """
     __tablename__ = 'blog_categories'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(), default=None, nullable=False)
@@ -17,6 +20,7 @@ class BlogCategory(db.Model):
 
 
 class BlogTag(db.Model):
+    """Represents a blog tag"""
     __tablename__ = 'blog_tags'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(), default=None, nullable=False)
