@@ -2,7 +2,6 @@ import json
 from time import time
 from flask import url_for
 from datetime import datetime
-from .user import User
 from .messaging_manager import Message
 from .. import db
 
@@ -26,7 +25,7 @@ class Notification(db.Model):
         return json.loads(str(self.payload_json))
 
     def parsed(self):
-        from app.models import ProfileMessage
+        from .user import User
 
         user = User.query.filter_by(id=self.related_id).first()
         if 'unread_message' in self.name:

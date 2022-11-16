@@ -6,7 +6,6 @@ from sqlalchemy import or_
 from datetime import datetime
 from app import db
 from app.blueprints.messaging_manager.forms import MessageForm
-from app.blueprints.messaging_manager.views import messaging_manager
 from app.models import User, ContactMessage, Message
 
 messaging_manager = Blueprint('messaging_manager', __name__)
