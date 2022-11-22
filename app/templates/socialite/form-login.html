@@ -1,0 +1,118 @@
+{% include 'partials/socialite/_head.html' %}
+
+    <style>
+        input , .bootstrap-select.btn-group button{
+            background-color: #f3f4f6  !important;
+            height: 44px  !important;
+            box-shadow: none  !important; 
+        }
+    </style>
+<body>
+
+    <body class="bg-gray-100">
+
+
+        <div id="wrapper" class="flex flex-col justify-between h-screen">
+    
+            <!-- header-->
+            <div class="bg-white py-4 shadow dark:bg-gray-800">
+                <div class="max-w-6xl mx-auto">
+    
+    
+                    <div class="flex items-center lg:justify-between justify-around">
+    
+                        <a href="trending.html">
+                            <img src="{{ url_for('static', filename='socialite/assets/images/logo.png') }}" alt="" class="w-32">
+                        </a>
+    
+                        <div class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
+                            <a href="{{ url_for('account.login') }}" class="py-3 px-4">Login</a>
+                            <a href="{{ url_for('account.register') }}" class="bg-purple-500 purple-500 px-6 py-3 rounded-md shadow text-white">Register</a>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Content-->
+            <div>
+                <div class="lg:p-12 max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+                    
+                    <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md">
+                        <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Login </h1>
+                        <div>
+                                <label class="mb-0"> {{ form.email.label }} </label>
+								{{ form.email (class="shadow-none with-border") }}
+                        </div>
+                        <div>
+                            <label class="mb-0"> {{ form.password.label }} </label>
+								{{ form.password (class="shadow-none with-border") }}
+                        </div>
+
+                        <div>
+                            <button type="submit" id="submit" name="submit" class="bg-blue-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-full">
+                                Login</button>
+                        </div>
+						<div>
+						<button type="button" class="bg-blue-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-full ">
+							<a href="{{ url_for('account.login') }}"> Facebook Login</a>
+						 </button>
+						<button type="button" class="bg-green-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-full ">
+							<a href="{{ url_for('account.login') }}"> Twitter Login</a>
+						 </button>
+						</div>
+                    </form>
+ 
+                </div>
+            </div>
+            
+            <!-- Footer -->
+    
+	{% include 'partials/socialite/_footer_content_links.html' %}
+    
+        </div>
+
+        
+   
+    <!-- For Night mode -->
+    <script>
+        (function (window, document, undefined) {
+            'use strict';
+            if (!('localStorage' in window)) return;
+            var nightMode = localStorage.getItem('gmtNightMode');
+            if (nightMode) {
+                document.documentElement.className += ' night-mode';
+            }
+        })(window, document);
+    
+        (function (window, document, undefined) {
+    
+            'use strict';
+    
+            // Feature test
+            if (!('localStorage' in window)) return;
+    
+            // Get our newly insert toggle
+            var nightMode = document.querySelector('#night-mode');
+            if (!nightMode) return;
+    
+            // When clicked, toggle night mode on or off
+            nightMode.addEventListener('click', function (event) {
+                event.preventDefault();
+                document.documentElement.classList.toggle('dark');
+                if (document.documentElement.classList.contains('dark')) {
+                    localStorage.setItem('gmtNightMode', true);
+                    return;
+                }
+                localStorage.removeItem('gmtNightMode');
+            }, false);
+    
+        })(window, document);
+    </script>
+  
+    <!-- Javascript
+    ================================================== -->
+	{% include 'partials/socialite/_javascripts.html' %}
+
+</body>
+</html>
