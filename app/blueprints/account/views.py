@@ -27,8 +27,9 @@ from app.blueprints.account.forms import (
     UpdateDetailsForm,
     PrivacyForm
 )
+from app.blueprints.seeking.forms import *
 from app.email import send_email
-from app.models import User, Photo, Seeking
+from app.models import User, Photo, Seeking, Page
 
 account = Blueprint('account', __name__)
 
@@ -47,7 +48,8 @@ def login():
             return redirect(request.args.get('next') or url_for('account.manage'))
         else:
             flash('Invalid email or password.', 'error')
-    return render_template('socialite/form-login.html', form=form)
+    pages = Page.query.all()
+    return render_template('socialite/form-login.html', form=form, pages=pages)
 
 
 
@@ -95,7 +97,10 @@ def register():
         flash('A confirmation link has been sent to {}.'.format(user.email),
               'warning')
         return redirect(url_for('account.manage'))
-    return render_template('socialite/form-register.html', form=form)
+    pages = Page.query.all()
+    return render_template('socialite/form-register.html', form=form, pages=pages)
+
+
 
 
 @account.route('/logout')
@@ -178,6 +183,7 @@ def manage():
         user.last_name=update_details_form.last_name.data
         user.height = update_details_form.height.data
         user.sex = update_details_form.sex.data
+        user.looking_for = update_details_form.looking_for.data
         user.age = update_details_form.age.data
         user.city = update_details_form.city.data
         user.state = update_details_form.state.data
@@ -200,13 +206,101 @@ def manage():
         return redirect(url_for('account.manage'))
     else:
         flash('Invalid data.', 'form-error')
+
+    seeking_form = SeekingForm()
+    if seeking_form.validate_on_submit():
+        seeking = Seeking(
             
+            user_id = current_user.id,
+            
+            seeking_partner = seeking_form.seeking_partner.data,
+            seeking_from_height = seeking_form.seeking_from_height.data,
+            seeking_to_height = seeking_form.seeking_to_height.data,
+            seeking_sex = seeking_form.seeking_sex.data,
+            
+            seeking_from_age = seeking_form.seeking_from_age.data,
+            seeking_to_age = seeking_form.seeking_to_age.data,
+            
+            seeking_country_one = seeking_form.seeking_country_one.data,
+            seeking_country_two = seeking_form.seeking_country_two.data,
+            seeking_country_three = seeking_form.seeking_country_three.data,
+            seeking_country_four = seeking_form.seeking_country_four.data,
+            seeking_country_five = seeking_form.seeking_country_five.data,
+            seeking_country_six = seeking_form.seeking_country_six.data,
+            seeking_country_seven = seeking_form.seeking_country_seven.data,
+            seeking_country_eight = seeking_form.seeking_country_eight.data,
+            
+            seeking_religion_one = seeking_form.seeking_religion_one.data,
+            seeking_religion_two = seeking_form.seeking_religion_two.data,
+            seeking_religion_three = seeking_form.seeking_religion_three.data,
+            
+            seeking_ethnicity_one = seeking_form.seeking_ethnicity_one.data,
+            seeking_ethnicity_two = seeking_form.seeking_ethnicity_two.data,
+            seeking_ethnicity_three = seeking_form.seeking_ethnicity_three.data,
+            seeking_ethnicity_four = seeking_form.seeking_ethnicity_four.data,
+            seeking_ethnicity_five = seeking_form.seeking_ethnicity_five.data,
+            
+            seeking_marital_type_one = seeking_form.seeking_marital_type_one.data,
+            
+            seeking_body_type_one = seeking_form.seeking_body_type_one.data,
+            seeking_body_type_two = seeking_form.seeking_body_type_two.data,
+            seeking_body_type_three = seeking_form.seeking_body_type_three.data,
+            seeking_body_type_four = seeking_form.seeking_body_type_four.data,
+            
+            seeking_church_denomination_one = seeking_form.seeking_church_denomination_one.data,
+            seeking_church_denomination_two = seeking_form.seeking_church_denomination_two.data,
+            seeking_church_denomination_three = seeking_form.seeking_church_denomination_three.data,
+            seeking_church_denomination_four = seeking_form.seeking_church_denomination_four.data,
+            seeking_church_denomination_five = seeking_form.seeking_church_denomination_five.data,
+            seeking_church_denomination_six = seeking_form.seeking_church_denomination_six.data,
+
+            seeking_current_status_one = seeking_form.seeking_current_status_one.data,
+            seeking_current_status_two = seeking_form.seeking_current_status_two.data,
+            seeking_current_status_three = seeking_form.seeking_current_status_three.data,
+            
+            seeking_drinking_status_one = seeking_form.seeking_drinking_status_one.data,
+            seeking_drinking_status_two = seeking_form.seeking_drinking_status_two.data,
+            
+            seeking_smoking_status_one = seeking_form.seeking_smoking_status_one.data,
+            seeking_smoking_status_two = seeking_form.seeking_smoking_status_two.data,
+            
+            seeking_education_level_one = seeking_form.seeking_education_level_one.data,
+            seeking_education_level_two = seeking_form.seeking_education_level_two.data,
+            seeking_education_level_three = seeking_form.seeking_education_level_three.data,
+            seeking_education_level_four = seeking_form.seeking_education_level_four.data,
+            seeking_education_level_five = seeking_form.seeking_education_level_five.data,
+            seeking_education_level_six = seeking_form.seeking_education_level_six.data,
+            seeking_education_level_seven = seeking_form.seeking_education_level_seven.data,
+            seeking_education_level_eight = seeking_form.seeking_education_level_eight.data,
+            seeking_education_level_nine = seeking_form.seeking_education_level_nine.data,
+            
+            seeking_has_children_one = seeking_form.seeking_has_children_one.data,
+            seeking_has_children_two = seeking_form.seeking_has_children_two.data,
+            seeking_has_children_three = seeking_form.seeking_has_children_three.data,
+            
+            seeking_want_children_one = seeking_form.seeking_want_children_one.data,
+            seeking_want_children_two = seeking_form.seeking_want_children_two.data,
+            seeking_want_children_three = seeking_form.seeking_want_children_three.data,
+            
+            
+            seeking_open_for_relocation = seeking_form.seeking_open_for_relocation.data
+                        )
+        db.session.add(seeking)
+        db.session.commit()
+        flash('You have successfully added details on what you are looking for',
+              'success')
+    
+    pages = Page.query.all()
     return render_template('socialite/pages-setting.html', user=current_user, form=None, data=data,
                            change_password_form=change_password_form,
                            change_username_form=change_username_form,
                            change_email_form=change_email_form,
                            update_details_form=update_details_form,
-                           privacy_form=privacy_form)
+                           privacy_form=privacy_form, pages=pages,
+                           seeking_form=seeking_form)
+
+
+
 
 @account.route('/profile', methods=['GET', 'POST'])
 @account.route('/profile/info', methods=['GET', 'POST'])

@@ -21,6 +21,7 @@
                         <ul uk-switcher="connect: #components-nav ;animation: uk-animation-fade ; toggle: > * ">
                             <li class="uk-active" aria-expanded="true"><a href="#" class="lg:px-2">Privacy</a></li>
                             <li aria-expanded="false" class=""><a href="#" class="lg:px-2">Profile</a></li>
+                            <li aria-expanded="false" class=""><a href="#" class="lg:px-2">Preference</a></li>
                             <li aria-expanded="false" class=""><a href="#" class="lg:px-2">Password</a></li>
                             <li aria-expanded="false" class=""><a href="#" class="lg:px-2">Change Username</a></li>
                         </ul>
@@ -41,6 +42,8 @@
                            <div class="md:w-3/4">
                                <h2 class="text-xl font-semibold mb-2" id="basic"> Privacy</h2>
                                <p class="text-base mb-10">  Please change or update your privacy settings here </p>
+							        <form  method = post>
+										{{ privacy_form.hidden_tag() }}
 										<div class="bg-white rounded-md lg:shadow-md shadow col-span-2 lg:mx-16">
 											<div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
 												 <div class="col-span-2">
@@ -56,6 +59,7 @@
 												<button type="submit" id="submit" name="submit"class="button bg-blue-700"> Submit </button>
 											</div> 
 										</div> 
+									</form>
                            </div>
                        </div>
 
@@ -66,7 +70,9 @@
                         <div class="md:flex md:space-x-14">
                             <div class="md:w-3/4">
                                 <h2 class="text-xl font-semibold mb-2" id="basic"> Profile </h2>
-                                <p class="text-base mb-10"> Display success, warning and error messages.  </p>
+                                <p class="text-base mb-10"> Please use this section to update your profile  </p>
+									<form  method = post>
+										{{ privacy_form.hidden_tag() }}
 										<div class="bg-white rounded-md lg:shadow-md shadow col-span-2 lg:mx-16">
 											<div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
 												<div>
@@ -158,12 +164,262 @@
 												<button class="p-2 px-4 rounded bg-gray-50 text-red-500"> Cancel </button>
 												<button type="submit" id="submit" name="submit" class="button bg-blue-700"> Submit </button>
 											</div> 
-										</div>                          
+										</div> 
+									</form>
                             </div>
                         </div>
 
                     </div>
+                    <!-- Prerefence -->
+                    <div class="" style="">
+                        <div class="md:flex md:space-x-14">
+                            <div class="md:w-3/4">
+                                <h2 class="text-xl font-semibold mb-2" id="basic"> Profile </h2>
+                                <p class="text-base mb-10"> Please use this section to update your profile  </p>
+									<form  method = post>
+										{{ seeking_form.hidden_tag() }}
+										<div class="bg-white rounded-md lg:shadow-md shadow col-span-2 lg:mx-16">
+											<div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
+												<div>
+												<label class="col-span-2"> {{ seeking_form.seeking_partner.label }} </label>
+												{{ seeking_form.seeking_partner (class="selectpicker mt-2") }}
+												</div>
+												<div>
+												<label class="col-span-2"> {{ seeking_form.seeking_open_for_relocation.label }} </label>
+												{{ seeking_form.seeking_open_for_relocation (class="selectpicker mt-2") }}
+												</div>
+												<div class="grid lg:grid-cols-2 gap-3">
+													<div>
+														<label class="col-span-2"> {{ seeking_form.seeking_from_height.label }} </label>
+														{{ seeking_form.seeking_from_height (class="selectpicker mt-2") }}
+													</div>
+													<div>
+														<label class="col-span-2"> {{ seeking_form.seeking_to_height.label }} </label>
+														{{ seeking_form.seeking_to_height (class="selectpicker mt-2") }}
+													</div>
+												</div>
 
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_sex.label }} </label>
+														{{ seeking_form.seeking_sex (class="selectpicker mt-2") }}
+												 </div>
+												 
+												<div class="grid lg:grid-cols-2 gap-3">
+													<div>
+														<label class="col-span-2"> {{ seeking_form.seeking_from_age.label }} </label>
+														{{ seeking_form.seeking_from_age(class="selectpicker mt-2") }}
+													</div>
+													<div>
+														<label class="col-span-2"> {{ seeking_form.seeking_to_age.label }} </label>
+														{{ seeking_form.seeking_to_age (class="selectpicker mt-2") }}
+													</div>
+												</div>
+
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_education_level_one.label }} </label>
+														{{ seeking_form.seeking_education_level_one(class="selectpicker mt-2") }}
+												 </div>
+													 <div>
+													<label class="col-span-2"> {{ seeking_form.seeking_education_level_two.label }} </label>
+														{{ seeking_form.seeking_education_level_two(class="selectpicker mt-2") }}
+												 </div> 
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_education_level_three.label }} </label>
+														{{ seeking_form.seeking_education_level_three(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_education_level_four.label }} </label>
+														{{ seeking_form.seeking_education_level_four(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_education_level_five.label }} </label>
+														{{ seeking_form.seeking_education_level_five(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_education_level_six.label }} </label>
+														{{ seeking_form.seeking_education_level_six(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_education_level_seven.label }} </label>
+														{{ seeking_form.seeking_education_level_seven(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_education_level_eight.label }} </label>
+														{{ seeking_form.seeking_education_level_eight(class="selectpicker mt-2") }}
+												 </div>	
+
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_church_denomination_one.label }} </label>
+														{{ seeking_form.seeking_church_denomination_one(class="selectpicker mt-2") }}
+												 </div>
+													 <div>
+													<label class="col-span-2"> {{ seeking_form.seeking_church_denomination_two.label }} </label>
+														{{ seeking_form.seeking_church_denomination_two(class="selectpicker mt-2") }}
+												 </div> 
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_church_denomination_three.label }} </label>
+														{{ seeking_form.seeking_church_denomination_three(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_church_denomination_four.label }} </label>
+														{{ seeking_form.seeking_church_denomination_four(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_church_denomination_five.label }} </label>
+														{{ seeking_form.seeking_church_denomination_five(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_church_denomination_six.label }} </label>
+														{{ seeking_form.seeking_church_denomination_six(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_country_one.label }} </label>
+														{{ seeking_form.seeking_country_one(class="selectpicker mt-2") }}
+												 </div>
+													 <div>
+													<label class="col-span-2"> {{ seeking_form.seeking_country_two.label }} </label>
+														{{ seeking_form.seeking_country_two(class="selectpicker mt-2") }}
+												 </div> 
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_country_three.label }} </label>
+														{{ seeking_form.seeking_country_three(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_country_four.label }} </label>
+														{{ seeking_form.seeking_country_four(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_country_five.label }} </label>
+														{{ seeking_form.seeking_country_five(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_country_six.label }} </label>
+														{{ seeking_form.seeking_country_six(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_country_seven.label }} </label>
+														{{ seeking_form.seeking_country_seven(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_country_eight.label }} </label>
+														{{ seeking_form.seeking_country_eight(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_religion_one.label }} </label>
+														{{ seeking_form.seeking_religion_one(class="selectpicker mt-2") }}
+												 </div>
+													 <div>
+													<label class="col-span-2"> {{ seeking_form.seeking_religion_two.label }} </label>
+														{{ seeking_form.seeking_religion_two(class="selectpicker mt-2") }}
+												 </div> 
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_religion_three.label }} </label>
+														{{ seeking_form.seeking_religion_three(class="selectpicker mt-2") }}
+												 </div>		
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_ethnicity_one.label }} </label>
+														{{ seeking_form.seeking_ethnicity_one(class="selectpicker mt-2") }}
+												 </div>
+													 <div>
+													<label class="col-span-2"> {{ seeking_form.seeking_ethnicity_two.label }} </label>
+														{{ seeking_form.seeking_ethnicity_two(class="selectpicker mt-2") }}
+												 </div> 
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_ethnicity_three.label }} </label>
+														{{ seeking_form.seeking_ethnicity_three(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_ethnicity_four.label }} </label>
+														{{ seeking_form.seeking_ethnicity_four(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_ethnicity_five.label }} </label>
+														{{ seeking_form.seeking_ethnicity_five(class="selectpicker mt-2") }}
+												 </div>		
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_marital_type_one.label }} </label>
+														{{ seeking_form.seeking_marital_type_one(class="selectpicker mt-2") }}
+												 </div>
+							
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_body_type_one.label }} </label>
+														{{ seeking_form.seeking_body_type_one(class="selectpicker mt-2") }}
+												 </div>
+													 <div>
+													<label class="col-span-2"> {{ seeking_form.seeking_body_type_two.label }} </label>
+														{{ seeking_form.seeking_body_type_two(class="selectpicker mt-2") }}
+												 </div> 
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_body_type_three.label }} </label>
+														{{ seeking_form.seeking_body_type_three(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_body_type_four.label }} </label>
+														{{ seeking_form.seeking_body_type_four(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_current_status_one.label }} </label>
+														{{ seeking_form.seeking_current_status_one(class="selectpicker mt-2") }}
+												 </div>
+													 <div>
+													<label class="col-span-2"> {{ seeking_form.seeking_current_status_two.label }} </label>
+														{{ seeking_form.seeking_current_status_two(class="selectpicker mt-2") }}
+												 </div> 
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_current_status_three.label }} </label>
+														{{ seeking_form.seeking_current_status_three(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_drinking_status_one.label }} </label>
+														{{ seeking_form.seeking_drinking_status_one(class="selectpicker mt-2") }}
+												 </div>
+													 <div>
+													<label class="col-span-2"> {{ seeking_form.seeking_drinking_status_two.label }} </label>
+														{{ seeking_form.seeking_drinking_status_two(class="selectpicker mt-2") }}
+												 </div> 
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_smoking_status_one.label }} </label>
+														{{ seeking_form.seeking_smoking_status_one(class="selectpicker mt-2") }}
+												 </div>
+													 <div>
+													<label class="col-span-2"> {{ seeking_form.seeking_smoking_status_two.label }} </label>
+														{{ seeking_form.seeking_smoking_status_two(class="selectpicker mt-2") }}
+												 </div> 
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_has_children_one.label }} </label>
+														{{ seeking_form.seeking_has_children_one(class="selectpicker mt-2") }}
+												 </div>
+													 <div>
+													<label class="col-span-2"> {{ seeking_form.seeking_has_children_two.label }} </label>
+														{{ seeking_form.seeking_has_children_two(class="selectpicker mt-2") }}
+												 </div> 
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_has_children_three.label }} </label>
+														{{ seeking_form.seeking_has_children_three(class="selectpicker mt-2") }}
+												 </div>	
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_want_children_one.label }} </label>
+														{{ seeking_form.seeking_want_children_one(class="selectpicker mt-2") }}
+												 </div>
+													 <div>
+													<label class="col-span-2"> {{ seeking_form.seeking_want_children_two.label }} </label>
+														{{ seeking_form.seeking_want_children_two(class="selectpicker mt-2") }}
+												 </div> 
+												<div>
+													<label class="col-span-2"> {{ seeking_form.seeking_want_children_three.label }} </label>
+														{{ seeking_form.seeking_want_children_three(class="selectpicker mt-2") }}
+												 </div>													
+											</div> 
+											<div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
+												<button class="p-2 px-4 rounded bg-gray-50 text-red-500"> Cancel </button>
+												<button type="submit" id="submit" name="submit" class="button bg-blue-700"> Submit </button>
+											</div> 
+										</div> 
+									</form>
+                            </div>
+                        </div>
+
+                    </div>
                     <!-- filter -->
                     <div class="" style="">
 
@@ -173,6 +429,8 @@
                                 <p class="text-base mb-10"> Please fill out this form with your old and new passwords in order to be able to change it.  </p>
 
 										<div class="bg-white rounded-md lg:shadow-md shadow col-span-2 lg:mx-16">
+											<form  method = post>
+										{{ privacy_form.hidden_tag() }}
 											<div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
 												 <div class="col-span-2">
 													 						<label> {{ change_password_form.old_password.label }} </label>
@@ -189,6 +447,7 @@
 												<button class="p-2 px-4 rounded bg-gray-50 text-red-500"> Cancel </button>
 												<button type="submit" id="submit" name="submit"class="button bg-blue-700"> Submit </button>
 											</div> 
+											</form>
 										</div> 
 
                             </div>
@@ -201,6 +460,8 @@
                             <div class="md:w-3/4">
                                 <h2 class="text-xl font-semibold mb-2" id="basic"> Change Username </h2>
                                 <p class="text-base mb-10"> Use this form to change your username  </p>
+								 	<form  method = post>
+										{{ privacy_form.hidden_tag() }}
 									<div class="bg-white rounded-md lg:shadow-md shadow col-span-2 lg:mx-16">
 											<div class="p-10 space-y-7">
 												<div class="line">
@@ -214,7 +475,8 @@
 												<button class="p-2 px-4 rounded bg-gray-50 text-red-500"> Cancel </button>
 												<button type="submit" id="submit" name="submit"class="button bg-blue-700"> Submit </button>
 											</div> 
-										</div> 
+									</div> 
+									</form>
                                                              
                             </div>
                         </div>              

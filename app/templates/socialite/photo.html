@@ -72,7 +72,8 @@
   
           <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
   
-              <form action="" class="space-y-4 g:w-8/12">  
+              <form action="" class="space-y-4 g:w-8/12" method="POST">
+				 {{ form.hidden_tag() }} 
                   <div class="font-semibold text-lg"> Upload Photo </div>
                   <div>
 					  <label class="mb-0"> {{ form.image.label }} </label>

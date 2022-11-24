@@ -658,8 +658,12 @@ class UpdateDetailsForm(FlaskForm):
         ('7 feet 11 inches', '7 feet 11 inches'),
         ('8 feet', '8 feet')])
     
-    sex = SelectField(' Looking for', choices=[
-        ('Male', 'Female')])
+    sex = SelectField(' Sex', choices=[
+        ('Male', 'Male'), ('Female', 'Female')])
+
+    looking_for = SelectField(' Looking for', choices=[
+        ('Male', 'Male'), ('Female', 'Female'),
+        ('Existing Family', 'Existing Family')])
 
     age = SelectField(u'Select Age', choices=[
 

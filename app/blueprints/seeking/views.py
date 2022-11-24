@@ -126,9 +126,12 @@ def added_preference():
         flash('You have successfully added details on what you are looking for',
               'success')
         return redirect(url_for('seeking.added_preference'))
-    
+
+    pages = Page.query.all()    
     return render_template(
-        'socialite/preference.html', preferences_data=preferences_data, form=form)
+        'socialite/preference.html', preferences_data=preferences_data, form=form, pages=pages)
+
+
 
 
 @seeking.route('/<int:id>/<username>/add', methods=['POST', 'GET'])
