@@ -1,0 +1,48 @@
+                <!-- Profile cover -->
+                <div class="profile user-profile">
+  
+                    <div class="profiles_banner">
+                        <img src="{{ profile_picture.image_url }}" alt="">
+                        <div class="profile_action absolute bottom-0 right-0 space-x-1.5 p-3 text-sm z-50 hidden lg:flex">
+                          <a href="#" class="flex items-center justify-center h-8 px-3 rounded-md bg-gray-700 bg-opacity-70 text-white space-x-1.5"> 
+                              <ion-icon name="crop-outline" class="text-xl"></ion-icon>
+                              <span> Crop  </span>
+                          </a>
+                          <a href="#" class="flex items-center justify-center h-8 px-3 rounded-md bg-gray-700 bg-opacity-70 text-white space-x-1.5"> 
+                              <ion-icon name="create-outline" class="text-xl"></ion-icon>
+                              <span> Edit </span>
+                          </a>
+                      </div>
+                    </div>
+                    <div class="profiles_content">
+
+                        <div class="profile_avatar">
+                            <div class="profile_avatar_holder"> 
+                                <img src="{{ profile_picture.image_url }}" alt="">
+                            </div>
+                            <div class="user_status status_online"></div>
+                            <div class="icon_change_photo" hidden> <ion-icon name="camera" class="text-xl"></ion-icon> </div>
+                        </div>
+
+                        <div class="profile_info">
+                            <h1> {{ user.first_name }} {{ user.last_name }} </h1>
+                            <p> @{{ user.username }}</p>
+                        </div>
+
+                    </div>
+
+                    <!----<div class="flex justify-between lg:border-t border-gray-100 flex-col-reverse lg:flex-row pt-2">
+                        <nav class="responsive-nav pl-3">
+                            <ul  uk-switcher="connect: #timeline-tab; animation: uk-animation-fade">
+                                <li><a href="#">Timeline</a></li>
+                                <li><a href="#">Friend <span>3,243</span> </a></li>
+                                <li><a href="#">Photoes </a></li>
+                                <li><a href="#">Pages</a></li> 
+                                <li><a href="#">Groups</a></li> 
+                                <li><a href="#">Videos</a></li> 
+                            </ul>
+                        </nav>
+
+                    </div>---->
+
+                </div>

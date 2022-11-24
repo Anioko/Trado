@@ -1,0 +1,143 @@
+{% include 'partials/socialite/_head.html' %}
+<body>
+   
+
+    <div id="wrapper">
+
+        <!-- Header -->
+		{% include 'partials/socialite/_header.html' %}
+
+        <!-- sidebar -->
+						{% include 'partials/socialite/_left_sidebar.html' %}
+
+        <!-- Main Contents -->
+        <div class="main_content">
+            <div class="mcontainer">
+
+                <!--  breadcrumb -->
+                <div class="breadcrumb-area py-0">
+                    <div class="breadcrumb">
+						<a href="#create-post-modal" uk-toggle="" class="flex items-center justify-center h-9 lg:px-5 px-2 rounded-md bg-blue-600 text-white space-x-1.5 absolute right-0">
+												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5">
+													<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path>
+												</svg>
+												<span class="md:block hidden"> Add Photo </span>
+						</a>
+                        <ul class="m-0">
+                            <li>
+                                <a href="index.html">Photos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>		
+
+				<div class="grid md:grid-cols-4 grid-cols-2 gap-3 mt-5">
+				{% for data in photo_data  %}
+                    <div>
+                        <div class="bg-green-400 max-w-full lg:h-56 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
+							<a href="{{ data.image_url }}"><img src="{{ data.image_url }}" alt="" class="w-full h-full absolute object-cover inset-0">
+                                </a>
+                            <!-- overly-->
+                            <div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
+                            <!---<div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small flex items-center">
+                                <div class="flex-1"> 
+                                    <div class="text-lg"> Image description  </div>
+                                    <div class="flex space-x-3 lg:flex-initial text-sm">
+                                       <a href="#">  Like</a>
+                                       <a href="#">  Comment </a>
+                                       <a href="#">  Share </a> 
+                                    </div>
+                                </div> 
+                                <i class="btn-down text-2xl uil-cloud-download px-1"></i>
+                            </div>---->
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+    <!-- Add photo modal -->
+    <div id="create-post-modal" class="create-post" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
+  
+          <div class="py-4 border-b flex  justify-between px-6">
+              <h3 class="text-lg font-semibold"> Add Photo </h3>
+              <div>
+                  <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5"
+                      type="button" uk-close>
+                      <i class="icon-feather-close"></i>
+                  </button>
+              </div>
+          </div>
+  
+  
+          <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
+  
+              <form action="" class="space-y-4 g:w-8/12" method="POST">
+				 {{ form.hidden_tag() }} 
+                  <div class="font-semibold text-lg"> Upload Photo </div>
+                  <div>
+					  <label class="mb-0"> {{ form.image.label }} </label>
+								{{ form.image(class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full") }}
+
+                  </div>
+				  <div class="checkbox">
+                            {{ form.profile_picture }}
+                            <label for="chekcbox1"><span class="checkbox-icon"></span> {{ form.profile_picture.label }} 
+                            </label>
+                        </div>
+				 <div>
+                            <button id="submit" name="submit" type="submit" class="bg-blue-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-full">
+                                Submit</button>
+                        </div>
+              </form>
+  
+          </div>
+        
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- For Night mode -->
+    <script>
+        (function (window, document, undefined) {
+            'use strict';
+            if (!('localStorage' in window)) return;
+            var nightMode = localStorage.getItem('gmtNightMode');
+            if (nightMode) {
+                document.documentElement.className += ' night-mode';
+            }
+        })(window, document);
+    
+        (function (window, document, undefined) {
+    
+            'use strict';
+    
+            // Feature test
+            if (!('localStorage' in window)) return;
+    
+            // Get our newly insert toggle
+            var nightMode = document.querySelector('#night-mode');
+            if (!nightMode) return;
+    
+            // When clicked, toggle night mode on or off
+            nightMode.addEventListener('click', function (event) {
+                event.preventDefault();
+                document.documentElement.classList.toggle('dark');
+                if (document.documentElement.classList.contains('dark')) {
+                    localStorage.setItem('gmtNightMode', true);
+                    return;
+                }
+                localStorage.removeItem('gmtNightMode');
+            }, false);
+    
+        })(window, document);
+    </script>
+  
+    <!-- Javascript
+    ================================================== -->
+	{% include 'partials/socialite/_javascripts.html' %}
+
+
+</body>
+</html>
