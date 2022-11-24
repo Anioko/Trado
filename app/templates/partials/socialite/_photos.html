@@ -1,0 +1,38 @@
+<div class="card md:p-6 p-2 max-w-3xl mx-auto uk-active  " style="">
+
+                        <div class="flex justify-between items-start relative md:mb-4 mb-3">
+                            <div class="flex-1">
+                                <h2 class="text-xl font-bold"> Photos </h2>
+                            </div>
+                            <!----<a href="#offcanvas-create" uk-toggle="" class="flex items-center justify-center z-10 h-10 w-10 rounded-full bg-blue-600 text-white absolute right-0" data-tippy-placement="left" data-tippy="" data-original-title="Create New Album">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                            </a>--->
+                        </div>
+
+                        <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 mt-5">
+						{% for data in photo_data  %}
+                            <div>
+                                <div class="bg-green-400 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
+								<a href="{{ data.image_url }}"><img src="{{ data.image_url }}" alt="" class="w-full h-full absolute object-cover inset-0">
+                                </a>
+                                    <!-- overly-->
+                                    <div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
+                                    <!---<div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small">
+                                        <div class="text-base"> Image description  </div>
+                                        <div class="flex justify-between text-xs">
+                                           <a href="#">  Like</a>
+                                           <a href="#">  Comment </a>
+                                           <a href="#">  Share </a> 
+                                        </div>
+                                    </div>--->
+                                </div>
+                            </div>
+						{% endfor %}
+
+                        <!---<div class="flex justify-center mt-6">
+                            <a href="#" class="bg-white dark:bg-gray-900 font-semibold my-3 px-6 py-2 rounded-full shadow-md dark:bg-gray-800 dark:text-white">
+                                Load more ..</a>
+                        </div>---->
+
+                    </div>
+</div>

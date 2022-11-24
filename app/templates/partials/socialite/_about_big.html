@@ -1,0 +1,145 @@
+                <!-- create page-->
+                <div class="card md:p-6 p-2 max-w-3xl mx-auto uk-active  " style="">
+                        <!----<div class="flex justify-between items-start relative md:mb-4 mb-3">
+                            <a href="#offcanvas-create" uk-toggle="" class="flex items-center justify-center z-10 h-10 w-10 rounded-full bg-blue-600 text-white absolute right-0" data-tippy-placement="left" data-tippy="" data-original-title="Create New Album">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                            </a>
+                        </div>---->
+						<div class="p-7">
+                                <h1 class="lg:text-3xl text-2xl font-semibold mb-6"> Profile of {{user.username }}</h1>
+									<ul class="text-gray-600 space-y-3 mt-3">
+										
+										{% if user.marital_type %}
+										<strong><h4> Type of marriage interested in </h4>	</strong>							
+										
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
+											{{ user.marital_type}}
+										</li>	
+										{% endif %}
+
+										{% if user.current_status %}
+										<strong><h4> Current Relationship Status</h4>	</strong>							
+
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
+											{{ user.current_status }}
+										</li>	
+										{% endif %}									
+										
+										{% if user.age %}
+										<strong><h4> Age </h4>	</strong>							
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="icon-material-outline-person-pin" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="heart sharp"></ion-icon>
+										{{ user.age }}
+										</li> 
+										{% endif %}
+										{% if user.height %}
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="icon-material-outline-person-pin" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="heart sharp"></ion-icon>
+											{{ user.height }}
+										</li> 
+										{% endif %}	
+
+										{% if user.education_level %}
+										<strong><h4> Education </h4>	</strong>							
+
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
+											{{ user.education_level }}
+										</li>	
+										{% endif %}	
+											
+										{% if user.church_denomination %}
+										<strong><h4> Church Denomination </h4>	</strong>							
+
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
+											{{ user.church_denomination }}
+										</li>	
+										{% endif %}		
+										{% if user.country %}
+										<strong><h4> Location & Country</h4>	</strong>									
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
+											{{ user.country }}
+										</li>	
+										{% endif %}	
+
+										{% if user.religion %}
+										<strong><h4> Religion or Religious Affiliation </h4>	</strong>
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
+											{{ user.religion }}
+										</li>	
+										{% endif %}	
+
+										{% if user.ethnicity %}
+										<strong><h4> Ethinicity </h4>	</strong>
+
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
+											{{ user.ethnicity }}
+										</li>	
+										{% endif %}	
+										{% if user.ethnicity_two %}
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
+											{{ user.ethnicity_two }}
+										</li>	
+										{% endif %}			
+										{% if user.body_type %}
+										<strong><h4> Body Type</h4>	</strong>
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
+											{{ user.body_type }}
+										</li>	
+										{% endif %}	
+
+										{% if user.drinking_status %}
+										<strong><h4> Drinking Status Preferences</h4>	</strong>										
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
+											{{ user.drinking_status }}
+										</li>	
+										{% endif %}										
+										
+										{% if user.smoking_status %}
+										<strong><h4> Smoking Status  </h4>	</strong>										
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
+											{{ user.smoking_status }}
+										</li>	
+										{% endif %}	
+											
+										{% if user.has_children %}
+										<strong><h4> Has children? </h4>	</strong>
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
+											{{ user.has_children }}
+										</li>	
+										{% endif %}		
+
+										{% if user.want_children %}
+										<strong><h4> Wants children? </h4>	</strong>
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
+											{{ user.want_children }}
+										</li>	
+										{% endif %}	
+
+										{% if user.open_for_relocation %}
+										<strong><h4> Open for relocation </h4>	</strong>
+										<li class="flex items-center space-x-2"> 
+											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
+											{{ user.open_for_relocation }}
+										</li>	
+										{% endif %}										
+										
+									</ul>
+
+                        </div>
+                </div>
+
+  
+        
