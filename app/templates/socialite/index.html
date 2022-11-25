@@ -1,73 +1,21 @@
-{% include 'partials/socialite/_head.html' %}
-<body>
-   
+{% extends "layouts/socialite_base.html" %}
 
-    <div id="wrapper">
 
-        <!-- Header -->
-		{% include 'partials/socialite/_header.html' %}
-
-        <!-- sidebar -->
-						{% include 'partials/socialite/_left_sidebar.html' %}
-
-        <!-- Main Contents -->
-        <div class="main_content">
-            <div class="mcontainer">
-			   {% include 'partials/socialite/_profile_cover.html' %}
-			</div>
-            <div class="mcontainer">
-			   {% include 'partials/socialite/_about_big.html' %}
-			</div>
-            <div class="mcontainer">
-			   {% include 'partials/socialite/_photos.html' %}
-			</div>
-            <div class="mcontainer">
-			   {% include 'partials/socialite/_preferences.html' %}
-			</div>
-		</div>
-	
+{% block content %}
+<!-- Main Contents -->
+<div class="main_content">
+    <div class="mcontainer">
+        {% include 'partials/socialite/_profile_cover.html' %}
     </div>
-    
-    <!-- For Night mode -->
-    <script>
-        (function (window, document, undefined) {
-            'use strict';
-            if (!('localStorage' in window)) return;
-            var nightMode = localStorage.getItem('gmtNightMode');
-            if (nightMode) {
-                document.documentElement.className += ' night-mode';
-            }
-        })(window, document);
-    
-        (function (window, document, undefined) {
-    
-            'use strict';
-    
-            // Feature test
-            if (!('localStorage' in window)) return;
-    
-            // Get our newly insert toggle
-            var nightMode = document.querySelector('#night-mode');
-            if (!nightMode) return;
-    
-            // When clicked, toggle night mode on or off
-            nightMode.addEventListener('click', function (event) {
-                event.preventDefault();
-                document.documentElement.classList.toggle('dark');
-                if (document.documentElement.classList.contains('dark')) {
-                    localStorage.setItem('gmtNightMode', true);
-                    return;
-                }
-                localStorage.removeItem('gmtNightMode');
-            }, false);
-    
-        })(window, document);
-    </script>
-  
-    <!-- Javascript
-    ================================================== -->
-	{% include 'partials/socialite/_javascripts.html' %}
+    <div class="mcontainer">
+        {% include 'partials/socialite/_about_big.html' %}
+    </div>
+    <div class="mcontainer">
+        {% include 'partials/socialite/_photos.html' %}
+    </div>
+    <div class="mcontainer">
+        {% include 'partials/socialite/_preferences.html' %}
+    </div>
+</div>
 
-
-</body>
-</html>
+{% endblock %}

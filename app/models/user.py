@@ -1,18 +1,28 @@
-#import socketio
-from flask import current_app
-from flask_login import AnonymousUserMixin, UserMixin
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from itsdangerous import BadSignature, SignatureExpired
+import json
+from datetime import datetime, timedelta, timezone
+from enum import Enum
+
+import jwt
+import socketio
+from flask import current_app, url_for
+from flask_jwt_extended import create_access_token
+from flask_login import AnonymousUserMixin, UserMixin, current_user
+from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
+from sqlalchemy import and_, or_
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from .. import db, login_manager
 from app import whooshee
-from .messaging_manager import *  # noqa
-from sqlalchemy import or_, and_
+from app.common.flask_rq import get_queue
+from app.common.utils import jsonify_object
 
-class Permission:
-    GENERAL = 0x01
-    ADMINISTER = 0xff
+from .. import db, login_manager
+from .messaging_manager import Message  # noqa
+from .notification import Notification
+
+
+class Permission(str, Enum):
+    GENERAL = "General"
+    ADMINISTER = "Administer"
 
 
 class Role(db.Model):
@@ -21,7 +31,7 @@ class Role(db.Model):
     name = db.Column(db.String(64), unique=True)
     index = db.Column(db.String(64))
     default = db.Column(db.Boolean, default=False, index=True)
-    permissions = db.Column(db.Integer)
+    permissions = db.Column(db.String, default=Permission.GENERAL, index=True)
     users = db.relationship('User', backref='role', lazy='dynamic')
 
     @staticmethod
@@ -47,7 +57,9 @@ class Role(db.Model):
     def __repr__(self):
         return '<Role \'%s\'>' % self.name
 
-@whooshee.register_model('username', 'marital_type', 'age', 'country', 'religion', 'ethnicity', 'state', 'education_level' )
+
+@whooshee.register_model('username', 'marital_type', 'age', 'country',
+                         'religion', 'ethnicity', 'state', 'education_level')
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -60,9 +72,8 @@ class User(UserMixin, db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     height = db.Column(db.String(64), index=True)
     sex = db.Column(db.String(64), index=True)
-    looking_for = db.Column(db.String(64), index=True)
+    seeking_gender = db.Column(db.String(10), index=True)
     age = db.Column(db.String(64), index=True)
-    city = db.Column(db.String(64), index=True)
     state = db.Column(db.String(64), index=True)
     country = db.Column(db.String(64), index=True)
     religion = db.Column(db.String(64), index=True)
@@ -70,7 +81,7 @@ class User(UserMixin, db.Model):
     marital_type = db.Column(db.String(64), index=True)
     body_type = db.Column(db.String(64), index=True)
     church_denomination = db.Column(db.String(64), index=True)
-    about = db.Column(db.Text)
+    #about = db.Column(db.Text)
     current_status = db.Column(db.String(64), index=True)
     drinking_status = db.Column(db.String(64), index=True)
     smoking_status = db.Column(db.String(64), index=True)
@@ -78,19 +89,20 @@ class User(UserMixin, db.Model):
     has_children = db.Column(db.String(64), index=True)
     want_children = db.Column(db.String(64), index=True)
     open_for_relocation = db.Column(db.String(64), index=True)
-    is_public = db.Column(db.String(64), index=True) #public for external search engines
-    hide_profile = db.Column(db.String(64), index=True) #hide from internal search engine
-    report_profile = db.Column(db.String(64), index=True) #hide from internal search engine
-    seeking = db.relationship('Seeking', back_populates='user', lazy='dynamic', cascade='all')
-    photos = db.relationship('Photo', backref='user',
-                             lazy='dynamic')
+    is_public = db.Column(db.Boolean, default=False, index=True)
+    seeking = db.relationship('Seeking',
+                              back_populates='user',
+                              lazy='dynamic',
+                              cascade='all')
+    photos = db.relationship('Photo', backref='user', lazy='dynamic')
     messages_received = db.relationship('Message',
                                         foreign_keys='Message.recipient_id',
-                                        backref='recipient', lazy='dynamic')
-    notifications = db.relationship('Notification', backref='user',
+                                        backref='recipient',
+                                        lazy='dynamic')
+    notifications = db.relationship('Notification',
+                                    backref='user',
                                     lazy='dynamic')
 
-    
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
         if self.role is None:
@@ -105,7 +117,7 @@ class User(UserMixin, db.Model):
 
     def can(self, permissions):
         return self.role is not None and \
-            (self.role.permissions & permissions) == permissions
+            self.role.permissions == permissions
 
     def is_admin(self):
         return self.can(Permission.ADMINISTER)
@@ -123,28 +135,55 @@ class User(UserMixin, db.Model):
 
     def generate_confirmation_token(self, expiration=604800):
         """Generate a confirmation token to email a new user."""
-
-        s = Serializer(current_app.config['SECRET_KEY'], expiration)
-        return s.dumps({'confirm': self.id})
+        reset_token = jwt.encode(
+            {
+                "confirm":
+                self.id,
+                "exp":
+                datetime.now(tz=timezone.utc) + timedelta(seconds=expiration)
+            },
+            current_app.config['SECRET_KEY'],
+            algorithm="HS256")
+        return reset_token
 
     def generate_email_change_token(self, new_email, expiration=3600):
         """Generate an email change token to email an existing user."""
-        s = Serializer(current_app.config['SECRET_KEY'], expiration)
-        return s.dumps({'change_email': self.id, 'new_email': new_email})
+        reset_token = jwt.encode(
+            {
+                'change_email':
+                self.id,
+                'new_email':
+                new_email,
+                "exp":
+                datetime.now(tz=timezone.utc) + timedelta(seconds=expiration)
+            },
+            current_app.config['SECRET_KEY'],
+            algorithm="HS256")
+        return reset_token
 
     def generate_password_reset_token(self, expiration=3600):
         """
         Generate a password reset change token to email to an existing user.
         """
-        s = Serializer(current_app.config['SECRET_KEY'], expiration)
-        return s.dumps({'reset': self.id})
+        reset_token = jwt.encode(
+            {
+                "reset":
+                self.id,
+                "exp":
+                datetime.now(tz=timezone.utc) + timedelta(seconds=expiration)
+            },
+            current_app.config['SECRET_KEY'],
+            algorithm="HS256")
+        return reset_token
 
-    def confirm_account(self, token):
+    def confirm_account(self, token, expiration=604800):
         """Verify that the provided token is for this user's id."""
-        s = Serializer(current_app.config['SECRET_KEY'])
         try:
-            data = s.loads(token)
-        except (BadSignature, SignatureExpired):
+            data = jwt.decode(token,
+                              current_app.config['SECRET_KEY'],
+                              leeway=timedelta(seconds=expiration),
+                              algorithms=["HS256"])
+        except (InvalidTokenError, ExpiredSignatureError):
             return False
         if data.get('confirm') != self.id:
             return False
@@ -153,12 +192,14 @@ class User(UserMixin, db.Model):
         db.session.commit()
         return True
 
-    def change_email(self, token):
+    def change_email(self, token, expiration=3600):
         """Verify the new email for this user."""
-        s = Serializer(current_app.config['SECRET_KEY'])
         try:
-            data = s.loads(token)
-        except (BadSignature, SignatureExpired):
+            data = jwt.decode(token,
+                              current_app.config['SECRET_KEY'],
+                              leeway=timedelta(seconds=expiration),
+                              algorithms=["HS256"])
+        except (InvalidTokenError, ExpiredSignatureError):
             return False
         if data.get('change_email') != self.id:
             return False
@@ -172,12 +213,14 @@ class User(UserMixin, db.Model):
         db.session.commit()
         return True
 
-    def reset_password(self, token, new_password):
+    def reset_password(self, token, new_password, expiration=3600):
         """Verify the new password for this user."""
-        s = Serializer(current_app.config['SECRET_KEY'])
         try:
-            data = s.loads(token)
-        except (BadSignature, SignatureExpired):
+            data = jwt.decode(token,
+                              current_app.config['SECRET_KEY'],
+                              leeway=timedelta(seconds=expiration),
+                              algorithms=["HS256"])
+        except (InvalidTokenError, ExpiredSignatureError):
             return False
         if data.get('reset') != self.id:
             return False
@@ -189,25 +232,25 @@ class User(UserMixin, db.Model):
     @staticmethod
     def generate_fake(count=100, **kwargs):
         """Generate a number of fake users for testing."""
-        from sqlalchemy.exc import IntegrityError
-        from random import seed, choice
+        from random import choice, seed
+
         from faker import Faker
+        from sqlalchemy.exc import IntegrityError
 
         fake = Faker()
         roles = Role.query.all()
 
         seed()
         for i in range(count):
-            u = User(
-                first_name=fake.first_name(),
-                username=fake.first_name(),
-                country=fake.country(),
-                last_name=fake.last_name(),
-                email=fake.email(),
-                password='password',
-                confirmed=True,
-                role=choice(roles),
-                **kwargs)
+            u = User(first_name=fake.first_name(),
+                     username=fake.first_name(),
+                     country=fake.country(),
+                     last_name=fake.last_name(),
+                     email=fake.email(),
+                     password='password',
+                     confirmed=True,
+                     role=choice(roles),
+                     **kwargs)
             db.session.add(u)
             try:
                 db.session.commit()
@@ -215,12 +258,14 @@ class User(UserMixin, db.Model):
                 db.session.rollback()
 
     def new_messages(self, user_id=None):
-        if not user_id:
-            return Message.query.filter_by(recipient=self).filter(Message.read_at == None).distinct('user_id').count()
+        if user_id is None:
+            return Message.query.filter_by(recipient=self).filter(
+                Message.read_at == None).distinct('user_id').count()
         else:
-            return Message.query.filter_by(recipient=self).filter(Message.read_at == None).filter(
-                Message.user_id == user_id).count()
-        
+            return Message.query.filter_by(recipient=self).filter(
+                Message.read_at == None).filter(
+                    Message.user_id == user_id).count()
+
     def last_message(self, user_id):
         message = Message.query.order_by(Message.timestamp.desc()). \
             filter(or_(and_(Message.recipient_id == user_id, Message.user_id == self.id),
@@ -234,11 +279,14 @@ class User(UserMixin, db.Model):
         return messages
 
     def add_notification(self, name, data, related_id=0, permanent=False):
-        from app.email import send_email
+        from app.common.email import send_email
 
         if not permanent:
             self.notifications.filter_by(name=name).delete()
-        n = Notification(name=name, payload_json=json.dumps(data), user=self, related_id=related_id)
+        n = Notification(name=name,
+                         payload_json=json.dumps(data),
+                         user=self,
+                         related_id=related_id)
         db.session.add(n)
         db.session.commit()
         n = Notification.query.get(n.id)
@@ -252,8 +300,7 @@ class User(UserMixin, db.Model):
             user=self.id,
             link=url_for('main.notifications', _external=True),
             notification=n.id,
-            **kwargs
-        )
+            **kwargs)
         if not current_app.config['DEBUG']:
             ws_url = "https://www.traditionalmarriage.org"
             path = 'sockets/socket.io'
@@ -262,22 +309,32 @@ class User(UserMixin, db.Model):
             ws_url = "http://localhost:3000"
             path = "socket.io"
         sio = socketio.Client()
-        sio.connect(ws_url + "?token={}".format(create_access_token(identity=current_user.email)), socketio_path=path)
+        sio.connect(ws_url + "?token={}".format(
+            create_access_token(identity=current_user.email)),
+            socketio_path=path)
         data = n.parsed()
         u = jsonify_object(data['user'])
         tu = jsonify_object(self)
-        data['user'] = {key: u[key] for key in u.keys()
-                        & {'first_name', 'id', 'email', 'socket_id'}}
-        data['touser'] = {key: tu[key] for key in tu.keys()
-                          & {'first_name', 'id', 'email', 'socket_id'}}
+        data['user'] = {
+            key: u[key]
+            for key in u.keys()
+            & {'first_name', 'id', 'email', 'socket_id'}
+        }
+        data['touser'] = {
+            key: tu[key]
+            for key in tu.keys()
+            & {'first_name', 'id', 'email', 'socket_id'}
+        }
         sio.emit('new_notification', {'notification': data})
         return n
 
     def get_photo(self):
         photos = self.photos.all()
         if len(photos) > 0:
-            return url_for('_uploads.uploaded_file', setname='images',
-                           filename=photos[0].image, _external=True)
+            return url_for('_uploads.uploaded_file',
+                           setname='images',
+                           filename=photos[0].image_filename,
+                           _external=True)
         else:
             if self.sex == 'Female':
                 return "https://1.semantic-ui.com/images/avatar/large/veronika.jpg"
@@ -289,6 +346,7 @@ class User(UserMixin, db.Model):
 
 
 class AnonymousUser(AnonymousUserMixin):
+
     def can(self, _):
         return False
 

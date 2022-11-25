@@ -1,27 +1,19 @@
 from flask import url_for
-from flask_wtf import FlaskForm
-from wtforms import ValidationError
-from wtforms.fields import (
-    BooleanField,
-    PasswordField,
-    StringField,
-    SubmitField,
-    SelectField,
-    TextAreaField
-)
-from wtforms.fields.html5 import EmailField
-from wtforms.validators import Length, Required, ValidationError, InputRequired, Email, Optional, EqualTo
+from flask_wtf import FlaskForm  # ignore
+from wtforms import ValidationError  # ignore
+from wtforms.fields import EmailField  # ignore
+from wtforms.fields import (BooleanField, PasswordField, SelectField,
+                            StringField, SubmitField, TextAreaField)
+from wtforms.validators import InputRequired  # ignore
+from wtforms.validators import Email, EqualTo, Length, ValidationError
 
-from wtforms_alchemy import Unique#, ModelForm, model_form_factory
 from app.models import User
-
-#BaseModelForm = model_form_factory(FlaskForm)
 
 
 class PrivacyForm(FlaskForm):
     is_public = SelectField(' Hide from external search engines and non-registered users?', choices=[('Yes', 'Yes'), ('No', 'No')])
     hide_profile = SelectField(' Hide profile from everyone? ', choices=[('Yes', 'Yes'),('No', 'No')])
-    submit = SubmitField('Submit')
+    
 
 
 class LoginForm(FlaskForm):
@@ -1133,14 +1125,14 @@ class UpdateDetailsForm(FlaskForm):
         ('Maybe ', 'Maybe'),
         ('No', 'No')])
     
-    submit = SubmitField('Update')
+   
 
 class RequestResetPasswordForm(FlaskForm):
     email = EmailField(
         'Email', validators=[InputRequired(),
                              Length(1, 64),
                              Email()])
-    submit = SubmitField('Reset password')
+  
 
     # We don't validate the email address so we don't confirm to attackers
     # that an account with the given email exists.
@@ -1159,7 +1151,7 @@ class ResetPasswordForm(FlaskForm):
         ])
     new_password2 = PasswordField(
         'Confirm new password', validators=[InputRequired()])
-    submit = SubmitField('Reset password')
+
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first() is None:
@@ -1175,7 +1167,7 @@ class CreatePasswordForm(FlaskForm):
         ])
     password2 = PasswordField(
         'Confirm new password', validators=[InputRequired()])
-    submit = SubmitField('Set password')
+
 
 
 class ChangePasswordForm(FlaskForm):
@@ -1188,7 +1180,6 @@ class ChangePasswordForm(FlaskForm):
         ])
     new_password2 = PasswordField(
         'Confirm new password', validators=[InputRequired()])
-    submit = SubmitField('Update password')
 
 
 class ChangeEmailForm(FlaskForm):
@@ -1197,7 +1188,6 @@ class ChangeEmailForm(FlaskForm):
                                  Length(1, 64),
                                  Email()])
     password = PasswordField('Password', validators=[InputRequired()])
-    submit = SubmitField('Update email')
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
@@ -1208,7 +1198,6 @@ class ChangeUsernameForm(FlaskForm):
         'New username', validators=[InputRequired(),
                                  Length(1, 64)])
     password = PasswordField('Password', validators=[InputRequired()])
-    submit = SubmitField('Update username')
 
     def validate_username(self, field):
         if User.query.filter_by(username=field.data).first():

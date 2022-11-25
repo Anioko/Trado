@@ -1,37 +1,42 @@
-        <header>
-            <div class="header_wrap">
-                <div class="header_inner mcontainer">
-                    <div class="left_side">
-                        
-                        <span class="slide_menu" uk-toggle="target: #wrapper ; cls: is-collapse is-active">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 4h18v2H3V4zm0 7h12v2H3v-2zm0 7h18v2H3v-2z" fill="currentColor"></path></svg>
-                        </span>
+<header>
+    <div class="header_wrap">
+        <div class="header_inner mcontainer">
+            <div class="left_side">
 
-                        <div id="logo">
-                            <a href="/"> 
-								<link rel="stylesheet" rel="icon" type="image/png" href="{{ url_for('static', filename='socialite/assets/images/logo.png') }}">
-                                <img src="{{ url_for('static', filename='socialite/assets/images/logo.png') }}" alt="">
-                                <img src="{{ url_for('static', filename='socialite/assets/images/logo-mobile.png') }}" class="logo_mobile" alt="">
-                            </a>
-                        </div>
-                    </div>
-					{% include 'partials/socialite/_navbar_search.html' %}
-                    <div class="right_side">
-                        <div class="header_widgets"> 
-						    				{% include 'partials/socialite/_navbar_notifications.html' %}
-    				{% include 'partials/socialite/_navbar_message.html' %}     
-        
-                            <a href="/user/{{ current_user.id }}/{{ current_user.username }}/info">
-								{% if current_user.photos.profile_picture %}
-                                    <img src="{{ current_user.photos.image_url }}" class="is_avatar" alt="">
-									{% else %}
-                                    <img src="{{ current_user.get_photo() }}" class="is_avatar" alt="">
-									{% endif %}
-                            </a>
-				{% include 'partials/socialite/_navbar_dropdown.html' %}
-                        </div>
-                        
-                    </div>
+                <span class="slide_menu" uk-toggle="target: #wrapper ; cls: is-collapse is-active">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M3 4h18v2H3V4zm0 7h12v2H3v-2zm0 7h18v2H3v-2z" fill="currentColor"></path>
+                    </svg>
+                </span>
+
+                <div id="logo">
+                    <a href="/">
+                        <link rel="stylesheet" rel="icon" type="image/png"
+                            href="{{ url_for('static', filename='socialite/assets/images/logo.png') }}">
+                        <img src="{{ url_for('static', filename='socialite/assets/images/logo.png') }}" alt="">
+                        <img src="{{ url_for('static', filename='socialite/assets/images/logo-mobile.png') }}"
+                            class="logo_mobile" alt="">
+                    </a>
                 </div>
             </div>
-        </header>
+            {% include 'partials/socialite/_navbar_search.html' %}
+            <div class="right_side">
+                <div class="header_widgets">
+                    {% include 'partials/socialite/_navbar_notifications.html' %}
+                    {% include 'partials/socialite/_navbar_message.html' %}
+
+                    <a href="/user/{{ current_user.id }}/{{ current_user.username }}/info">
+                        {% if current_user.photos.profile_picture %}
+                        <img src="{{ current_user.photos.image_url }}" class="is_avatar" alt="">
+                        {% else %}
+                        <img src="{{ current_user.get_photo() }}" class="is_avatar" alt="">
+                        {% endif %}
+                    </a>
+                    {% include 'partials/socialite/_navbar_dropdown.html' %}
+                </div>
+
+            </div>
+        </div>
+        {% include "partials/socialite/_flashes.html" %}
+    </div>
+</header>

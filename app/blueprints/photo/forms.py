@@ -1,27 +1,9 @@
 from flask_wtf import FlaskForm
-from flask_ckeditor import CKEditorField
 from flask_wtf.file import FileAllowed, FileRequired
-from wtforms import ValidationError
-from wtforms.ext.sqlalchemy.fields import QuerySelectField, QuerySelectMultipleField
-from wtforms.fields import (
-    MultipleFileField,
-    FileField,
-    SubmitField,
-    RadioField,
-    BooleanField
+from wtforms.fields import BooleanField, FileField, SubmitField
+from wtforms_alchemy import ModelForm, model_form_factory
 
-
-)
-from wtforms.fields.html5 import EmailField
-from wtforms.validators import (
-    Email,
-    EqualTo,
-    InputRequired,
-    Length,
-    DataRequired
-)
-from wtforms_alchemy import Unique, ModelForm, model_form_factory
-from flask_uploads import UploadSet, IMAGES
+from app.common.flask_uploads import IMAGES, UploadSet
 
 BaseModelForm = model_form_factory(FlaskForm)
 

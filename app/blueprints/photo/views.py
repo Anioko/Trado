@@ -1,30 +1,10 @@
-import os
-from flask import (
-    Blueprint,
-    abort,
-    flash,
-    redirect,
-    render_template,
-    request,
-    url_for
-)
+from flask import (Blueprint, flash, redirect, render_template, request,
+                   url_for)
 from flask_login import current_user, login_required
-from flask_rq import get_queue
-from flask_ckeditor import upload_success
-from flask_sqlalchemy import Pagination
-
-from app import db
-#from app.page_manager.forms import (
-    #ChangeAccountTypeForm,
-    #ChangeUserEmailForm,
-    #InviteUserForm,
-    #NewUserForm,
-#)
-from app.decorators import admin_required
-from app.email import send_email
-from app.models import *
-from app.blueprints.photo.forms import *
-from werkzeug.utils import secure_filename
+from typing import List
+from app import db, images
+from app.blueprints.photo.forms import ImageForm
+from app.models import Photo
 
 photo = Blueprint('photo', __name__)
 

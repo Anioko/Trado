@@ -1,0 +1,164 @@
+{% extends "layouts/socialite_base.html" %}
+
+
+{% set endpoints = [
+('account.update_details', 'Update details'),
+('photo.add_photo', 'Add pictures'),
+('account.change_username_request', 'Change username'),
+('account.change_email_request', 'Change email address'),
+('account.change_password', 'Change password'),
+] %}
+
+
+{% macro navigation(items) %}
+<nav class="responsive-nav border-b md:m-0 -mx-4">
+	<ul>
+		{% for route, name in items %}
+		{% set href = url_for(route) %}
+		<li><a href="{{ href }}" class="lg:px-2">{{ name }}</a></li>
+		{% endfor %}
+	</ul>
+</nav>
+{% endmacro %}
+
+
+{% macro user_info(user) %}
+<div>
+	<table class="uk-table uk-table-divider">
+		<tr>
+			<td>Username</td>
+			<td>{{ user.username }}</td>
+		</tr>
+		<tr>
+			<td>Full name</td>
+			<td>{{ '%s %s' % (user.first_name, user.last_name) }}</td>
+		</tr>
+		<tr>
+			<td>Email address</td>
+			<td>{{ user.email }}</td>
+		</tr>
+		<tr>
+			<td>Account type</td>
+			<td>{{ user.role.name }}</td>
+		</tr>
+		<tr>
+			<td>Height</td>
+			<td>{{ user.height }}</td>
+		</tr>
+		<tr>
+			<td>Sex</td>
+			<td>{{ user.sex }}</td>
+		</tr>
+		<tr>
+			<td>Age</td>
+			<td>{{ user.age }}</td>
+		</tr>
+		<tr>
+			<td>Country</td>
+			<td>{{ user.country }}</td>
+		</tr>
+		<tr>
+			<td>Religion</td>
+			<td>{{ user.religion }}</td>
+		</tr>
+		<tr>
+			<td>Ethnicity</td>
+			<td>{{ user.ethnicity }}</td>
+		</tr>
+		<tr>
+			<td>Marital Type</td>
+			<td>{{ user.marital_type }}</td>
+		</tr>
+		<tr>
+			<td>Body Type</td>
+			<td>{{ user.body_type }}</td>
+		</tr>
+		<tr>
+			<td>Church Denomination</td>
+			<td>{{ user.church_denomination }}</td>
+		</tr>
+		<tr>
+			<td>Current Status</td>
+			<td>{{ user.current_status }}</td>
+		</tr>
+		<tr>
+			<td>Drinking Status</td>
+			<td>{{ user.drinking_status }}</td>
+		</tr>
+		<tr>
+			<td>Smoking Status</td>
+			<td>{{ user.smoking_status }}</td>
+		</tr>
+		<tr>
+			<td>Education Level</td>
+			<td>{{ user.education_level }}</td>
+		</tr>
+		<tr>
+			<td>Has Children</td>
+			<td>{{ user.has_children }}</td>
+		</tr>
+		<tr>
+			<td>Want Children</td>
+			<td>{{ user.want_children }}</td>
+		</tr>
+		<tr>
+			<td>Open for relocation</td>
+			<td>{{ user.open_for_relocation }}</td>
+		</tr>
+	</table>
+</div>
+{% endmacro %}
+
+
+
+{% block content %}
+
+<!-- Main Contents -->
+<div class="main_content">
+	<div class="mcontainer">
+
+		<div class="mb-6">
+			<h2 class="text-2xl font-semibold"> Setting </h2>
+			{{navigation(endpoints)}}
+		</div>
+
+
+		<div class="grid lg:grid-cols-3 mt-12 gap-8">
+			<div class="bg-white rounded-md lg:shadow-md shadow col-span-2">
+				{% if form %}
+				<form method="post">
+					<div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
+						{% for field in form %}
+						{% if field.type == 'CSRFTokenField' %}
+						{{field}}
+						{% else %}
+						
+						<div class="col-span-2">
+							<label for="{{field.label.data}}">{{field.label}}</label>
+							{{field(class_='shadow-none with-border')}}
+						</div>
+						{% endif %}
+						{% endfor %}
+					</div>
+
+					<div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
+						<button type="submit" class="button bg-blue-700"> Save </button>
+					</div>
+				</form>
+				{% else %}
+				{{user_info(user)}}
+				{% endif %}
+
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+</div>
+</div>
+
+
+{% endblock %}

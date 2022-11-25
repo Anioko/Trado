@@ -1,13 +1,22 @@
 {% macro render_flashes(class) %}
-    {% with msgs = get_flashed_messages(category_filter=[class]) %}
-        {% for msg in msgs %}
-            <div class="ui {{ class }} message" data-autohide="5">
-                <i class="close icon"></i>
-                {{ msg }}
-            </div>
-        {% endfor %}
-    {% endwith %}
+{% with msgs = get_flashed_messages(category_filter=[class]) %}
+{% for msg in msgs %}
+<div class="uk-alert-primary" uk-alert>
+    <a class="uk-alert-close" uk-close></a>
+    {% if class == 'error' %}
+    <p style="color: red;">{{ msg }}</p>
+    {% elif class == 'success'%}
+    <p style="color: green;">{{ msg }}</p>
+    {% elif class == 'info'%}
+    <p style="color: rgb(150, 150, 49);">{{ msg }}</p>
+    {% elif class == 'info'%}
+    <p style="color: orange;">{{ msg }}</p>
+    {% endif %}
+</div>
+{% endfor %}
+{% endwith %}
 {% endmacro %}
+
 
 <div class="ui text container">
     <div class="flashes">
@@ -19,14 +28,14 @@
 </div>
 
 <script>
-  $('.message').each((i, el) => {
-    const $el = $(el);
-    const $xx = $el.find('.close');
-    const sec = $el.data('autohide');
-    const triggerRemove = () => clearTimeout($el.trigger('remove').T);
+    $('.message').each((i, el) => {
+        const $el = $(el);
+        const $xx = $el.find('.close');
+        const sec = $el.data('autohide');
+        const triggerRemove = () => clearTimeout($el.trigger('remove').T);
 
-    $el.one('remove', () => $el.remove());
-    $xx.one('click', triggerRemove);
-    if (sec) $el.T = setTimeout(triggerRemove, sec * 1000);
-  });
+        $el.one('remove', () => $el.remove());
+        $xx.one('click', triggerRemove);
+        if (sec) $el.T = setTimeout(triggerRemove, sec * 1000);
+    });
 </script>

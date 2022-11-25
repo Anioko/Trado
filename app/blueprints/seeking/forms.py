@@ -1,32 +1,8 @@
 from flask_wtf import FlaskForm
-from flask_ckeditor import CKEditorField
-from flask_wtf.file import FileAllowed, FileRequired
-from wtforms import ValidationError
-from wtforms.ext.sqlalchemy.fields import QuerySelectField, QuerySelectMultipleField
-from wtforms.fields import (
-    PasswordField,
-    StringField,
-    SubmitField,
-    FloatField,
-    MultipleFileField,
-    FileField,
-    SelectField,
-    DateField, 
-    TextAreaField,
-    IntegerField,
-    BooleanField
+from wtforms.fields import SelectField, SubmitField
+from wtforms_alchemy import ModelForm, model_form_factory
 
-)
-from wtforms.fields.html5 import EmailField
-from wtforms.validators import (
-    Email,
-    EqualTo,
-    InputRequired,
-    Length,
-    DataRequired
-)
-from wtforms_alchemy import Unique, ModelForm, model_form_factory
-from flask_uploads import UploadSet, IMAGES
+from app.common.flask_uploads import IMAGES, UploadSet
 
 BaseModelForm = model_form_factory(FlaskForm)
 
@@ -355,8 +331,8 @@ class SeekingForm(BaseModelForm):
         ('Pacific Islander', 'Pacific Islander'),
         ('Caribbean', 'Caribbean'),
         ('Mixed Race', 'Mixed Race'),
-        ('Other Ethnicity', 'Other Ethnicity')        
-        ])
+        ('Other Ethnicity', 'Other Ethnicity')
+    ])
 
     seeking_ethnicity_two = SelectField(' Seeking Ethnicity option two', choices=[
         ('African American', 'African American'),
@@ -371,8 +347,8 @@ class SeekingForm(BaseModelForm):
         ('Pacific Islander', 'Pacific Islander'),
         ('Caribbean', 'Caribbean'),
         ('Mixed Race', 'Mixed Race'),
-        ('Other Ethnicity', 'Other Ethnicity')        
-        ])
+        ('Other Ethnicity', 'Other Ethnicity')
+    ])
     seeking_ethnicity_three = SelectField(' Seeking Ethnicity option three', choices=[
         ('African American', 'African American'),
         ('Caucasian', 'Caucasian'),
@@ -386,8 +362,8 @@ class SeekingForm(BaseModelForm):
         ('Pacific Islander', 'Pacific Islander'),
         ('Caribbean', 'Caribbean'),
         ('Mixed Race', 'Mixed Race'),
-        ('Other Ethnicity', 'Other Ethnicity')        
-        ])
+        ('Other Ethnicity', 'Other Ethnicity')
+    ])
 
     seeking_ethnicity_four = SelectField(' Seeking Ethnicity option four', choices=[
         ('African American', 'African American'),
@@ -402,8 +378,8 @@ class SeekingForm(BaseModelForm):
         ('Pacific Islander', 'Pacific Islander'),
         ('Caribbean', 'Caribbean'),
         ('Mixed Race', 'Mixed Race'),
-        ('Other Ethnicity', 'Other Ethnicity')        
-        ])
+        ('Other Ethnicity', 'Other Ethnicity')
+    ])
 
     seeking_ethnicity_five = SelectField(' Seeking Ethnicity option five', choices=[
         ('African American', 'African American'),
@@ -418,14 +394,13 @@ class SeekingForm(BaseModelForm):
         ('Pacific Islander', 'Pacific Islander'),
         ('Caribbean', 'Caribbean'),
         ('Mixed Race', 'Mixed Race'),
-        ('Other Ethnicity', 'Other Ethnicity')        
-        ])
+        ('Other Ethnicity', 'Other Ethnicity')
+    ])
 
     seeking_marital_type_one = SelectField(' Seeking relationship preference option one', choices=[
         ('Monogamy', 'Monogamy'),
         ('Polygamy', 'Polygamy'),
         ('Both Polygamy or Monogamy', 'Both Polygamy or Monogamy')])
-    
 
     seeking_body_type_one = SelectField(' Seeking body type option one', choices=[
         ('Slender', 'Slender'),
@@ -434,7 +409,7 @@ class SeekingForm(BaseModelForm):
         ('A Few Extra Pounds', 'A Few Extra Pounds'),
         ('Big & Tall/BBW', 'Big & Tall/BBW'),
         ('Muscular', 'Muscular'),
-        
+
         ('Voluptuous', 'Voluptuous'),
         ('Petite', 'Petite'),
         ('Well Proportioned', 'Well Proportioned'),
@@ -447,7 +422,7 @@ class SeekingForm(BaseModelForm):
         ('A Few Extra Pounds', 'A Few Extra Pounds'),
         ('Big & Tall/BBW', 'Big & Tall/BBW'),
         ('Muscular', 'Muscular'),
-        
+
         ('Voluptuous', 'Voluptuous'),
         ('Petite', 'Petite'),
         ('Well Proportioned', 'Well Proportioned'),
@@ -460,7 +435,7 @@ class SeekingForm(BaseModelForm):
         ('A Few Extra Pounds', 'A Few Extra Pounds'),
         ('Big & Tall/BBW', 'Big & Tall/BBW'),
         ('Muscular', 'Muscular'),
-        
+
         ('Voluptuous', 'Voluptuous'),
         ('Petite', 'Petite'),
         ('Well Proportioned', 'Well Proportioned'),
@@ -473,7 +448,7 @@ class SeekingForm(BaseModelForm):
         ('A Few Extra Pounds', 'A Few Extra Pounds'),
         ('Big & Tall/BBW', 'Big & Tall/BBW'),
         ('Muscular', 'Muscular'),
-        
+
         ('Voluptuous', 'Voluptuous'),
         ('Petite', 'Petite'),
         ('Well Proportioned', 'Well Proportioned'),
@@ -486,13 +461,13 @@ class SeekingForm(BaseModelForm):
         ('Baptist', 'Baptist'),
         ('Catholic', 'Catholic'),
         ('Charismatic', 'Charismatic'),
-        
+
         ('Christian Reformed', 'Christian Reformed'),
         ('Church of Christ', 'Church of Christ'),
         ('Church of God', 'Church of God'),
         ('Episcopalian', 'Evangelical'),
 
-        
+
         ('Interdenominational', 'Interdenominational'),
         ('Lutheran', 'Lutheran'),
         ('Mennonite', 'Mennonite'),
@@ -522,13 +497,13 @@ class SeekingForm(BaseModelForm):
         ('Baptist', 'Baptist'),
         ('Catholic', 'Catholic'),
         ('Charismatic', 'Charismatic'),
-        
+
         ('Christian Reformed', 'Christian Reformed'),
         ('Church of Christ', 'Church of Christ'),
         ('Church of God', 'Church of God'),
         ('Episcopalian', 'Evangelical'),
 
-        
+
         ('Interdenominational', 'Interdenominational'),
         ('Lutheran', 'Lutheran'),
         ('Mennonite', 'Mennonite'),
@@ -558,13 +533,13 @@ class SeekingForm(BaseModelForm):
         ('Baptist', 'Baptist'),
         ('Catholic', 'Catholic'),
         ('Charismatic', 'Charismatic'),
-        
+
         ('Christian Reformed', 'Christian Reformed'),
         ('Church of Christ', 'Church of Christ'),
         ('Church of God', 'Church of God'),
         ('Episcopalian', 'Evangelical'),
 
-        
+
         ('Interdenominational', 'Interdenominational'),
         ('Lutheran', 'Lutheran'),
         ('Mennonite', 'Mennonite'),
@@ -594,13 +569,13 @@ class SeekingForm(BaseModelForm):
         ('Baptist', 'Baptist'),
         ('Catholic', 'Catholic'),
         ('Charismatic', 'Charismatic'),
-        
+
         ('Christian Reformed', 'Christian Reformed'),
         ('Church of Christ', 'Church of Christ'),
         ('Church of God', 'Church of God'),
         ('Episcopalian', 'Evangelical'),
 
-        
+
         ('Interdenominational', 'Interdenominational'),
         ('Lutheran', 'Lutheran'),
         ('Mennonite', 'Mennonite'),
@@ -630,13 +605,13 @@ class SeekingForm(BaseModelForm):
         ('Baptist', 'Baptist'),
         ('Catholic', 'Catholic'),
         ('Charismatic', 'Charismatic'),
-        
+
         ('Christian Reformed', 'Christian Reformed'),
         ('Church of Christ', 'Church of Christ'),
         ('Church of God', 'Church of God'),
         ('Episcopalian', 'Evangelical'),
 
-        
+
         ('Interdenominational', 'Interdenominational'),
         ('Lutheran', 'Lutheran'),
         ('Mennonite', 'Mennonite'),
@@ -666,13 +641,13 @@ class SeekingForm(BaseModelForm):
         ('Baptist', 'Baptist'),
         ('Catholic', 'Catholic'),
         ('Charismatic', 'Charismatic'),
-        
+
         ('Christian Reformed', 'Christian Reformed'),
         ('Church of Christ', 'Church of Christ'),
         ('Church of God', 'Church of God'),
         ('Episcopalian', 'Evangelical'),
 
-        
+
         ('Interdenominational', 'Interdenominational'),
         ('Lutheran', 'Lutheran'),
         ('Mennonite', 'Mennonite'),
@@ -702,13 +677,13 @@ class SeekingForm(BaseModelForm):
         ('Baptist', 'Baptist'),
         ('Catholic', 'Catholic'),
         ('Charismatic', 'Charismatic'),
-        
+
         ('Christian Reformed', 'Christian Reformed'),
         ('Church of Christ', 'Church of Christ'),
         ('Church of God', 'Church of God'),
         ('Episcopalian', 'Episcopalian'),
         ('Evangelical', 'Evangelical'),
-        
+
         ('Interdenominational', 'Interdenominational'),
         ('Lutheran', 'Lutheran'),
         ('Mennonite', 'Mennonite'),
@@ -736,7 +711,7 @@ class SeekingForm(BaseModelForm):
         ('Seperated', 'Seperated'),
         ('Single', 'Single'),
         ('Single but in a relationship', 'Single but in a relationship'),
-        ('Widowed', 'Widowed')])    
+        ('Widowed', 'Widowed')])
 
     seeking_current_status_two = SelectField(' Seeking current status option one', choices=[
         ('Married', 'Married'),
@@ -750,8 +725,8 @@ class SeekingForm(BaseModelForm):
         ('Seperated', 'Seperated'),
         ('Single', 'Single'),
         ('Single but in a relationship', 'Single but in a relationship'),
-        ('Widowed', 'Widowed')])  
-    
+        ('Widowed', 'Widowed')])
+
     seeking_drinking_status_one = SelectField(' drinking status option one', choices=[
         ('No', 'No'),
         ('Socially', 'Socially'),
@@ -765,7 +740,7 @@ class SeekingForm(BaseModelForm):
         ('Ocassionally', 'Ocassionally'),
         ('Frequently', 'Frequently'),
         ('Daily', 'Daily')])
-    
+
     seeking_smoking_status_one = SelectField(' smoking status option one', choices=[
         ('No', 'No'),
         ('Socially', 'Socially'),
@@ -790,9 +765,9 @@ class SeekingForm(BaseModelForm):
         ('2 Yr College Degree/Diploma', '2 Yr College Degree/Diploma'),
         ('4 Yr College Degree/Diploma', '4 Yr College Degree/Diploma'),
         ('Masters/Post Graduate Diploma', 'Masters/Post Graduate Diploma'),
-        
+
         ('Ph.D./Doctorate', 'Ph.D./Doctorate')])
-    
+
     seeking_education_level_two = SelectField('Education level option two', choices=[
         ('Some School', 'Some School'),
         ('GED', 'GED'),
@@ -803,7 +778,7 @@ class SeekingForm(BaseModelForm):
         ('2 Yr College Degree/Diploma', '2 Yr College Degree/Diploma'),
         ('4 Yr College Degree/Diploma', '4 Yr College Degree/Diploma'),
         ('Masters/Post Graduate Diploma', 'Masters/Post Graduate Diploma'),
-        
+
         ('Ph.D./Doctorate', 'Ph.D./Doctorate')])
 
     seeking_education_level_three = SelectField('Education level option three', choices=[
@@ -816,7 +791,7 @@ class SeekingForm(BaseModelForm):
         ('2 Yr College Degree/Diploma', '2 Yr College Degree/Diploma'),
         ('4 Yr College Degree/Diploma', '4 Yr College Degree/Diploma'),
         ('Masters/Post Graduate Diploma', 'Masters/Post Graduate Diploma'),
-        
+
         ('Ph.D./Doctorate', 'Ph.D./Doctorate')])
 
     seeking_education_level_four = SelectField('Education level option four', choices=[
@@ -829,7 +804,7 @@ class SeekingForm(BaseModelForm):
         ('2 Yr College Degree/Diploma', '2 Yr College Degree/Diploma'),
         ('4 Yr College Degree/Diploma', '4 Yr College Degree/Diploma'),
         ('Masters/Post Graduate Diploma', 'Masters/Post Graduate Diploma'),
-        
+
         ('Ph.D./Doctorate', 'Ph.D./Doctorate')])
 
     seeking_education_level_five = SelectField('Education level option five', choices=[
@@ -842,7 +817,7 @@ class SeekingForm(BaseModelForm):
         ('2 Yr College Degree/Diploma', '2 Yr College Degree/Diploma'),
         ('4 Yr College Degree/Diploma', '4 Yr College Degree/Diploma'),
         ('Masters/Post Graduate Diploma', 'Masters/Post Graduate Diploma'),
-        
+
         ('Ph.D./Doctorate', 'Ph.D./Doctorate')])
 
     seeking_education_level_six = SelectField('Education level option six', choices=[
@@ -855,7 +830,7 @@ class SeekingForm(BaseModelForm):
         ('2 Yr College Degree/Diploma', '2 Yr College Degree/Diploma'),
         ('4 Yr College Degree/Diploma', '4 Yr College Degree/Diploma'),
         ('Masters/Post Graduate Diploma', 'Masters/Post Graduate Diploma'),
-        
+
         ('Ph.D./Doctorate', 'Ph.D./Doctorate')])
 
     seeking_education_level_seven = SelectField('Education level option seven', choices=[
@@ -868,7 +843,7 @@ class SeekingForm(BaseModelForm):
         ('2 Yr College Degree/Diploma', '2 Yr College Degree/Diploma'),
         ('4 Yr College Degree/Diploma', '4 Yr College Degree/Diploma'),
         ('Masters/Post Graduate Diploma', 'Masters/Post Graduate Diploma'),
-        
+
         ('Ph.D./Doctorate', 'Ph.D./Doctorate')])
 
     seeking_education_level_eight = SelectField('Education level option eight', choices=[
@@ -881,7 +856,7 @@ class SeekingForm(BaseModelForm):
         ('2 Yr College Degree/Diploma', '2 Yr College Degree/Diploma'),
         ('4 Yr College Degree/Diploma', '4 Yr College Degree/Diploma'),
         ('Masters/Post Graduate Diploma', 'Masters/Post Graduate Diploma'),
-        
+
         ('Ph.D./Doctorate', 'Ph.D./Doctorate')])
 
     seeking_education_level_nine = SelectField('Education level option nine', choices=[
@@ -894,14 +869,14 @@ class SeekingForm(BaseModelForm):
         ('2 Yr College Degree/Diploma', '2 Yr College Degree/Diploma'),
         ('4 Yr College Degree/Diploma', '4 Yr College Degree/Diploma'),
         ('Masters/Post Graduate Diploma', 'Masters/Post Graduate Diploma'),
-        
+
         ('Ph.D./Doctorate', 'Ph.D./Doctorate')])
 
     seeking_has_children_one = SelectField(' has kids option one', choices=[
         ('Yes', 'Yes'),
         ('Yes but all grown', 'Yes but all grown'),
         ('No', 'No')])
-    
+
     seeking_has_children_two = SelectField(' has kids option two', choices=[
         ('Yes', 'Yes'),
         ('Yes but all grown', 'Yes but all grown'),
@@ -916,7 +891,7 @@ class SeekingForm(BaseModelForm):
         ('Yes', 'Yes'),
         ('Yes but all grown', 'Yes but all grown'),
         ('No', 'No')])
-    
+
     seeking_want_children_two = SelectField(' want kids option two', choices=[
         ('Yes', 'Yes'),
         ('Yes but all grown', 'Yes but all grown'),
@@ -1429,7 +1404,7 @@ class SeekingForm(BaseModelForm):
         ('Zaire', 'Zaire'),
         ('Zambia', 'Zambia'),
         ('Zimbabwe', 'Zimbabwe')])
-    
+
     seeking_country_three = SelectField(u'Select Country Option Three', choices=[
 
         ('Afganistan', 'Afghanistan'),
@@ -1927,7 +1902,7 @@ class SeekingForm(BaseModelForm):
         ('Zaire', 'Zaire'),
         ('Zambia', 'Zambia'),
         ('Zimbabwe', 'Zimbabwe')])
-    
+
     seeking_country_five = SelectField(u'Select Country Option Five', choices=[
 
         ('Afganistan', 'Afghanistan'),
@@ -2674,7 +2649,7 @@ class SeekingForm(BaseModelForm):
         ('Zaire', 'Zaire'),
         ('Zambia', 'Zambia'),
         ('Zimbabwe', 'Zimbabwe')])
-    
+
     seeking_country_eight = SelectField(u'Select Country Option Eight', choices=[
 
         ('Afganistan', 'Afghanistan'),
