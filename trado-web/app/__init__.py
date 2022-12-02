@@ -9,9 +9,7 @@ from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from flask_whooshee import Whooshee
 from flask_wtf import CSRFProtect
-
 from app.common.assets import app_css, app_js, vendor_css, vendor_js
-from app.common.celery import make_celery
 from app.common.flask_rq import RQ
 from app.common.flask_uploads import IMAGES, UploadSet, configure_uploads
 from config import config as Config
@@ -60,8 +58,6 @@ def create_app(config):
     configure_uploads(app, docs)
     CKEditor(app)
     whooshee.init_app(app)
-    celery = make_celery(app)
-    celery.conf.update(app.config)
     OAuth(app)
     # Register Jinja template functions
     from app.common.utils import register_template_utils

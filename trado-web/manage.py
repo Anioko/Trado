@@ -11,6 +11,7 @@ from rq import Connection, Queue, Worker
 from app import create_app, db
 from app.models import Role, User
 from config import Config
+from celery import worker
 
 app = create_app(os.getenv('FLASK_CONFIG', 'default'))
 manager = typer.Typer()
@@ -49,7 +50,7 @@ def recreate_db():
 
 @manager.command()
 def runserver():
-    app.run()
+    app.run('0.0.0.0', 5000)
 
 
 @manager.command()
@@ -104,11 +105,12 @@ def setup_general():
 def run_worker():
     """Initializes a slim rq task queue."""
     listen = ['default']
+    
     conn = Redis(host=app.config['RQ_DEFAULT_HOST'],
                  port=app.config['RQ_DEFAULT_PORT'],
                  db=0,
                  password=app.config['RQ_DEFAULT_PASSWORD'])
-
+    
     with Connection(conn):
         worker = Worker(map(Queue, listen))
         worker.work()
@@ -117,10 +119,8 @@ def run_worker():
 @manager.command()
 def run_cron_worker():
     """Triggers a celery worker process"""
-    from app.common.celery import make_celery
-
-    queue = make_celery(app)
-    worker = queue.Worker()
+    from app.common.celery import celery
+    worker = celery.Worker()
     worker.start()
 
 

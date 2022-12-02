@@ -37,16 +37,18 @@ def config_value(name, key):
 
 def get_connection(queue='default'):
     url = config_value(queue, 'URL')
+    print(url)
     if url:
         return redis.from_url(url, db=config_value(queue, 'DB'))
-    return redis.Redis(host=config_value(queue, 'HOST'),
+    """return redis.Redis(host=config_value(queue, 'HOST'),
                        port=config_value(queue, 'PORT'),
                        password=config_value(queue, 'PASSWORD'),
-                       db=config_value(queue, 'DB'))
+                       db=config_value(queue, 'DB'))"""
 
 
 def get_queue(name='default', **kwargs):
     kwargs['connection'] = get_connection(name)
+    print(kwargs['connection'])
     return Queue(name, **kwargs)
 
 

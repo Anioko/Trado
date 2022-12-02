@@ -1,49 +1,40 @@
-version: '3.4'
+version: '3.9'
 services:
-  server:
+  kredis:
+        hostname: kredis
+        image: docker.dragonflydb.io/dragonflydb/dragonfly
+        ports:
+            - "6379:6379"  
+        restart: unless-stopped
+
+        profiles:
+          - "dev" 
+  trado-web:
+    container_name: trado-web
     build:
-      context: .
+      context: ./trado-web
     ports:
       - '5000:5000'
     volumes: 
-      - './:/app'
+      - './trado-web:/src'
     environment: 
       # set environment variables
-      REDISTOGO_URL: http://redis:6379
-      DEV_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-      TEST_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-  
-  worker:
-    build:
-      dockerfile: Dockerfile.worker
-      context: .
-    volumes: 
-      - './:/app'
-    environment: 
-      # set environment variables
-      REDISTOGO_URL: http://redis:6379
-      DEV_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-      TEST_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDISTOGO_URL: redis://kredis:6379/
+      #DEV_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      #TEST_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      #DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
 
-  postgres:
-    image: postgres
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: example
-      POSTGRES_DB: mydatabase
-    volumes:
-    - db-data:/var/lib/postgresql/data
-  adminer:
-    image: adminer
+    command: honcho start
+
+    profiles:
+      - "dev"
+      - "test"
+
     restart: always
-    ports:
-      - 8080:8080
 
-  redis:
-    image:
-      redis:6-alpine
+    depends_on:
+      - kredis
+      
+  
 
-volumes:
-  db-data:
+   

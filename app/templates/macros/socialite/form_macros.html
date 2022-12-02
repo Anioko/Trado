@@ -1,7 +1,0 @@
-{% macro nav_link(name, endpoint, li_classes="", a_classes="") %} 
-    {% if request.endpoint and request.endpoint.endswith(endpoint) %} 
-        <li class="nav-item {{li_classes}}"><a class="nav-link active {{a_classes}}" href="#">{{name}}</a></li> 
-    {% else %} 
-        <li class="nav-item {{li_classes}}"><a class="nav-link {{a_classes}}" href="#">{{name}}</a></li> 
-    {% endif %} 
-{% endmacro %}

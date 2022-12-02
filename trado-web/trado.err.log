@@ -1,0 +1,725 @@
+[2022-12-02 12:37:07 +0000] [30] [DEBUG] Current configuration:
+  config: ./gunicorn.conf.py
+  wsgi_app: None
+  bind: ['127.0.0.1:5000']
+  backlog: 2048
+  workers: 3
+  worker_class: gevent
+  threads: 1
+  worker_connections: 3000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 30
+  graceful_timeout: 30
+  keepalive: 5
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: False
+  sendfile: None
+  reuse_port: False
+  chdir: /src
+  daemon: False
+  raw_env: []
+  pidfile: None
+  worker_tmp_dir: None
+  user: 0
+  group: 0
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: None
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  errorlog: trado.err.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: None
+  default_proc_name: manage:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x00007fde1b639880>
+  on_reload: <function OnReload.on_reload at 0x00007fde1b639740>
+  when_ready: <function WhenReady.when_ready at 0x00007fde1b639600>
+  pre_fork: <function Prefork.pre_fork at 0x00007fde1b6394c0>
+  post_fork: <function Postfork.post_fork at 0x00007fde1b6392e0>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x00007fde1b6391a0>
+  worker_int: <function WorkerInt.worker_int at 0x00007fde1b638fc0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x00007fde1b638e80>
+  pre_exec: <function PreExec.pre_exec at 0x00007fde1b638d40>
+  pre_request: <function PreRequest.pre_request at 0x00007fde1b638b60>
+  post_request: <function PostRequest.post_request at 0x00007fde1b638a20>
+  child_exit: <function ChildExit.child_exit at 0x00007fde1b6388e0>
+  worker_exit: <function WorkerExit.worker_exit at 0x00007fde1b6387a0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x00007fde1b638660>
+  on_exit: <function OnExit.on_exit at 0x00007fde1b638520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+[2022-12-02 12:37:07 +0000] [30] [INFO] Starting gunicorn 20.1.0
+[2022-12-02 12:37:07 +0000] [30] [DEBUG] Arbiter booted
+[2022-12-02 12:37:07 +0000] [30] [INFO] Listening at: http://127.0.0.1:5000 (30)
+[2022-12-02 12:37:07 +0000] [30] [INFO] Using worker: gevent
+[2022-12-02 12:37:07 +0000] [36] [INFO] Booting worker with pid: 36
+[2022-12-02 12:37:07 +0000] [37] [INFO] Booting worker with pid: 37
+[2022-12-02 12:37:07 +0000] [38] [INFO] Booting worker with pid: 38
+[2022-12-02 12:37:07 +0000] [30] [DEBUG] 3 workers
+[2022-12-02 12:37:45 +0000] [30] [INFO] Handling signal: term
+[2022-12-02 12:37:45 +0000] [37] [INFO] Worker exiting (pid: 37)
+[2022-12-02 12:37:45 +0000] [36] [INFO] Worker exiting (pid: 36)
+[2022-12-02 12:37:45 +0000] [38] [INFO] Worker exiting (pid: 38)
+[2022-12-02 12:37:45 +0000] [30] [INFO] Shutting down: Master
+[2022-12-02 12:39:21 +0000] [30] [DEBUG] Current configuration:
+  config: ./gunicorn.conf.py
+  wsgi_app: None
+  bind: ['0.0.0.0:5000']
+  backlog: 2048
+  workers: 3
+  worker_class: gevent
+  threads: 1
+  worker_connections: 3000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 30
+  graceful_timeout: 30
+  keepalive: 5
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: False
+  sendfile: None
+  reuse_port: False
+  chdir: /src
+  daemon: False
+  raw_env: []
+  pidfile: None
+  worker_tmp_dir: None
+  user: 0
+  group: 0
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: None
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  errorlog: trado.err.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: None
+  default_proc_name: manage:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x00007fc1db529ba0>
+  on_reload: <function OnReload.on_reload at 0x00007fc1db529a60>
+  when_ready: <function WhenReady.when_ready at 0x00007fc1db529920>
+  pre_fork: <function Prefork.pre_fork at 0x00007fc1db5297e0>
+  post_fork: <function Postfork.post_fork at 0x00007fc1db529600>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x00007fc1db5294c0>
+  worker_int: <function WorkerInt.worker_int at 0x00007fc1db5292e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x00007fc1db5291a0>
+  pre_exec: <function PreExec.pre_exec at 0x00007fc1db529060>
+  pre_request: <function PreRequest.pre_request at 0x00007fc1db528e80>
+  post_request: <function PostRequest.post_request at 0x00007fc1db528d40>
+  child_exit: <function ChildExit.child_exit at 0x00007fc1db528c00>
+  worker_exit: <function WorkerExit.worker_exit at 0x00007fc1db528ac0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x00007fc1db528980>
+  on_exit: <function OnExit.on_exit at 0x00007fc1db528840>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+[2022-12-02 12:39:21 +0000] [30] [INFO] Starting gunicorn 20.1.0
+[2022-12-02 12:39:21 +0000] [30] [DEBUG] Arbiter booted
+[2022-12-02 12:39:21 +0000] [30] [INFO] Listening at: http://0.0.0.0:5000 (30)
+[2022-12-02 12:39:21 +0000] [30] [INFO] Using worker: gevent
+[2022-12-02 12:39:21 +0000] [35] [INFO] Booting worker with pid: 35
+[2022-12-02 12:39:21 +0000] [36] [INFO] Booting worker with pid: 36
+[2022-12-02 12:39:22 +0000] [37] [INFO] Booting worker with pid: 37
+[2022-12-02 12:39:22 +0000] [30] [DEBUG] 3 workers
+[2022-12-02 12:39:36 +0000] [35] [DEBUG] GET /account/manage/info
+[2022-12-02 12:39:36 +0000] [37] [DEBUG] GET /account/manage/info
+[2022-12-02 12:39:36 +0000] [36] [DEBUG] GET /account/manage/info
+[2022-12-02 12:39:38 +0000] [35] [DEBUG] Closing connection. 
+[2022-12-02 12:39:38 +0000] [37] [DEBUG] Closing connection. 
+[2022-12-02 12:39:38 +0000] [36] [DEBUG] Closing connection. 
+[2022-12-02 12:39:39 +0000] [36] [DEBUG] GET /account/manage/info
+[2022-12-02 12:39:39 +0000] [36] [DEBUG] GET /static/socialite/assets/images/favicon.png
+[2022-12-02 12:39:39 +0000] [37] [DEBUG] GET /static/socialite/assets/css/icons.css
+[2022-12-02 12:39:39 +0000] [35] [DEBUG] GET /static/socialite/assets/css/uikit.css
+[2022-12-02 12:39:39 +0000] [37] [DEBUG] GET /static/socialite/assets/images/logo.png
+[2022-12-02 12:39:39 +0000] [36] [DEBUG] GET /static/socialite/assets/images/logo-mobile.png
+[2022-12-02 12:39:39 +0000] [35] [DEBUG] GET /static/socialite/assets/css/style.css
+[2022-12-02 12:39:39 +0000] [36] [DEBUG] GET /account/manage/assets/images/avatars/avatar-1.jpg
+[2022-12-02 12:39:39 +0000] [37] [DEBUG] GET /account/manage/assets/images/avatars/avatar-2.jpg
+[2022-12-02 12:39:39 +0000] [35] [DEBUG] GET /account/manage/assets/images/avatars/avatar-4.jpg
+[2022-12-02 12:39:39 +0000] [37] [ERROR] Error handling request /account/manage/assets/images/avatars/avatar-2.jpg
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:39:39 +0000] [36] [ERROR] Error handling request /account/manage/assets/images/avatars/avatar-1.jpg
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:39:39 +0000] [37] [DEBUG] GET /account/manage/assets/images/avatars/avatar-5.jpg
+[2022-12-02 12:39:39 +0000] [36] [DEBUG] GET /account/manage/assets/images/avatars/avatar-7.jpg
+[2022-12-02 12:39:39 +0000] [35] [ERROR] Error handling request /account/manage/assets/images/avatars/avatar-4.jpg
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:39:39 +0000] [35] [DEBUG] GET /account/manage/assets/images/avatars/avatar-6.jpg
+[2022-12-02 12:39:39 +0000] [36] [ERROR] Error handling request /account/manage/assets/images/avatars/avatar-7.jpg
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:39:39 +0000] [37] [ERROR] Error handling request /account/manage/assets/images/avatars/avatar-5.jpg
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:39:39 +0000] [36] [DEBUG] GET /static/socialite/assets/images/logo.png
+[2022-12-02 12:39:39 +0000] [37] [DEBUG] GET /static/socialite/assets/js/uikit.js
+[2022-12-02 12:39:39 +0000] [35] [ERROR] Error handling request /account/manage/assets/images/avatars/avatar-6.jpg
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:39:39 +0000] [35] [DEBUG] GET /static/socialite/assets/js/tippy.all.min.js
+[2022-12-02 12:39:39 +0000] [36] [DEBUG] GET /static/socialite/assets/js/simplebar.js
+[2022-12-02 12:39:39 +0000] [37] [DEBUG] GET /account/manage/assets/images/avatars/avatar-3.jpg
+[2022-12-02 12:39:39 +0000] [35] [DEBUG] GET /static/socialite/assets/js/custom.js
+[2022-12-02 12:39:39 +0000] [37] [ERROR] Error handling request /account/manage/assets/images/avatars/avatar-3.jpg
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:39:39 +0000] [35] [DEBUG] GET /static/socialite/assets/js/bootstrap-select.min.js
+[2022-12-02 12:39:40 +0000] [37] [DEBUG] GET /static/socialite/assets/fonts/unicons.woff
+[2022-12-02 12:39:41 +0000] [37] [DEBUG] GET /static/socialite/assets/fonts/Feather-Icons.ttf
+[2022-12-02 12:39:41 +0000] [37] [DEBUG] GET /favicon.ico
+[2022-12-02 12:39:41 +0000] [37] [ERROR] Error handling request /favicon.ico
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:39:45 +0000] [36] [DEBUG] GET /photo/add
+[2022-12-02 12:39:45 +0000] [36] [DEBUG] GET /account/unconfirmed
+[2022-12-02 12:39:45 +0000] [36] [DEBUG] GET /static/socialite/assets/images/favicon.png
+[2022-12-02 12:39:45 +0000] [37] [DEBUG] GET /static/socialite/assets/css/icons.css
+[2022-12-02 12:39:45 +0000] [35] [DEBUG] GET /static/socialite/assets/js/tippy.all.min.js
+[2022-12-02 12:39:45 +0000] [36] [DEBUG] GET /static/socialite/assets/css/uikit.css
+[2022-12-02 12:39:45 +0000] [37] [DEBUG] GET /static/socialite/assets/css/style.css
+[2022-12-02 12:39:45 +0000] [36] [DEBUG] GET /static/socialite/assets/images/logo.png
+[2022-12-02 12:39:45 +0000] [36] [DEBUG] GET /static/socialite/assets/js/uikit.js
+[2022-12-02 12:39:45 +0000] [37] [DEBUG] GET /static/socialite/assets/js/simplebar.js
+[2022-12-02 12:39:45 +0000] [35] [DEBUG] GET /static/socialite/assets/js/bootstrap-select.min.js
+[2022-12-02 12:39:45 +0000] [36] [DEBUG] GET /static/socialite/assets/js/custom.js
+[2022-12-02 12:39:49 +0000] [36] [DEBUG] GET /account/confirm-account
+[2022-12-02 12:39:49 +0000] [36] [DEBUG] GET /account/manage/info
+[2022-12-02 12:39:49 +0000] [36] [DEBUG] GET /static/socialite/assets/js/tippy.all.min.js
+[2022-12-02 12:39:49 +0000] [35] [DEBUG] GET /static/socialite/assets/js/uikit.js
+[2022-12-02 12:39:49 +0000] [37] [DEBUG] GET /static/socialite/assets/js/simplebar.js
+[2022-12-02 12:39:49 +0000] [35] [DEBUG] GET /static/socialite/assets/js/bootstrap-select.min.js
+[2022-12-02 12:39:49 +0000] [37] [DEBUG] GET /static/socialite/assets/js/custom.js
+[2022-12-02 12:39:49 +0000] [35] [DEBUG] GET /static/socialite/assets/images/favicon.png
+[2022-12-02 12:39:49 +0000] [37] [DEBUG] GET /static/socialite/assets/css/icons.css
+[2022-12-02 12:39:49 +0000] [36] [DEBUG] GET /static/socialite/assets/css/uikit.css
+[2022-12-02 12:39:49 +0000] [35] [DEBUG] GET /account/manage/assets/images/avatars/avatar-1.jpg
+[2022-12-02 12:39:49 +0000] [37] [DEBUG] GET /static/socialite/assets/images/logo.png
+[2022-12-02 12:39:49 +0000] [35] [ERROR] Error handling request /account/manage/assets/images/avatars/avatar-1.jpg
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:39:49 +0000] [36] [DEBUG] GET /static/socialite/assets/css/style.css
+[2022-12-02 12:39:49 +0000] [37] [DEBUG] GET /account/manage/assets/images/avatars/avatar-4.jpg
+[2022-12-02 12:39:49 +0000] [37] [ERROR] Error handling request /account/manage/assets/images/avatars/avatar-4.jpg
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:39:49 +0000] [37] [DEBUG] GET /account/manage/assets/images/avatars/avatar-3.jpg
+[2022-12-02 12:39:49 +0000] [36] [DEBUG] GET /account/manage/assets/images/avatars/avatar-2.jpg
+[2022-12-02 12:39:49 +0000] [35] [DEBUG] GET /static/socialite/assets/images/logo.png
+[2022-12-02 12:39:49 +0000] [36] [ERROR] Error handling request /account/manage/assets/images/avatars/avatar-2.jpg
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:39:49 +0000] [37] [ERROR] Error handling request /account/manage/assets/images/avatars/avatar-3.jpg
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:39:49 +0000] [36] [DEBUG] GET /account/manage/assets/images/avatars/avatar-5.jpg
+[2022-12-02 12:39:49 +0000] [37] [DEBUG] GET /account/manage/assets/images/avatars/avatar-7.jpg
+[2022-12-02 12:39:49 +0000] [36] [ERROR] Error handling request /account/manage/assets/images/avatars/avatar-5.jpg
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:39:49 +0000] [36] [DEBUG] GET /account/manage/assets/images/avatars/avatar-6.jpg
+[2022-12-02 12:39:49 +0000] [37] [ERROR] Error handling request /account/manage/assets/images/avatars/avatar-7.jpg
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:39:49 +0000] [37] [DEBUG] GET /static/socialite/assets/images/logo-mobile.png
+[2022-12-02 12:39:49 +0000] [36] [ERROR] Error handling request /account/manage/assets/images/avatars/avatar-6.jpg
+Traceback (most recent call last):
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 55, in handle
+    self.handle_request(listener_name, req, client, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/ggevent.py", line 127, in handle_request
+    super().handle_request(listener_name, req, sock, addr)
+  File "/opt/pypy/lib/pypy3.9/site-packages/gunicorn/workers/base_async.py", line 108, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/pypy/lib/pypy3.9/_functools.py", line 81, in __call__
+    return self._func(*(self._args + fargs), **fkeywords)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask_restful/__init__.py", line 271, in error_router
+    return original_handler(e)
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 1818, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/opt/pypy/lib/pypy3.9/site-packages/flask/app.py", line 2309, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/src/app/blueprints/account/views.py", line 431, in before_request
+    and not request.endpoint.startswith('account') \
+AttributeError: 'NoneType' object has no attribute 'startswith'
+[2022-12-02 12:42:30 +0000] [30] [INFO] Handling signal: term
+[2022-12-02 12:42:30 +0000] [35] [INFO] Worker exiting (pid: 35)
+[2022-12-02 12:42:30 +0000] [37] [INFO] Worker exiting (pid: 37)
+[2022-12-02 12:42:30 +0000] [36] [INFO] Worker exiting (pid: 36)
+[2022-12-02 12:42:30 +0000] [30] [INFO] Shutting down: Master

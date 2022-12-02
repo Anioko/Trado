@@ -43,12 +43,14 @@ def login():
 def register():
     """Register a new user, and send them a confirmation email."""
     form = RegistrationForm()
+    print(form)
     if form.validate_on_submit():
         user: User = User(first_name=form.first_name.data, email=form.email.data,
                           password=form.password.data, current_status=form.current_status.data,
                           username=form.username.data, age=form.age.data,
                           sex=form.sex.data,
                           last_name=form.last_name.data)
+        print(user)
         db.session.add(user)
         db.session.commit()
         token: str = user.generate_confirmation_token()
@@ -347,13 +349,12 @@ def confirm_request():
     """Respond to new user's request to confirm their account."""
     token = current_user.generate_confirmation_token()
     confirm_link = url_for('account.confirm', token=token, _external=True)
-    get_queue().enqueue(
-        send_email,
+    template = render_template('account/email/confirm.html', user=current_user._get_current_object())
+    send_email.delay(
         recipient=current_user.email,
         subject='Confirm Your Account',
-        template='account/email/confirm',
+        template=template,
         # current_user is a LocalProxy, we want the underlying user object
-        user=current_user._get_current_object(),
         confirm_link=confirm_link)
     flash('A new confirmation link has been sent to {}.'.format(
         current_user.email), 'warning')
@@ -412,8 +413,7 @@ def join_from_invite(user_id, token):
             user_id=user_id,
             token=token,
             _external=True)
-        get_queue().enqueue(
-            send_email,
+        send_email(
             recipient=new_user.email,
             subject='You Are Invited To Join',
             template='account/email/invite',
@@ -425,9 +425,10 @@ def join_from_invite(user_id, token):
 @account.before_app_request
 def before_request():
     """Force user to confirm email before accessing login-required routes."""
+
     if current_user.is_authenticated \
             and not current_user.confirmed \
-            and request.endpoint[:8] != 'account.' \
+            and not request.endpoint.startswith('account') \
             and request.endpoint != 'static':
         return redirect(url_for('account.unconfirmed'))
 

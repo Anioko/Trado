@@ -21,6 +21,7 @@ flask-migrate
 flask-whooshee
 Flask-WTF
 gunicorn
+gevent
 honcho
 idna
 itsdangerous
@@ -31,7 +32,8 @@ Mako
 MarkupSafe
 packaging
 pipupgrade
-psycopg2-binary
+psycopg2cffi
+#psycopg2-binary
 pyparsing
 python-dateutil
 python-editor

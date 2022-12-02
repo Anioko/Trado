@@ -48,7 +48,7 @@ class Config:
     ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'password')
     ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'flask-base-admin@example.com')
     EMAIL_SUBJECT_PREFIX = '[{}]'.format(APP_NAME)
-    REDIS_URL = os.getenv('REDISTOGO_URL', 'http://localhost:6379')
+    REDIS_URL = os.getenv('REDISTOGO_URL', 'http://localhost:6379/')
 
     RAYGUN_APIKEY = os.environ.get('RAYGUN_APIKEY')
 
@@ -66,6 +66,7 @@ class Config:
     RQ_DEFAULT_PORT = url.port
     RQ_DEFAULT_PASSWORD = url.password
     RQ_DEFAULT_DB = 0
+    RQ_DEFAULT_URL = os.environ.get('REDISTOGO_URL', None)
 
     # Celery config
     CELERY_BROKER_URL = f'redis://{url.hostname}:{url.port}/0'
