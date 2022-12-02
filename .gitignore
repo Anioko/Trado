@@ -10,6 +10,7 @@ __pycache__
 venv
 *.env
 *.rdb
+*.log
 env*
 dist
 *.egg
