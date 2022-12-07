@@ -331,10 +331,7 @@ class User(UserMixin, db.Model):
     def get_photo(self):
         photos = self.photos.all()
         if len(photos) > 0:
-            return url_for('_uploads.uploaded_file',
-                           setname='images',
-                           filename=photos[0].image_filename,
-                           _external=True)
+            return photos[0].image_url
         else:
             if self.sex == 'Female':
                 return "https://1.semantic-ui.com/images/avatar/large/veronika.jpg"

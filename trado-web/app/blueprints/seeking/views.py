@@ -1,4 +1,4 @@
-from flask import (Blueprint, flash, redirect, render_template,
+from flask import (Blueprint, flash, redirect, render_template, request,
                    url_for, abort)
 from flask_login import current_user, login_required
 
@@ -32,97 +32,23 @@ def added_preference():
 @login_required
 def add_preference(id, username):
     """Add prefence function for users """
-
-    if current_user.id != id and current_user.username != username:
-        abort(403)
-    data = Seeking.query.filter_by(user_id=id).first()
+    data = Seeking.query.filter_by(user_id=current_user.id).first()
     if data:
         return redirect(url_for('seeking.added_preference', id=current_user.id, username=current_user.username))
 
     form = SeekingForm()
+    form_data = form.data
+    form_data.pop('csrf_token')
     if form.validate_on_submit():
         seeking = Seeking(
-
             user_id=current_user.id,
-
-            seeking_partner=form.seeking_partner.data,
-            seeking_from_height=form.seeking_from_height.data,
-            seeking_to_height=form.seeking_to_height.data,
-            seeking_sex=form.seeking_sex.data,
-
-            seeking_from_age=form.seeking_from_age.data,
-            seeking_to_age=form.seeking_to_age.data,
-
-            seeking_country_one=form.seeking_country_one.data,
-            seeking_country_two=form.seeking_country_two.data,
-            seeking_country_three=form.seeking_country_three.data,
-            seeking_country_four=form.seeking_country_four.data,
-            seeking_country_five=form.seeking_country_five.data,
-            seeking_country_six=form.seeking_country_six.data,
-            seeking_country_seven=form.seeking_country_seven.data,
-            seeking_country_eight=form.seeking_country_eight.data,
-
-            seeking_religion_one=form.seeking_religion_one.data,
-            seeking_religion_two=form.seeking_religion_two.data,
-            seeking_religion_three=form.seeking_religion_three.data,
-
-            seeking_ethnicity_one=form.seeking_ethnicity_one.data,
-            seeking_ethnicity_two=form.seeking_ethnicity_two.data,
-            seeking_ethnicity_three=form.seeking_ethnicity_three.data,
-            seeking_ethnicity_four=form.seeking_ethnicity_four.data,
-            seeking_ethnicity_five=form.seeking_ethnicity_five.data,
-
-            seeking_marital_type_one=form.seeking_marital_type_one.data,
-
-            seeking_body_type_one=form.seeking_body_type_one.data,
-            seeking_body_type_two=form.seeking_body_type_two.data,
-            seeking_body_type_three=form.seeking_body_type_three.data,
-            seeking_body_type_four=form.seeking_body_type_four.data,
-
-            seeking_church_denomination_one=form.seeking_church_denomination_one.data,
-            seeking_church_denomination_two=form.seeking_church_denomination_two.data,
-            seeking_church_denomination_three=form.seeking_church_denomination_three.data,
-            seeking_church_denomination_four=form.seeking_church_denomination_four.data,
-            seeking_church_denomination_five=form.seeking_church_denomination_five.data,
-            seeking_church_denomination_six=form.seeking_church_denomination_six.data,
-
-            seeking_current_status_one=form.seeking_current_status_one.data,
-            seeking_current_status_two=form.seeking_current_status_two.data,
-            seeking_current_status_three=form.seeking_current_status_three.data,
-
-            seeking_drinking_status_one=form.seeking_drinking_status_one.data,
-            seeking_drinking_status_two=form.seeking_drinking_status_two.data,
-
-            seeking_smoking_status_one=form.seeking_smoking_status_one.data,
-            seeking_smoking_status_two=form.seeking_smoking_status_two.data,
-
-            seeking_education_level_one=form.seeking_education_level_one.data,
-            seeking_education_level_two=form.seeking_education_level_two.data,
-            seeking_education_level_three=form.seeking_education_level_three.data,
-            seeking_education_level_four=form.seeking_education_level_four.data,
-            seeking_education_level_five=form.seeking_education_level_five.data,
-            seeking_education_level_six=form.seeking_education_level_six.data,
-            seeking_education_level_seven=form.seeking_education_level_seven.data,
-            seeking_education_level_eight=form.seeking_education_level_eight.data,
-            seeking_education_level_nine=form.seeking_education_level_nine.data,
-
-            seeking_has_children_one=form.seeking_has_children_one.data,
-            seeking_has_children_two=form.seeking_has_children_two.data,
-            seeking_has_children_three=form.seeking_has_children_three.data,
-
-            seeking_want_children_one=form.seeking_want_children_one.data,
-            seeking_want_children_two=form.seeking_want_children_two.data,
-            seeking_want_children_three=form.seeking_want_children_three.data,
-
-
-            seeking_open_for_relocation=form.seeking_open_for_relocation.data
-
+            **form_data
         )
         db.session.add(seeking)
         db.session.commit()
         flash('You have successfully added details on what you are looking for',
               'success')
-        return redirect(url_for('seeking.added_preference', id=id, username=username))
+        return redirect(url_for('seeking.added_preference', id=current_user.id, username=current_user.username))
     return render_template('socialite/create-preference.html', form=form, data=data, id=id)
 
 

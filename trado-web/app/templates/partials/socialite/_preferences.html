@@ -10,382 +10,382 @@
                                   <div> Preferences </div>
 									<ul class="text-gray-600 space-y-3 mt-3">
 										
-										{% if preferences_data.seeking_marital_type_one %}
+										{% if current_user.seeking[0].seeking_marital_type_one %}
 										<strong><h4> Type of marriage interested in </h4>	</strong>							
 										
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_marital_type_one }}
+											{{ current_user.seeking[0].seeking_marital_type_one }}
 										</li>	
 										{% endif %}
 
-										{% if preferences_data.seeking_marital_type_two %}
+										{% if current_user.seeking[0].seeking_marital_type_two %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_marital_type_two }}
+											{{ current_user.seeking[0].seeking_marital_type_two }}
 										</li>	
 										{% endif %}	
 
-										{% if preferences_data.seeking_marital_type_three %}
+										{% if current_user.seeking[0].seeking_marital_type_three %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_marital_type_three }}
+											{{ current_user.seeking[0].seeking_marital_type_three }}
 										</li>	
 										{% endif %}	
 
-										{% if preferences_data.seeking_current_status_one %}
+										{% if current_user.seeking[0].seeking_current_status_one %}
 										<strong><h4> Current Relationship Status Options </h4>	</strong>							
 
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_current_status_one }}
+											{{ current_user.seeking[0].seeking_current_status_one }}
 										</li>	
 										{% endif %}
 
-										{% if preferences_data.seeking_current_status_two %}
+										{% if current_user.seeking[0].seeking_current_status_two %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_current_status_two }}
+											{{ current_user.seeking[0].seeking_current_status_two }}
 										</li>	
 										{% endif %}	
 
-										{% if preferences_data.seeking_current_status_three %}
+										{% if current_user.seeking[0].seeking_current_status_three %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_current_status_three }}
+											{{ current_user.seeking[0].seeking_current_status_three }}
 										</li>	
 										{% endif %}											
 										
-										{% if preferences_data.seeking_from_age %}
+										{% if current_user.seeking[0].seeking_from_age %}
 										<strong><h4> Age Preference Options </h4>	</strong>							
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="icon-material-outline-person-pin" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="heart sharp"></ion-icon>
-											From {{ preferences_data.seeking_from_age }}
-											{% if preferences_data.seeking_from_age %} To {{ preferences_data.seeking_to_age }}	{% endif %}				
+											From {{ current_user.seeking[0].seeking_from_age }}
+											{% if current_user.seeking[0].seeking_from_age %} To {{ current_user.seeking[0].seeking_to_age }}	{% endif %}				
 										</li> 
 										{% endif %}
-										{% if preferences_data.seeking_from_height %}
+										{% if current_user.seeking[0].seeking_from_height %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="icon-material-outline-person-pin" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="heart sharp"></ion-icon>
-											From {{ preferences_data.seeking_from_height }}
-											{% if preferences_data.seeking_from_height %} To {{ preferences_data.seeking_to_height }}	{% endif %}				
+											From {{ current_user.seeking[0].seeking_from_height }}
+											{% if current_user.seeking[0].seeking_from_height %} To {{ current_user.seeking[0].seeking_to_height }}	{% endif %}				
 										</li> 
 										{% endif %}	
 
-										{% if preferences_data.seeking_education_level_one %}
+										{% if current_user.seeking[0].seeking_education_level_one %}
 										<strong><h4> Education Preference Options </h4>	</strong>							
 
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_education_level_one }}
+											{{ current_user.seeking[0].seeking_education_level_one }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_education_level_two %}
+										{% if current_user.seeking[0].seeking_education_level_two %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_education_level_two }}
+											{{ current_user.seeking[0].seeking_education_level_two }}
 										</li>	
 										{% endif %}					
-										{% if preferences_data.seeking_education_level_three %}
+										{% if current_user.seeking[0].seeking_education_level_three %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_education_level_three }}
+											{{ current_user.seeking[0].seeking_education_level_three }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_education_level_four %}
+										{% if current_user.seeking[0].seeking_education_level_four %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_education_level_four }}
+											{{ current_user.seeking[0].seeking_education_level_four }}
 										</li>	
 										{% endif %}	
 
-										{% if preferences_data.seeking_education_level_five %}
+										{% if current_user.seeking[0].seeking_education_level_five %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_education_level_five }}
+											{{ current_user.seeking[0].seeking_education_level_five }}
 										</li>	
 										{% endif %}
 
-										{% if preferences_data.seeking_education_level_six %}
+										{% if current_user.seeking[0].seeking_education_level_six %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_education_level_six }}
+											{{ current_user.seeking[0].seeking_education_level_six }}
 										</li>	
 										{% endif %}				
-										{% if preferences_data.seeking_education_level_seven %}
+										{% if current_user.seeking[0].seeking_education_level_seven %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_education_level_seven }}
+											{{ current_user.seeking[0].seeking_education_level_seven }}
 										</li>	
 										{% endif %}					
-										{% if preferences_data.seeking_education_level_eight %}
+										{% if current_user.seeking[0].seeking_education_level_eight %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_education_level_eight }}
+											{{ current_user.seeking[0].seeking_education_level_eight }}
 										</li>	
 										{% endif %}											
-										{% if preferences_data.seeking_church_denomination_one %}
+										{% if current_user.seeking[0].seeking_church_denomination_one %}
 										<strong><h4> Church Denomination Preference Options </h4>	</strong>							
 
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_church_denomination_one }}
+											{{ current_user.seeking[0].seeking_church_denomination_one }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_church_denomination_two %}
+										{% if current_user.seeking[0].seeking_church_denomination_two %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_church_denomination_two }}
+											{{ current_user.seeking[0].seeking_church_denomination_two }}
 										</li>	
 										{% endif %}				
 
-										{% if preferences_data.seeking_church_denomination_three %}
+										{% if current_user.seeking[0].seeking_church_denomination_three %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_church_denomination_three }}
+											{{ current_user.seeking[0].seeking_church_denomination_three }}
 										</li>	
 										{% endif %}			
 
-										{% if preferences_data.seeking_church_denomination_four %}
+										{% if current_user.seeking[0].seeking_church_denomination_four %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_church_denomination_four }}
+											{{ current_user.seeking[0].seeking_church_denomination_four }}
 										</li>	
 										{% endif %}			
-										{% if preferences_data.seeking_church_denomination_five %}
+										{% if current_user.seeking[0].seeking_church_denomination_five %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_church_denomination_five }}
+											{{ current_user.seeking[0].seeking_church_denomination_five }}
 										</li>	
 										{% endif %}									
-										{% if preferences_data.seeking_church_denomination_six %}
+										{% if current_user.seeking[0].seeking_church_denomination_six %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_church_denomination_six }}
+											{{ current_user.seeking[0].seeking_church_denomination_six }}
 										</li>	
 										{% endif %}		
-										{% if preferences_data.seeking_country_one %}
+										{% if current_user.seeking[0].seeking_country_one %}
 										<strong><h4> Location & Country Preference Options</h4>	</strong>									
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_country_one }}
+											{{ current_user.seeking[0].seeking_country_one }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_country_two %}
+										{% if current_user.seeking[0].seeking_country_two %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_country_two }}
+											{{ current_user.seeking[0].seeking_country_two }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_country_three %}
+										{% if current_user.seeking[0].seeking_country_three %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_country_three }}
+											{{ current_user.seeking[0].seeking_country_three }}
 										</li>	
 										{% endif %}	
 										
-										{% if preferences_data.seeking_country_four %}
+										{% if current_user.seeking[0].seeking_country_four %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_country_four }}
+											{{ current_user.seeking[0].seeking_country_four }}
 										</li>	
 										{% endif %}	
 
-										{% if preferences_data.seeking_country_five %}
+										{% if current_user.seeking[0].seeking_country_five %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_country_five }}
+											{{ current_user.seeking[0].seeking_country_five }}
 										</li>	
 										{% endif %}	
 
-										{% if preferences_data.seeking_country_six %}
+										{% if current_user.seeking[0].seeking_country_six %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_country_six }}
+											{{ current_user.seeking[0].seeking_country_six }}
 										</li>	
 										{% endif %}		
-										{% if preferences_data.seeking_country_seven %}
+										{% if current_user.seeking[0].seeking_country_seven %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_country_seven }}
+											{{ current_user.seeking[0].seeking_country_seven }}
 										</li>	
 										{% endif %}					
 
-										{% if preferences_data.seeking_country_eight %}
+										{% if current_user.seeking[0].seeking_country_eight %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_country_eight }}
+											{{ current_user.seeking[0].seeking_country_eight }}
 										</li>	
 										{% endif %}			
 
-										{% if preferences_data.seeking_country_nine %}
+										{% if current_user.seeking[0].seeking_country_nine %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_country_nine }}
+											{{ current_user.seeking[0].seeking_country_nine }}
 										</li>	
 										{% endif %}	
 
-										{% if preferences_data.seeking_religion_one %}
+										{% if current_user.seeking[0].seeking_religion_one %}
 										<strong><h4> Religion or Religious Preference Options </h4>	</strong>
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_religion_one }}
+											{{ current_user.seeking[0].seeking_religion_one }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_religion_two %}
+										{% if current_user.seeking[0].seeking_religion_two %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_religion_two }}
+											{{ current_user.seeking[0].seeking_religion_two }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_religion_three %}
+										{% if current_user.seeking[0].seeking_religion_three %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_religion_three }}
+											{{ current_user.seeking[0].seeking_religion_three }}
 										</li>	
 										{% endif %}	
 
-										{% if preferences_data.seeking_ethnicity_one %}
+										{% if current_user.seeking[0].seeking_ethnicity_one %}
 										<strong><h4> Ethinicity or Race Preference Options</h4>	</strong>
 
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_ethnicity_one }}
+											{{ current_user.seeking[0].seeking_ethnicity_one }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_ethnicity_two %}
+										{% if current_user.seeking[0].seeking_ethnicity_two %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_ethnicity_two }}
+											{{ current_user.seeking[0].seeking_ethnicity_two }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_ethnicity_three %}
+										{% if current_user.seeking[0].seeking_ethnicity_three %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_ethnicity_three }}
+											{{ current_user.seeking[0].seeking_ethnicity_three }}
 										</li>	
 										{% endif %}		
-										{% if preferences_data.seeking_ethnicity_four %}
+										{% if current_user.seeking[0].seeking_ethnicity_four %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_ethnicity_four }}
+											{{ current_user.seeking[0].seeking_ethnicity_four }}
 										</li>	
 										{% endif %}			
-										{% if preferences_data.seeking_ethnicity_five %}
+										{% if current_user.seeking[0].seeking_ethnicity_five %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_ethnicity_five }}
+											{{ current_user.seeking[0].seeking_ethnicity_five }}
 										</li>	
 										{% endif %}		
-										{% if preferences_data.seeking_body_type_one %}
+										{% if current_user.seeking[0].seeking_body_type_one %}
 										<strong><h4> Body Type Preference </h4>	</strong>
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_body_type_one }}
+											{{ current_user.seeking[0].seeking_body_type_one }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_body_type_two %}
+										{% if current_user.seeking[0].seeking_body_type_two %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_body_type_two }}
+											{{ current_user.seeking[0].seeking_body_type_two }}
 										</li>	
 										{% endif %}			
-										{% if preferences_data.seeking_body_type_three %}
+										{% if current_user.seeking[0].seeking_body_type_three %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_body_type_three }}
+											{{ current_user.seeking[0].seeking_body_type_three }}
 										</li>	
 										{% endif %}				
-										{% if preferences_data.seeking_body_type_four %}
+										{% if current_user.seeking[0].seeking_body_type_four %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_body_type_four }}
+											{{ current_user.seeking[0].seeking_body_type_four }}
 										</li>	
 										{% endif %}	
 
-										{% if preferences_data.seeking_drinking_status_one %}
+										{% if current_user.seeking[0].seeking_drinking_status_one %}
 										<strong><h4> Drinking Status Preferences</h4>	</strong>										
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_drinking_status_one }}
+											{{ current_user.seeking[0].seeking_drinking_status_one }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_drinking_status_two %}
+										{% if current_user.seeking[0].seeking_drinking_status_two %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_drinking_status_two }}
+											{{ current_user.seeking[0].seeking_drinking_status_two }}
 										</li>	
 										{% endif %}										
 										
-										{% if preferences_data.seeking_smoking_status_one %}
+										{% if current_user.seeking[0].seeking_smoking_status_one %}
 										<strong><h4> Smoking Status Preference </h4>	</strong>										
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_smoking_status_one }}
+											{{ current_user.seeking[0].seeking_smoking_status_one }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_smoking_status_two %}
+										{% if current_user.seeking[0].seeking_smoking_status_two %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_smoking_status_two }}
+											{{ current_user.seeking[0].seeking_smoking_status_two }}
 										</li>	
 										{% endif %}												
-										{% if preferences_data.seeking_has_children_one %}
+										{% if current_user.seeking[0].seeking_has_children_one %}
 										<strong><h4> Has children? </h4>	</strong>
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_has_children_one }}
+											{{ current_user.seeking[0].seeking_has_children_one }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_has_children_two %}
+										{% if current_user.seeking[0].seeking_has_children_two %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_has_children_one }}
+											{{ current_user.seeking[0].seeking_has_children_one }}
 										</li>	
 										{% endif %}			
-										{% if preferences_data.seeking_has_children_three %}
+										{% if current_user.seeking[0].seeking_has_children_three %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_has_children_three }}
+											{{ current_user.seeking[0].seeking_has_children_three }}
 										</li>	
 										{% endif %}				
-										{% if preferences_data.seeking_has_children_four %}
+										{% if current_user.seeking[0].seeking_has_children_four %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_has_children_four }}
+											{{ current_user.seeking[0].seeking_has_children_four }}
 										</li>	
 										{% endif %}		
 
-										{% if preferences_data.seeking_want_children_one %}
+										{% if current_user.seeking[0].seeking_want_children_one %}
 										<strong><h4> Wants children? </h4>	</strong>
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_want_children_one }}
+											{{ current_user.seeking[0].seeking_want_children_one }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_want_children_two %}
+										{% if current_user.seeking[0].seeking_want_children_two %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_want_children_one }}
+											{{ current_user.seeking[0].seeking_want_children_one }}
 										</li>	
 										{% endif %}			
-										{% if preferences_data.seeking_want_children_three %}
+										{% if current_user.seeking[0].seeking_want_children_three %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_want_children_three }}
+											{{ current_user.seeking[0].seeking_want_children_three }}
 										</li>	
 										{% endif %}				
-										{% if preferences_data.seeking_want_children_four %}
+										{% if current_user.seeking[0].seeking_want_children_four %}
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_want_children_four }}
+											{{ current_user.seeking[0].seeking_want_children_four }}
 										</li>	
 										{% endif %}	
-										{% if preferences_data.seeking_open_for_relocation %}
+										{% if current_user.seeking[0].seeking_open_for_relocation %}
 										<strong><h4> Open for relocation </h4>	</strong>
 										<li class="flex items-center space-x-2"> 
 											<ion-icon name="home-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3 md hydrated" role="img" aria-label="home sharp"></ion-icon>
-											{{ preferences_data.seeking_open_for_relocation }}
+											{{ current_user.seeking[0].seeking_open_for_relocation }}
 										</li>	
 										{% endif %}										
 										

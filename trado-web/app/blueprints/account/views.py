@@ -43,25 +43,23 @@ def login():
 def register():
     """Register a new user, and send them a confirmation email."""
     form = RegistrationForm()
-    print(form)
     if form.validate_on_submit():
         user: User = User(first_name=form.first_name.data, email=form.email.data,
                           password=form.password.data, current_status=form.current_status.data,
                           username=form.username.data, age=form.age.data,
                           sex=form.sex.data,
                           last_name=form.last_name.data)
-        print(user)
         db.session.add(user)
         db.session.commit()
         token: str = user.generate_confirmation_token()
         confirm_link = url_for('account.confirm', token=token, _external=True)
-        get_queue().enqueue(send_email,
+        template = render_template('account/email/confirm.html', user=user,
+                            confirm_link=confirm_link)
+        send_email.delay(
                             recipient=user.email,
                             subject='Confirm Your Account',
-                            template='account/email/confirm',
-                            user=user,
-                            confirm_link=confirm_link)
-        print(confirm_link)
+                            template=template,
+                            )
         flash('A confirmation link has been sent to {}.'.format(user.email),
               'warning')
         return redirect(url_for('account.manage'))
@@ -200,14 +198,14 @@ def reset_password_request():
             token = user.generate_password_reset_token()
             reset_link = url_for(
                 'account.reset_password', token=token, _external=True)
-            get_queue().enqueue(
-                send_email,
-                recipient=user.email,
-                subject='Reset Your Password',
-                template='account/email/reset_password',
-                user=user,
+            template = render_template('account/email/reset_password.html', user=user,
                 reset_link=reset_link,
                 next=request.args.get('next'))
+            send_email(
+                recipient=user.email,
+                subject='Reset Your Password',
+                template=template,
+                )
         flash('A password reset link has been sent to {}.'.format(
             form.email.data), 'warning')
         return redirect(url_for('account.login'))
@@ -315,15 +313,13 @@ def change_email_request():
             token = current_user.generate_email_change_token(new_email)
             change_email_link = url_for(
                 'account.change_email', token=token, _external=True)
-            get_queue().enqueue(
-                send_email,
+            template = render_template('account/email/change_email.html', user=current_user._get_current_object(),
+                change_email_link=change_email_link)
+            send_email.delay(
                 recipient=new_email,
                 subject='Confirm Your New Email',
-                template='account/email/change_email',
-                # current_user is a LocalProxy, we want the underlying user
-                # object
-                user=current_user._get_current_object(),
-                change_email_link=change_email_link)
+                template=template,
+               )
             flash('A confirmation link has been sent to {}.'.format(new_email),
                   'warning')
             return redirect(url_for('account.manage'))
@@ -349,15 +345,16 @@ def confirm_request():
     """Respond to new user's request to confirm their account."""
     token = current_user.generate_confirmation_token()
     confirm_link = url_for('account.confirm', token=token, _external=True)
-    template = render_template('account/email/confirm.html', user=current_user._get_current_object())
+    print(confirm_link)
+    template = render_template('account/email/confirm.html', user=current_user._get_current_object(), confirm_link=confirm_link)
     send_email.delay(
         recipient=current_user.email,
         subject='Confirm Your Account',
         template=template,
         # current_user is a LocalProxy, we want the underlying user object
-        confirm_link=confirm_link)
+        )
     flash('A new confirmation link has been sent to {}.'.format(
-        current_user.email), 'warning')
+        current_user.email ), 'success')
     return redirect(url_for('account.manage'))
 
 
@@ -413,7 +410,7 @@ def join_from_invite(user_id, token):
             user_id=user_id,
             token=token,
             _external=True)
-        send_email(
+        send_email.delay(
             recipient=new_user.email,
             subject='You Are Invited To Join',
             template='account/email/invite',
@@ -425,8 +422,7 @@ def join_from_invite(user_id, token):
 @account.before_app_request
 def before_request():
     """Force user to confirm email before accessing login-required routes."""
-
-    if current_user.is_authenticated \
+    if request.endpoint and current_user.is_authenticated \
             and not current_user.confirmed \
             and not request.endpoint.startswith('account') \
             and request.endpoint != 'static':
