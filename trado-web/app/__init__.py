@@ -14,6 +14,8 @@ from app.common.flask_rq import RQ
 from app.common.flask_uploads import IMAGES, UploadSet, configure_uploads
 from config import config as Config
 from authlib.integrations.flask_client import OAuth
+from flask_socketio import SocketIO
+from flask_cors import CORS
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -30,6 +32,8 @@ docs = UploadSet('docs', ('rtf', 'odf', 'ods', 'gnumeric', 'abw', 'doc',
 login_manager = LoginManager()
 login_manager.session_protection = 'basic'
 login_manager.login_view = 'account.login'
+
+socket = SocketIO()
 
 
 def create_app(config):
@@ -59,6 +63,8 @@ def create_app(config):
     CKEditor(app)
     whooshee.init_app(app)
     OAuth(app)
+    CORS(app)
+    socket.init_app(app)
     # Register Jinja template functions
     from app.common.utils import register_template_utils
     register_template_utils(app)

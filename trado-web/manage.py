@@ -1,30 +1,26 @@
 #!/usr/bin/env python
 import os
 import subprocess
-
 import typer
 from flask_migrate import Migrate
-#from flask_script import Manager, Shell, Server
-from redis import Redis
-from rq import Connection, Queue, Worker
-
-from app import create_app, db
+from app import create_app, db, socket
 from app.models import Role, User
 from config import Config
-from celery import worker
+import logging
+from flask_socketio import SocketIO
+
+
+
 
 app = create_app(os.getenv('FLASK_CONFIG', 'default'))
+logging.getLogger('flask_cors').level = logging.DEBUG
+
+
+
+
+
 manager = typer.Typer()
 migrate = Migrate(app, db)
-
-
-def make_shell_context():
-    return dict(app=app, db=db, User=User, Role=Role)
-
-
-#manager.add_command('shell', Shell(make_context=make_shell_context))
-# manager.add_command('db')
-#manager.add_command('runserver', Server(host="0.0.0.0"))
 
 
 @manager.command()
@@ -49,8 +45,15 @@ def recreate_db():
 
 
 @manager.command()
+def run_socket_server():
+    """runs a seperate socketio instance"""
+    socketio = SocketIO(app)
+    socketio.run(app, host='0.0.0.0', port=5000)
+    
+
+@manager.command()
 def runserver():
-    app.run('0.0.0.0', 5000)
+    src.run('0.0.0.0', 5000)
 
 
 @manager.command()
@@ -95,25 +98,12 @@ def setup_general():
                             last_name='Account',
                             password=Config.ADMIN_PASSWORD,
                             confirmed=True,
+                            username='Admin',
                             email=Config.ADMIN_EMAIL)
                 db.session.add(user)
                 db.session.commit()
                 print('Added administrator {}'.format(user.full_name()))
 
-
-@manager.command()
-def run_worker():
-    """Initializes a slim rq task queue."""
-    listen = ['default']
-    
-    conn = Redis(host=app.config['RQ_DEFAULT_HOST'],
-                 port=app.config['RQ_DEFAULT_PORT'],
-                 db=0,
-                 password=app.config['RQ_DEFAULT_PASSWORD'])
-    
-    with Connection(conn):
-        worker = Worker(map(Queue, listen))
-        worker.work()
 
 
 @manager.command()

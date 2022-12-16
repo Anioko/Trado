@@ -18,10 +18,12 @@ flask-restful
 Flask-SQLAlchemy
 Flask-SSLify
 flask-migrate
+flask-cors
 flask-whooshee
 Flask-WTF
-gunicorn
-gevent
+gunicorn==20.1.0
+#gevent
+eventlet==0.30.2
 honcho
 idna
 itsdangerous
@@ -42,8 +44,8 @@ flask-socketio
 flask-jwt-extended
 raygun4py
 redis
-requests
 rq
+requests
 six
 SQLAlchemy
 sqlalchemy-mptt
