@@ -1,13 +1,73 @@
 {% include 'partials/socialite/_head.html' %}
 
 <style>
+    form {
+        margin-top: -50px !important;
+    }
+
     input,
     .bootstrap-select.btn-group button {
         background-color: #f3f4f6 !important;
         height: 44px !important;
         box-shadow: none !important;
+        padding-left: 10px !important;
+        margin-bottom: 15px;
+    }
+
+    .button#submit {
+        margin-top: 0 !important;
+    }
+
+    .social-header {
+        display: flex; 
+        align-items: center; 
+        gap: 10px; 
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .social-btn {
+        width: 100%;
+        border: 1px solid #007bff;
+        margin-top: 15px;
+        border-radius: 5px;
+        height: 44px;
+        transition: .2s ease-in;
+    }
+
+    .social-btn:hover {
+        background-color: #007bff18;
+        transition: .2s ease-in;
+    }
+
+    .social-btn:active {
+        background-color: #007bff75;
+        transition: .2s ease-in;
+    }
+
+    .fa-google {
+        background: 
+            linear-gradient(to bottom left,transparent 49%,#fbbc05 50%) 0 25%/48% 40%,
+            linear-gradient(to top    left,transparent 49%,#fbbc05 50%) 0 75%/48% 40%,
+        
+            linear-gradient(-40deg ,transparent 53%,#ea4335 54%),
+            linear-gradient( 45deg ,transparent 46%,#4285f4 48%),
+            #34a853;
+        background-repeat:no-repeat;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .sign-up {
+        text-align: center;
+        margin-top: 20px;
     }
 </style>
+
+<!-- fontawesome icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <body class="bg-gray-100">
 
@@ -15,11 +75,11 @@
     <div id="wrapper" class="flex flex-col justify-between h-screen">
 
         <!-- header-->
-        <div class="bg-white py-4 shadow dark:bg-gray-800">
-            <div class="max-w-6xl mx-auto">
+        <!-- <div class="bg-white py-4 shadow dark:bg-gray-800"> -->
+            <!-- <div class="max-w-6xl mx-auto"> -->
 
 
-                <div class="flex items-center lg:justify-between justify-around">
+                <!-- <div class="flex items-center lg:justify-between justify-around">
 
                     <a href="trending.html">
                         <img src="{{ url_for('static', filename='socialite/assets/images/logo.png') }}" alt=""
@@ -31,11 +91,11 @@
                         <a href="{{ url_for('account.register') }}"
                             class="bg-purple-500 purple-500 px-6 py-3 rounded-md shadow text-white">Register</a>
                     </div>
-                </div>
+                </div> -->
                 {% include "partials/socialite/_flashes.html" %}
-            </div>
+            <!-- </div> -->
 
-        </div>
+        <!-- </div> -->
 
         {% block content %} {% endblock %}
 
@@ -43,7 +103,7 @@
 
         <!-- Footer -->
 
-        {% include 'partials/socialite/_footer_content_links.html' %}
+        <!-- {% include 'partials/socialite/_footer_content_links.html' %} -->
 
     </div>
 

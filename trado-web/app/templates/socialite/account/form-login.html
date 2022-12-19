@@ -8,33 +8,58 @@
 
         <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md" method=post>
             {{ form.hidden_tag() }}
-            <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Login </h1>
+            <h1 class="lg:text-2xl text-xl font-semibold mb-6" style="margin-bottom: 35px; text-align: center;"> Login </h1>
             <div>
-                <label class="mb-0"> {{ form.email.label }} </label>
-                {{ form.email (class="shadow-none with-border") }}
+                <!-- <label class="mb-0"> {{ form.email.label }} </label> -->
+                {{ form.email (class="shadow-none with-border", placeholder="Enter your email address") }}
             </div>
             <div>
-                <label class="mb-0"> {{ form.password.label }} </label>
-                {{ form.password (class="shadow-none with-border") }}
+                <!-- <label class="mb-0"> {{ form.password.label }} </label> -->
+                {{ form.password (class="shadow-none with-border", placeholder="Enter your password") }}
             </div>
 
             <div>
                 <button type="submit" id="submit" name="submit"
-                    class="bg-blue-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-full">
+                    class="bg-blue-600 font-semibold p-2 rounded-md text-center text-white w-full">
                     Login</button>
             </div>
+
             <a href="{{url_for('account.reset_password_request')}}">
-                <p>Forgot Password?</p>
+                <p style="margin-top: 5px">Forgot Password?</p>
             </a>
+
+            <div class="social-header">
+                <hr style="width: 50%; height: 0.5px; background-color: #80808090">
+                <p>or</p>
+                <hr style="width: 50%; height: 0.5px; background-color: #80808090">
+            </div>
+
+            <a href="{{ url_for('account.google') }}">
+                <button type="button" class="social-btn">
+                    <i class="fab fa-google"></i>
+                    Continue with Google
+                </button>
+            </a>
+            </button>
+            <a href="{{ url_for('account.facebook') }}"> 
+                <button type="button" class="social-btn">
+                    <i class="fab fa-facebook"></i>
+                    Continue with Facebook
+                </button>
+            </a>
+
+            <p class="sign-up">Don't have an account? 
+                <a href="/account/register">Sign up!</a>
+            </p>
         </form>
-        <div>
+        <!-- <div>
             <button type="button" class="bg-blue-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-full ">
                 <a href="{{ url_for('account.google') }}"> Google Login</a>
             </button>
             <button type="button" class="bg-green-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-full ">
                 <a href="{{ url_for('account.facebook') }}"> Facebook Login</a>
             </button>
-        </div>
+        </div> -->
 
     </div>
 </div>
